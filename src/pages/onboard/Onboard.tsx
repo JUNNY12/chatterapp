@@ -1,4 +1,3 @@
-'use client';
 import { Button, Container, Typography } from '../../components/element';
 import { useNavigate } from 'react-router-dom';
 import { signIn } from '../../firebase/auth';
@@ -26,7 +25,7 @@ export const Onboard = () => {
 
     return (
         <Container
-            className={` h-screen flex flex-col items-center justify-center transition duration-500 ease-in-out
+            className={` h-screen transition duration-500 ease-in-out flex items-center flex-col
         ${
             theme === 'lightMode'
                 ? 'text-black-950 bg-white-50'
@@ -34,29 +33,33 @@ export const Onboard = () => {
         }
         `}
         >
-            <Typography variant={3} className="text-3xl mb-6 font-bold">
-                Sign up / Login
-            </Typography>
+            <div className=" h-[50vh] flex flex-col items-center justify-center">
+                <Typography variant={3} className="text-3xl mb-6 font-bold">
+                    Sign up / Login
+                </Typography>
 
-            <div className=" flex flex-col ">
-                <Button
-                    onClick={handleSignIn}
-                    className=" bg-pink-600 text-white-50 mb-6 shadow-sm shadow-white-100 flex items-center w-[250px] rounded-[40px] p-2"
-                >
-                    <span className="relative block w-8 h-8 me-4">
-                        {' '}
-                        <img src="icons/google.svg" alt="google" />
-                    </span>
-                    <span className="font-semibold">Continue with Google</span>
-                </Button>
-                <Button className=" bg-pink-600 flex items-center shadow-sm shadow-white-100 text-white-50 rounded-[40px] p-2">
-                    <span className="relative block w-8 h-8 me-4">
-                        <img src="/icons/facebook.svg" alt="facebook" />
-                    </span>
-                    <span className="font-semibold">
-                        Continue with Facebook
-                    </span>
-                </Button>
+                <div className=" flex flex-col ">
+                    <Button
+                        onClick={handleSignIn}
+                        className=" bg-pink-600 text-white-50  mb-6 shadow-sm shadow-white-100 flex items-center w-[250px] rounded-[40px] p-2"
+                    >
+                        <span className="relative block w-8 h-8 me-4">
+                            {' '}
+                            <img src="icons/google.svg" alt="google" />
+                        </span>
+                        <span className="font-semibold">
+                            Continue with Google
+                        </span>
+                    </Button>
+                    <Button className=" bg-pink-600 w-[250px] flex items-center shadow-sm shadow-white-100 text-white-50 rounded-[40px] p-2">
+                        <span className="relative block w-8 h-8 me-4">
+                            <img src="/icons/facebook.svg" alt="facebook" />
+                        </span>
+                        <span className="font-semibold">
+                            Continue with Facebook
+                        </span>
+                    </Button>
+                </div>
             </div>
         </Container>
     );

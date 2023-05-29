@@ -4,7 +4,10 @@ import { posts } from '../feed/FeedPosts';
 export const Recent = (): React.JSX.Element => {
     return (
         <section>
-            <Typography variant={1} className="text-3xl font-bold mb-3 px-8 pt-8 mobileXL:px-2 ">
+            <Typography
+                variant={1}
+                className="text-3xl font-bold mb-3 px-8 pt-8 mobileXL:px-2 "
+            >
                 Recent
             </Typography>
             <div>

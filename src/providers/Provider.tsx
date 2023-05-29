@@ -22,12 +22,11 @@ const ProtectedRoutes = ({ children }: ProviderProps) => {
     return <>{user ? children : null}</>;
 };
 
-const noAuthRoutes = [
-    '/onboard',
-    '/feed',
-    '/feed/feature',
-    '/',
-    '/feed/explore',
+const protectedRoutes = [
+    '/onboard/finish',
+    '/onboard/reason',
+    '/onboard/create-account',
+    '/onboard/interested-tag',
 ];
 
 export const Provider = ({ children }: ProviderProps) => {
@@ -37,10 +36,10 @@ export const Provider = ({ children }: ProviderProps) => {
         <ThemeProvider>
             <NavProvider>
                 <AuthProvider>
-                    {noAuthRoutes.includes(pathName) ? (
-                        <>{children}</>
-                    ) : (
+                    {protectedRoutes.includes(pathName) ? (
                         <ProtectedRoutes>{children}</ProtectedRoutes>
+                    ) : (
+                        <>{children}</>
                     )}
                 </AuthProvider>
             </NavProvider>

@@ -4,6 +4,8 @@ import { Post } from './Post';
 export const posts = [
     {
         id: 1,
+        userId: 23,
+        postId: 23,
         title: 'Exploring the Wonders of the Great Barrier Reef',
         description:
             "Dive into the mesmerizing world of the Great Barrier Reef, the largest coral reef system on Earth. Stretching over 2,300 kilometers off the coast of Australia, this natural wonder teems with vibrant marine life and showcases a kaleidoscope of colors in its intricate coral formations. Swim alongside graceful sea turtles, encounter playful dolphins, and marvel at the ethereal beauty of the reef's inhabitants. The Great Barrier Reef is not only a breathtaking sight but also a crucial ecosystem that supports a diverse array of species. Learn about the ongoing conservation efforts aimed at preserving this delicate environment and discover the innovative research being conducted to understand and mitigate the impacts of climate change. Immerse yourself in the fascinating world beneath the waves as you explore this UNESCO World Heritage site, understanding its ecological importance and the urgent need to protect this invaluable treasure for future generations to come.",

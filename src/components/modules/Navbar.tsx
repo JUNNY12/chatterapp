@@ -1,4 +1,3 @@
-'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import { Typography, Button } from '../element';
 import { FaUserCircle, FaPen, FaMoon, FaSun } from 'react-icons/fa';
@@ -7,18 +6,33 @@ import { useWidth } from '../../hooks';
 import { Link } from 'react-router-dom';
 import { useNavigation } from '../../hooks/navigation/useNavigation';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
+import { useAuthContext } from '../../hooks/auth/useAuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export const Navbar = (): React.JSX.Element => {
     const [show, setShow] = useState(false);
     const width = useWidth();
     const { theme, toggleTheme } = useThemeContext();
+    const { user } = useAuthContext();
+    const navigate = useNavigate();
+
+    //handle view write
+    const handleViewWrite = () => {
+        if (user) {
+            navigate('/write');
+        } else {
+            navigate('/onboard');
+        }
+    };
 
     const dropdownRef = useRef<HTMLDivElement>(null);
 
+    //close menu
     const handleCloseMenu = () => {
         setShow(false);
     };
 
+    //function to handle dropdown
     const handleClick = () => {
         setShow((prev) => !prev);
     };
@@ -85,6 +99,7 @@ export const Navbar = (): React.JSX.Element => {
                     {width > 640 && (
                         <div className="me-8">
                             <Button
+                                onClick={handleViewWrite}
                                 title="write a post"
                                 className="flex items-center font-semibold bg-pink-600 text-white-50 p-2 rounded-[40px]"
                             >

@@ -9,7 +9,7 @@ import { useState } from 'react';
 export const FeedNav = (): React.JSX.Element => {
     const { theme, toggleTheme } = useThemeContext();
     const { setShow } = useNav();
-    const [showDrop, setShowDrop] = useState(false)
+    const [showDrop, setShowDrop] = useState(false);
 
     //show side bar
     const handleShow = () => {
@@ -17,9 +17,9 @@ export const FeedNav = (): React.JSX.Element => {
     };
 
     // show drop nav
-    const handleClick=()=>{
-        setShowDrop(prev => !prev)
-    }
+    const handleClick = () => {
+        setShowDrop((prev) => !prev);
+    };
 
     return (
         <div
@@ -72,8 +72,9 @@ export const FeedNav = (): React.JSX.Element => {
                 </div>
 
                 <div
-                onClick={handleClick}
-                className=" h-10 w-10 mobileL:h-8 mobileL:w-8">
+                    onClick={handleClick}
+                    className=" h-10 w-10 mobileL:h-8 mobileL:w-8"
+                >
                     <img
                         src="https://avatars.githubusercontent.com/u/55974257?v=4"
                         alt="profile"

@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography } from '../../components/element';
 import { FaShare, FaComment } from 'react-icons/fa';
 import { MdFavorite, MdInsights } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 interface PostProps {
     id?: any;
@@ -15,8 +16,18 @@ export const Post = ({
     description,
     datePosted,
 }: PostProps): React.JSX.Element => {
+    const postId = 23;
+    const userId = 23;
+
+    const navigate = useNavigate();
+
     return (
-        <article className="border-b border-gray-300 p-8 mobileXL:px-2 cursor-pointer">
+        <article
+            className="border-b border-gray-300 p-8 mobileXL:px-2 cursor-pointer"
+            onClick={() => {
+                navigate(`/${userId}/${postId}`);
+            }}
+        >
             <div className=" flex items-center mb-3">
                 <div className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] me-4 border border-gray-300 relative rounded-full object-cover">
                     <img

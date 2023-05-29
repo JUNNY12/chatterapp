@@ -1,4 +1,3 @@
-'use client';
 import { Input, Button, Container, Typography } from '../../components/element';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../hooks/auth/useAuthContext';

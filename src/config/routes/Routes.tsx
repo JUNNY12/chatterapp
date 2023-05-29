@@ -17,6 +17,8 @@ const LazyHome = React.lazy(() => import('../../pages/home/Home'));
 const LazyFeed = React.lazy(() => import('../../pages/feed/Feed'));
 const LazyFeature = React.lazy(() => import('../../pages/featured/Feature'));
 const LazyExplore = React.lazy(() => import('../../pages/explore/Explore'));
+const LazyWrite = React.lazy(() => import('../../pages/write/Write'));
+const LazySlug = React.lazy(() => import('../../pages/userpost/Slug'));
 
 export function Routes() {
     return useRoutes([
@@ -44,6 +46,16 @@ export function Routes() {
                 { path: 'feature', element: <LazyFeature /> },
                 { path: 'explore', element: <LazyExplore /> },
             ],
+        },
+        {
+            path: '/write',
+            element: <FeedLayout />,
+            children: [{ index: true, element: <LazyWrite /> }],
+        },
+        {
+            path: '/:userId/:postId',
+            element: <FeedLayout />,
+            children: [{ index: true, element: <LazySlug /> }],
         },
     ]);
 }

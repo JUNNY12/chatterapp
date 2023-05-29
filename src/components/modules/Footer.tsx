@@ -1,5 +1,3 @@
-'use client';
-
 import { Button, Input, Typography } from '../element';
 import { FaLinkedin, FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
