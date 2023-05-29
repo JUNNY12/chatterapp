@@ -43,7 +43,7 @@ export const CreateAccountTemplate = () => {
             setLoading(true);
             try {
                 let uid = user.uid;
-                const { error, userProfileRefId } = await addProfileDetails(
+                const { userProfileRefId } = await addProfileDetails(
                     uid,
                     values
                 );
