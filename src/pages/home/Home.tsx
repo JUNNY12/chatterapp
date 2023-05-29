@@ -1,0 +1,30 @@
+import { Hero, Why } from '.';
+import { Container } from '../../components/element';
+import { useThemeContext } from '../../hooks/theme/useThemeContext';
+import { useAuthContext } from '../../hooks/auth/useAuthContext';
+
+export default function Home() {
+    const { theme } = useThemeContext();
+    const { user } = useAuthContext();
+
+    console.log(user);
+    return (
+        <Container
+            className={`transition duration-500 ease-in-out pt-44
+        ${
+            theme === 'lightMode'
+                ? ' bg-white-50 text-black-950'
+                : theme === 'darkMode' && 'bg-gray-800 text-white-100'
+        }
+        `}
+        >
+            <div>
+                <Hero />
+            </div>
+
+            <div>
+                <Why />
+            </div>
+        </Container>
+    );
+}

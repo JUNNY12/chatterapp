@@ -1,0 +1,16 @@
+dist
+node_modules
+package.json
+tailwind.config.js
+tsconfig.json
+.eslintrc.json
+next-env.d.ts
+next.config.js
+yarn.lock
+README.md
+postcss.config.js
+vite-config.ts
+tsconfig.node.json
+vite-env.d.ts
+package-lock.json
+vite.config.ts
