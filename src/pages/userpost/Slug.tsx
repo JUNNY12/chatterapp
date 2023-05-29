@@ -144,14 +144,17 @@ export default function Slug(): React.JSX.Element {
                         </div>
                     </aside>
                 </div>
+
+                {/* footer */}
                 <footer
                     className={`px-12 py-8 flex justify-center items-center flex-col transition duration-500 ease-in-out
-        ${
-            theme === 'lightMode'
-                ? 'text-black-950 bg-white-50'
-                : theme === 'darkMode' && ' text-white-100 bg-gray-900'
-        }
-        `}
+                        ${
+                            theme === 'lightMode'
+                                ? 'text-black-950 bg-white-50'
+                                : theme === 'darkMode' &&
+                                  ' text-white-100 bg-gray-900'
+                        }
+                    `}
                 >
                     <div>
                         <Typography variant={4} className="mb-3 text-2xl">
@@ -159,7 +162,7 @@ export default function Slug(): React.JSX.Element {
                         </Typography>
                         <form action="" className="flex flex-col">
                             <Input
-                                className=" w-[300px] bg-white-50 placeholder:text-black-900 rounded-sm mb-4 focus:border focus:border-pink-600"
+                                className=" w-[300px] bg-white-100 placeholder:text-black-900 rounded-sm mb-4 focus:border focus:border-pink-600"
                                 placeholder="Enter your email"
                                 type="email"
                             />
