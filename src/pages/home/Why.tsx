@@ -3,6 +3,7 @@ import { WhyCard } from './WhyCard';
 import { TbClover, TbWritingSign } from 'react-icons/tb';
 import { GiRingingBell } from 'react-icons/gi';
 import { FaBrain } from 'react-icons/fa';
+import { Fade } from 'react-awesome-reveal';
 
 const whyContent = [
     {
@@ -39,7 +40,9 @@ export const Why = (): React.JSX.Element => {
     return (
         <div className="mt-20 pb-8">
             <Typography variant={2} className=" text-4xl mb-8 text-center">
-                Why Choose Chatter?
+                <Fade direction="up" triggerOnce={true} duration={2000}>
+                    Why Chatter?
+                </Fade>
             </Typography>
 
             <div className=" flex flex-wrap justify-center items-center">

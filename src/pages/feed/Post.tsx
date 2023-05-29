@@ -22,12 +22,7 @@ export const Post = ({
     const navigate = useNavigate();
 
     return (
-        <article
-            className="border-b border-gray-300 p-8 mobileXL:px-2 cursor-pointer"
-            onClick={() => {
-                navigate(`/${userId}/${postId}`);
-            }}
-        >
+        <article className="border-b border-gray-300 p-8 mobileXL:px-2 cursor-pointer">
             <div className=" flex items-center mb-3">
                 <div className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] me-4 border border-gray-300 relative rounded-full object-cover">
                     <img
@@ -55,7 +50,11 @@ export const Post = ({
                 </div>
             </div>
 
-            <div>
+            <div
+                onClick={() => {
+                    navigate(`/${userId}/${postId}`);
+                }}
+            >
                 <Typography
                     variant={1}
                     className=" text-3xl mobileXL:text-xl font-bold mb-2"
@@ -86,39 +85,39 @@ export const Post = ({
                         className=" object-contain h-full w-full"
                     />
                 </div>
+            </div>
 
-                <div className=" flex items-center justify-center mt-12 text-xl">
-                    <div className=" flex items-center me-3">
-                        <FaComment className=" " />
-                        <Typography variant={2} className="text-base">
-                            {' '}
-                            10{' '}
-                        </Typography>
-                    </div>
+            <div className=" flex items-center justify-center mt-12 text-xl">
+                <div className=" flex items-center me-3">
+                    <FaComment className=" " />
+                    <Typography variant={2} className="text-base">
+                        {' '}
+                        10{' '}
+                    </Typography>
+                </div>
 
-                    <div className=" flex items-center me-3">
-                        <MdFavorite className=" " />
-                        <Typography variant={2} className="text-base">
-                            {' '}
-                            10{' '}
-                        </Typography>
-                    </div>
+                <div className=" flex items-center me-3">
+                    <MdFavorite className=" " />
+                    <Typography variant={2} className="text-base">
+                        {' '}
+                        10{' '}
+                    </Typography>
+                </div>
 
-                    <div className=" flex items-center me-3">
-                        <MdInsights className=" " />
-                        <Typography variant={2} className="text-base">
-                            {' '}
-                            10{' '}
-                        </Typography>
-                    </div>
+                <div className=" flex items-center me-3">
+                    <MdInsights className=" " />
+                    <Typography variant={2} className="text-base">
+                        {' '}
+                        10{' '}
+                    </Typography>
+                </div>
 
-                    <div className=" flex items-center me-3">
-                        <FaShare className=" " />
-                        <Typography variant={2} className="text-base">
-                            {' '}
-                            10{' '}
-                        </Typography>
-                    </div>
+                <div className=" flex items-center me-3">
+                    <FaShare className=" " />
+                    <Typography variant={2} className="text-base">
+                        {' '}
+                        10{' '}
+                    </Typography>
                 </div>
             </div>
         </article>

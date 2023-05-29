@@ -9,7 +9,7 @@ export const Footer = (): React.JSX.Element => {
     const year = date.getFullYear();
     return (
         <footer
-            className={`px-12 py-8 flex justify-center items-center flex-col transition duration-500 ease-in-out
+            className={`px-12 tabletM:px-8 tabletS:px-6 py-8 flex justify-center items-center flex-col transition duration-500 ease-in-out
         ${
             theme === 'lightMode'
                 ? 'text-black-950 bg-white-100'

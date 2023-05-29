@@ -5,6 +5,7 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import { useNav } from '../../hooks/nav/useNav';
 import { DropNav } from '.';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export const FeedNav = (): React.JSX.Element => {
     const { theme, toggleTheme } = useThemeContext();
@@ -50,7 +51,7 @@ export const FeedNav = (): React.JSX.Element => {
                 variant={1}
                 className=" text-3xl font-bold text-pink-600"
             >
-                Chatter
+                <Link to={`/`}> Chatter</Link>
             </Typography>
 
             <div className=" tabletXS:hidden">
@@ -72,8 +73,9 @@ export const FeedNav = (): React.JSX.Element => {
                 </div>
 
                 <div
+                title='profile'
                     onClick={handleClick}
-                    className=" h-10 w-10 mobileL:h-8 mobileL:w-8"
+                    className=" h-10 w-10 mobileL:h-8 mobileL:w-8 cursor-pointer"
                 >
                     <img
                         src="https://avatars.githubusercontent.com/u/55974257?v=4"

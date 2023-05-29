@@ -5,7 +5,7 @@ interface ContainerProps {
 
 export const Container = ({ children, className }: ContainerProps) => {
     return (
-        <section className={` ${className} px-12 tabletM:px-8 tabletS:px-4`}>
+        <section className={` ${className} px-12 tabletM:px-8 tabletS:px-6`}>
             {children}
         </section>
     );
