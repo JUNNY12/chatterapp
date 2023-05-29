@@ -11,7 +11,6 @@ interface ProviderProps {
 
 const ProtectedRoutes = ({ children }: ProviderProps) => {
     const { user, loading } = useAuthContext();
-    console.log(user);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,7 +22,13 @@ const ProtectedRoutes = ({ children }: ProviderProps) => {
     return <>{user ? children : null}</>;
 };
 
-const noAuthRoutes = ['/onboard', '/feed', '/'];
+const noAuthRoutes = [
+    '/onboard',
+    '/feed',
+    '/feed/feature',
+    '/',
+    '/feed/explore',
+];
 
 export const Provider = ({ children }: ProviderProps) => {
     const location = useLocation();

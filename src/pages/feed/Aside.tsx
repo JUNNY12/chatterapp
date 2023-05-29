@@ -1,7 +1,7 @@
 'use client';
 
-import { Recent } from './Recent';
-import { Trending } from './Trending';
+import { Recent } from '../explore/Recent';
+import { Trending } from '../explore/Trending';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 
 export const Aside = (): React.JSX.Element => {

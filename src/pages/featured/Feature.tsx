@@ -1,10 +1,10 @@
-import { FeedPosts } from './FeedPosts';
+import { FeaturedPosts } from '.';
 
-export default function Feed(): React.JSX.Element {
+export default function Feature(): React.JSX.Element {
     return (
         <section className={` bg-white-100 pb-12 `}>
             <div className={` ms-[250px] tabletS:ms-0 pt-24  `}>
-                <FeedPosts />
+                <FeaturedPosts />
             </div>
         </section>
     );

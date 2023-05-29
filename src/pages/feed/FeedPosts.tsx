@@ -1,4 +1,3 @@
-'use client';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 import { Post } from './Post';
 
@@ -75,7 +74,7 @@ export const posts = [
     },
 ];
 
-export const FeedPosts = () => {
+export const FeedPosts = (): React.JSX.Element => {
     const { theme } = useThemeContext();
 
     return (

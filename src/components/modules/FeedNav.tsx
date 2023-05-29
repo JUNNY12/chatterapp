@@ -3,14 +3,24 @@ import { useThemeContext } from '../../hooks/theme/useThemeContext';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { useNav } from '../../hooks/nav/useNav';
+import { DropNav } from '.';
+import { useState } from 'react';
 
 export const FeedNav = (): React.JSX.Element => {
     const { theme, toggleTheme } = useThemeContext();
     const { setShow } = useNav();
+    const [showDrop, setShowDrop] = useState(false)
 
-    const handleClick = () => {
+    //show side bar
+    const handleShow = () => {
         setShow((prev) => !prev);
     };
+
+    // show drop nav
+    const handleClick=()=>{
+        setShowDrop(prev => !prev)
+    }
+
     return (
         <div
             className={`
@@ -21,11 +31,17 @@ export const FeedNav = (): React.JSX.Element => {
         }
         fixed w-full items-center flex justify-between z-40 p-6 mobileL:px-2 transition duration-500 ease-in-out`}
         >
-            <div className=' hidden tabletS:flex'>
+            <div
+                className={`absolute right-2 shadow-sm shadow-black-600  bg-white-50 z-10 top-24`}
+            >
+                {showDrop && <DropNav handleClick={handleClick} />}
+            </div>
+
+            <div className=" hidden tabletS:flex">
                 <Button
-                    onClick={handleClick}
+                    onClick={handleShow}
                     title="open"
-                    className="text-2xl mobileL:text-xl"
+                    className="text-3xl font-bold"
                 >
                     <AiOutlineMenu />
                 </Button>
@@ -37,7 +53,7 @@ export const FeedNav = (): React.JSX.Element => {
                 Chatter
             </Typography>
 
-            <div className=' tabletXS:hidden'>
+            <div className=" tabletXS:hidden">
                 <Input
                     placeholder="Search chatter"
                     className="bg-white-100 txt-black-950 w-[300px] rounded-sm p-2"
@@ -55,7 +71,9 @@ export const FeedNav = (): React.JSX.Element => {
                     </Button>
                 </div>
 
-                <div className=" h-10 w-10 mobileL:h-8 mobileL:w-8">
+                <div
+                onClick={handleClick}
+                className=" h-10 w-10 mobileL:h-8 mobileL:w-8">
                     <img
                         src="https://avatars.githubusercontent.com/u/55974257?v=4"
                         alt="profile"

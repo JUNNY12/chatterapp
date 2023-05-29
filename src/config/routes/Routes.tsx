@@ -15,6 +15,8 @@ import {
 
 const LazyHome = React.lazy(() => import('../../pages/home/Home'));
 const LazyFeed = React.lazy(() => import('../../pages/feed/Feed'));
+const LazyFeature = React.lazy(() => import('../../pages/featured/Feature'));
+const LazyExplore = React.lazy(() => import('../../pages/explore/Explore'));
 
 export function Routes() {
     return useRoutes([
@@ -37,7 +39,11 @@ export function Routes() {
         {
             path: '/feed',
             element: <FeedLayout />,
-            children: [{ index: true, element: <LazyFeed /> }],
+            children: [
+                { index: true, element: <LazyFeed /> },
+                { path: 'feature', element: <LazyFeature /> },
+                { path: 'explore', element: <LazyExplore /> },
+            ],
         },
     ]);
 }

@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { useAuthContext } from '../../../hooks/auth/useAuthContext';
 import { UnAuthenticatedDropNav } from './UnAuthenticatedDropNav';
