@@ -9,7 +9,7 @@ interface PostProps {
     datePosted?: string;
 }
 
-export const Post = ({ id, title, description, datePosted }: PostProps) => {
+export const Post = ({ title, description, datePosted }: PostProps) => {
     return (
         <article className="border-b border-gray-300 p-8 mobileXL:px-2 cursor-pointer">
             <div className=" flex items-center mb-3">

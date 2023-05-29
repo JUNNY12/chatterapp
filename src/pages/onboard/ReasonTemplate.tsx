@@ -1,4 +1,3 @@
-'use client';
 import { useReducer } from 'react';
 import { Typography, Button, Container } from '../../components/element';
 import { useNavigate } from 'react-router-dom';
@@ -39,7 +38,7 @@ export const ReasonTemplate = (): React.JSX.Element => {
                     isReader,
                     isWriter,
                 };
-                const { error, userProfileRefId } = await updateProfile(uid, {
+                const { userProfileRefId } = await updateProfile(uid, {
                     userType: userType,
                 });
                 if (userProfileRefId) {

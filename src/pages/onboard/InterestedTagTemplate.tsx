@@ -108,7 +108,7 @@ export const InterestedTagTemplate = () => {
         if (user) {
             let uid = user.uid;
             try {
-                const { error, userProfileRefId } = await updateProfile(uid, {
+                const { userProfileRefId } = await updateProfile(uid, {
                     tags: selectedTags.tags,
                 });
                 if (userProfileRefId) {
