@@ -4,6 +4,7 @@ import {
     GeneralLayout,
     OnboardLayout,
     FeedLayout,
+    UserLayout,
 } from '../../components/layout';
 import {
     Onboard,
@@ -19,7 +20,15 @@ const LazyFeature = React.lazy(() => import('../../pages/featured/Feature'));
 const LazyExplore = React.lazy(() => import('../../pages/explore/Explore'));
 const LazyWrite = React.lazy(() => import('../../pages/write/Write'));
 const LazySlug = React.lazy(() => import('../../pages/userpost/Slug'));
-
+const LazyProfile = React.lazy(
+    () => import('../../pages/settings/profile/Profile')
+);
+const LazyAccount = React.lazy(
+    () => import('../../pages/settings/account/Account')
+);
+const LazyManagePost = React.lazy(
+    () => import('../../pages/settings/posts/Post')
+);
 export function Routes() {
     return useRoutes([
         {
@@ -56,6 +65,15 @@ export function Routes() {
             path: '/:userId/:postId',
             element: <FeedLayout />,
             children: [{ index: true, element: <LazySlug /> }],
+        },
+        {
+            path: '/settings',
+            element: <UserLayout />,
+            children: [
+                { index: true, element: <LazyProfile /> },
+                { path: 'account', element: <LazyAccount /> },
+                { path: 'post', element: <LazyManagePost /> },
+            ],
         },
     ]);
 }

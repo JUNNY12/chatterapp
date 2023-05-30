@@ -65,7 +65,7 @@ export const CreateAccountTemplate = () => {
 
     return (
         <Container
-            className={`flex flex-col justify-center items-center h-min transition duration-500 ease-in-out
+            className={`flex flex-col justify-center items-center h-screen tabletS:pt-12 tabletS:h-full  transition duration-500 ease-in-out
         ${
             theme === 'lightMode'
                 ? 'text-black-950 bg-white-50'

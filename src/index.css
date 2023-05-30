@@ -7,6 +7,7 @@
 body {
     scroll-behavior: smooth;
     font-family: 'Roboto Flex', sans-serif;
+    background-color: #efefef;
 }
 
 ::-webkit-scrollbar {

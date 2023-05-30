@@ -73,7 +73,7 @@ export const FeedNav = (): React.JSX.Element => {
                 </div>
 
                 <div
-                title='profile'
+                    title="profile"
                     onClick={handleClick}
                     className=" h-10 w-10 mobileL:h-8 mobileL:w-8 cursor-pointer"
                 >

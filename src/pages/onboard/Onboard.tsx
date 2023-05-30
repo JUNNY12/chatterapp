@@ -33,7 +33,7 @@ export const Onboard = () => {
         }
         `}
         >
-            <div className=" h-[50vh] flex flex-col items-center justify-center">
+            <div className=" h-[500px] flex items-center justify-center flex-col">
                 <Typography variant={3} className="text-3xl mb-6 font-bold">
                     Sign up / Login
                 </Typography>
@@ -51,6 +51,14 @@ export const Onboard = () => {
                             Continue with Google
                         </span>
                     </Button>
+                    <div>
+                        <Typography
+                            variant={2}
+                            className="mb-6 text-center text-2xl font-bold"
+                        >
+                            or
+                        </Typography>
+                    </div>
                     <Button className=" bg-pink-600 w-[250px] flex items-center shadow-sm shadow-white-100 text-white-50 rounded-[40px] p-2">
                         <span className="relative block w-8 h-8 me-4">
                             <img src="/icons/facebook.svg" alt="facebook" />
