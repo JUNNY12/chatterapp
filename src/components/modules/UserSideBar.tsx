@@ -20,7 +20,7 @@ export const UserSideBar = (): React.JSX.Element => {
             >
                 <Typography
                     variant={1}
-                    className="font-bold text-xl mobileXL:text-lg p-4"
+                    className="font-bold text-xl tabletS:text-lg tabletS:font-bold mobileXL:text-lg p-4"
                 >
                     User {formattedPathname}
                 </Typography>
@@ -41,7 +41,7 @@ export const UserSideBar = (): React.JSX.Element => {
                         }
                         end
                     >
-                        <li className="text-xl font-normal mb-4">Profile</li>
+                        <li className="text-xl tabletS:text-lg tabletS:font-bold  font-normal mb-4">Profile</li>
                     </NavLink>
                     <NavLink
                         to={`post`}
@@ -50,7 +50,7 @@ export const UserSideBar = (): React.JSX.Element => {
                         }
                         end
                     >
-                        <li className="text-xl font-normal mb-4">
+                        <li className="text-xl tabletS:text-lg tabletS:font-bold font-normal mb-4">
                             Manage Post
                         </li>
                     </NavLink>
@@ -61,7 +61,7 @@ export const UserSideBar = (): React.JSX.Element => {
                         }
                         end
                     >
-                        <li className="text-xl font-normal mb-4">Account</li>
+                        <li className="text-xl tabletS:text-lg tabletS:font-bold font-normal mb-4">Account</li>
                     </NavLink>
                 </ul>
             </div>
