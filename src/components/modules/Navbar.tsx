@@ -8,6 +8,7 @@ import { useNavigation } from '../../hooks/navigation/useNavigation';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 import { useAuthContext } from '../../hooks/auth/useAuthContext';
 import { useNavigate } from 'react-router-dom';
+import { getUser } from '../../firebase/user';
 
 export const Navbar = (): React.JSX.Element => {
     const [show, setShow] = useState(false);
@@ -15,6 +16,35 @@ export const Navbar = (): React.JSX.Element => {
     const { theme, toggleTheme } = useThemeContext();
     const { user } = useAuthContext();
     const navigate = useNavigate();
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const [userDetails, setUserDetails] = useState<any>({
+        photoUrl: '',
+        displayName: '',
+    });
+
+    let uid: any;
+
+    //get user details
+    useEffect(() => {
+        if (user) {
+            uid = user.uid;
+
+            const getUserDetails = async () => {
+                setLoading(true);
+                const userData = await getUser(uid);
+                setUserDetails({
+                    ...userDetails,
+                    photoUrl: userData[0].data.photoUrl,
+                    displayName: userData[0].data.displayName,
+                });
+                setLoading(false);
+            };
+            getUserDetails();
+        }
+    }, [user]);
+
+    const { photoUrl, displayName } = userDetails;
 
     //handle view write
     const handleViewWrite = () => {
@@ -122,13 +152,33 @@ export const Navbar = (): React.JSX.Element => {
                     </div>
 
                     <div>
-                        <Button
-                            title="user profile"
-                            className="text-5xl tabletXS:text-3xl"
-                            onClick={handleClick}
-                        >
-                            <FaUserCircle />
-                        </Button>
+                        {user ? (
+                            <div>
+                                {loading ? (
+                                    <div className=" relative w-12  animate-pulse h-12 bg-gray-300 object-cover rounded-full me-3"></div>
+                                ) : (
+                                    <div
+                                        onClick={handleClick}
+                                        className=" relative w-12 h-12 cursor-pointer object-cover rounded-full me-3"
+                                    >
+                                        <img
+                                            title="profile picture"
+                                            className="rounded-full object-cover w-full h-full"
+                                            src={photoUrl}
+                                            alt={displayName}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <Button
+                                title="profile"
+                                className="text-5xl tabletXS:text-3xl"
+                                onClick={handleClick}
+                            >
+                                <FaUserCircle />
+                            </Button>
+                        )}
                     </div>
                 </div>
             </nav>

@@ -7,6 +7,7 @@ import { tagReducer, TagState } from '../../reducers';
 import { updateProfile } from '../../firebase/user';
 import { useAuthContext } from '../../hooks/auth/useAuthContext';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
+import { BeatLoader } from 'react-spinners';
 
 export const Tags = [
     'Artificial Intelligence',
@@ -80,6 +81,7 @@ export const InterestedTagTemplate = () => {
     const { user } = useAuthContext();
     const [query, setQuery] = useState<string>('');
     const { theme } = useThemeContext();
+    const [loading, setLoading] = useState<boolean>(false);
 
     const initialState: TagState = { tags: [] };
     const [selectedTags, dispatch] = useReducer(tagReducer, initialState);
@@ -106,17 +108,23 @@ export const InterestedTagTemplate = () => {
 
     const handleNext = async () => {
         if (user) {
+            setLoading(true);
             let uid = user.uid;
             try {
                 const { userProfileRefId } = await updateProfile(uid, {
                     tags: selectedTags.tags,
                 });
+                await updateProfile(uid, {
+                    status: 'onboarded',
+                });
+
                 if (userProfileRefId) {
                     navigate('/onboard/finish');
                 }
             } catch (error) {
                 console.log(error);
             }
+            setLoading(false);
         }
     };
 
@@ -204,7 +212,11 @@ export const InterestedTagTemplate = () => {
                     ${disabledNext && 'opacity-50 cursor-not-allowed'}
                     `}
                 >
-                    Next
+                    {loading ? (
+                        <BeatLoader size={10} color="#ffffff" />
+                    ) : (
+                        'Next'
+                    )}
                 </Button>
             </div>
         </Container>

@@ -2,9 +2,11 @@ import { Input, Button, Container, Typography } from '../../components/element';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../hooks/auth/useAuthContext';
 import { useFormData } from '../../hooks/form/useFormData';
-import { addProfileDetails } from '../../firebase/user';
+import { updateProfile } from '../../firebase/user';
 import { useEffect, useState } from 'react';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
+import { getUser } from '../../firebase/user';
+import { BeatLoader } from 'react-spinners';
 
 export const CreateAccountTemplate = () => {
     const navigate = useNavigate();
@@ -22,11 +24,26 @@ export const CreateAccountTemplate = () => {
 
     useEffect(() => {
         if (user) {
-            setValues({
-                ...values,
-                fullName: user?.displayName,
-                email: user?.email,
-            });
+            const getDetails: any = async () => {
+                let uid;
+
+                if (user) {
+                    uid = user.uid;
+                }
+                try {
+                    const userData = await getUser(uid);
+                    console.log(userData[0].data);
+                    const { fullName, email } = userData[0].data;
+                    setValues({
+                        ...values,
+                        fullName: fullName,
+                        email: email,
+                    });
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+            getDetails();
         }
     }, [user]);
 
@@ -42,10 +59,7 @@ export const CreateAccountTemplate = () => {
             setLoading(true);
             try {
                 let uid = user.uid;
-                const { userProfileRefId } = await addProfileDetails(
-                    uid,
-                    values
-                );
+                const { userProfileRefId } = await updateProfile(uid, values);
 
                 if (userProfileRefId) {
                     navigate('/onboard/reason');
@@ -191,15 +205,21 @@ export const CreateAccountTemplate = () => {
                     <div className="mt-4">
                         <Button
                             disabled={isNextDisabled}
-                            className={` bg-pink-600 text-white-50 p-2 font-semibold rounded-[40px] w-[100px] ${
+                            className={` flex items-center justify-center bg-pink-600 text-white-50 p-2 font-semibold rounded-[40px] w-[100px] ${
                                 isNextDisabled &&
                                 'opacity-50 cursor-not-allowed'
                             }`}
                         >
                             {loading ? (
-                                <span className=" animate-spin"></span>
+                                <span>
+                                    {' '}
+                                    <BeatLoader
+                                        color="#ffffff"
+                                        size={10}
+                                    />{' '}
+                                </span>
                             ) : (
-                                <span> Next </span>
+                                'Next'
                             )}
                         </Button>
                     </div>

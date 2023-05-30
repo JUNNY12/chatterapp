@@ -4,13 +4,46 @@ import { FaMoon, FaSun } from 'react-icons/fa';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { useNav } from '../../hooks/nav/useNav';
 import { DropNav } from '.';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { getUser } from '../../firebase/user';
+import { useAuthContext } from '../../hooks/auth/useAuthContext';
+import { FaUserCircle } from 'react-icons/fa';
 
 export const FeedNav = (): React.JSX.Element => {
     const { theme, toggleTheme } = useThemeContext();
+    const { user } = useAuthContext();
     const { setShow } = useNav();
     const [showDrop, setShowDrop] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [userDetails, setUserDetails] = useState<any>({
+        photoUrl: '',
+        displayName: '',
+    });
+
+    let uid: any;
+
+    //get user details
+    useEffect(() => {
+        if (user) {
+            uid = user.uid;
+
+            const getUserDetails = async () => {
+                setLoading(true);
+                const userData = await getUser(uid);
+                setUserDetails({
+                    ...userDetails,
+                    photoUrl: userData[0].data.photoUrl,
+                    displayName: userData[0].data.displayName,
+                });
+                setLoading(false);
+            };
+            getUserDetails();
+        }
+    }, [user]);
+
+    //destructure user details
+    const { photoUrl, displayName } = userDetails;
 
     //show side bar
     const handleShow = () => {
@@ -72,16 +105,34 @@ export const FeedNav = (): React.JSX.Element => {
                     </Button>
                 </div>
 
-                <div
-                    title="profile"
-                    onClick={handleClick}
-                    className=" h-10 w-10 mobileL:h-8 mobileL:w-8 cursor-pointer"
-                >
-                    <img
-                        src="https://avatars.githubusercontent.com/u/55974257?v=4"
-                        alt="profile"
-                        className="h-full w-full object-cover rounded-full"
-                    />
+                <div>
+                    {user ? (
+                        <div>
+                            {loading ? (
+                                <div className=" relative w-12  animate-pulse h-12 bg-gray-300 object-cover rounded-full me-3"></div>
+                            ) : (
+                                <div
+                                    onClick={handleClick}
+                                    className=" relative w-12 h-12 cursor-pointer object-cover rounded-full me-3"
+                                >
+                                    <img
+                                        title="profile picture"
+                                        className="rounded-full object-cover w-full h-full"
+                                        src={photoUrl}
+                                        alt={displayName}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    ) : (
+                        <Button
+                            title="profile"
+                            className="text-5xl tabletXS:text-3xl"
+                            onClick={handleClick}
+                        >
+                            <FaUserCircle />
+                        </Button>
+                    )}
                 </div>
             </div>
         </div>

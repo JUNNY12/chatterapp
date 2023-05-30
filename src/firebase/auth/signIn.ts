@@ -11,7 +11,7 @@ export const signIn = async () => {
     let error;
     try {
         result = await signInWithPopup(auth, provider);
-        console.log(result);
+        // console.log(result);
         toast.success('Logged in successfully', {
             position: 'top-center',
             autoClose: 1000,

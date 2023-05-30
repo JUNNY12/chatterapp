@@ -1,21 +1,21 @@
 import firebaseApp from '../config';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import {
+    getFirestore,
+    getDocsFromServer,
+    collection,
+} from 'firebase/firestore';
 
-const db = getFirestore(firebaseApp);
+export const getUser = async (uid: any) => {
+    const db = getFirestore(firebaseApp);
+    const querySnapshot = await getDocsFromServer(
+        collection(db, 'users', uid, 'profile')
+    );
 
-export const getUserIdFromStore = async (uid: any) => {
-    const usersRef = collection(db, 'users');
-    const querySnapshot = await getDocs(usersRef);
-
-    let userExists = false;
+    const userData: any = [];
 
     querySnapshot.forEach((doc) => {
-        if (doc.id === uid) {
-            console.log(doc.id);
-            userExists = true;
-            return;
-        }
+        userData.push({ id: doc.id, data: doc.data() });
     });
 
-    return userExists;
+    return userData;
 };

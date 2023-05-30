@@ -2,24 +2,37 @@ import { Button, Container, Typography } from '../../components/element';
 import { useNavigate } from 'react-router-dom';
 import { signIn } from '../../firebase/auth';
 import { useAuthContext } from '../../hooks/auth/useAuthContext';
-import { getUserIdFromStore } from '../../firebase/user';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
+import { useState } from 'react';
+import { addProfileDetails } from '../../firebase/user';
 
 export const Onboard = () => {
     const navigate = useNavigate();
     const { user } = useAuthContext();
     const { theme } = useThemeContext();
 
+    const [data, setData] = useState<any>({
+        fullName: '',
+        email: '',
+        photoUrl: '',
+    });
+
     //function to handle sign in
     const handleSignIn = async () => {
-        await signIn();
-        const userExists = await getUserIdFromStore(user?.uid);
-        console.log(userExists);
+        const { result, error } = await signIn();
+        if (result) {
+            const updatedData = {
+                fullName: result.user?.displayName,
+                email: result.user?.email,
+                photoUrl: result.user?.photoURL,
+            };
+            setData(updatedData);
 
-        if (userExists === true) {
-            navigate('/feed');
-        } else if (userExists === false) {
-            navigate('/onboard/create-account');
+            console.log(updatedData);
+
+            await addProfileDetails(result.user?.uid, updatedData);
+        } else if (error) {
+            console.log(error);
         }
     };
 

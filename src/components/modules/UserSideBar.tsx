@@ -7,8 +7,6 @@ export const UserSideBar = (): React.JSX.Element => {
     const { pathname } = useLocation();
     const formattedPathname = pathname.replace(/\/([^/]+)/g, ' / $1');
 
-
-
     return (
         <div className="mx-8  tabletXS:mx-4">
             <div
@@ -41,7 +39,9 @@ export const UserSideBar = (): React.JSX.Element => {
                         }
                         end
                     >
-                        <li className="text-xl tabletS:text-lg tabletS:font-bold  font-normal mb-4">Profile</li>
+                        <li className="text-xl tabletS:text-lg tabletS:font-bold  font-normal mb-4">
+                            Profile
+                        </li>
                     </NavLink>
                     <NavLink
                         to={`post`}
@@ -61,7 +61,9 @@ export const UserSideBar = (): React.JSX.Element => {
                         }
                         end
                     >
-                        <li className="text-xl tabletS:text-lg tabletS:font-bold font-normal mb-4">Account</li>
+                        <li className="text-xl tabletS:text-lg tabletS:font-bold font-normal mb-4">
+                            Account
+                        </li>
                     </NavLink>
                 </ul>
             </div>

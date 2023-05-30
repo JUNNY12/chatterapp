@@ -14,6 +14,7 @@ import {
     FinishTemplate,
 } from '../../pages/onboard';
 
+
 const LazyHome = React.lazy(() => import('../../pages/home/Home'));
 const LazyFeed = React.lazy(() => import('../../pages/feed/Feed'));
 const LazyFeature = React.lazy(() => import('../../pages/featured/Feature'));
@@ -29,12 +30,17 @@ const LazyAccount = React.lazy(
 const LazyManagePost = React.lazy(
     () => import('../../pages/settings/posts/Post')
 );
+const LazyNotFound = React.lazy(() => import('../../pages/notfound/NotFound'));
+
 export function Routes() {
     return useRoutes([
         {
             path: '/',
             element: <GeneralLayout />,
-            children: [{ index: true, element: <LazyHome /> }],
+            children: [
+                { index: true, element: <LazyHome /> },
+                { path: '*', element: <LazyNotFound /> },
+            ],
         },
         {
             path: '/onboard',

@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 import { Typography, Button, Container } from '../../components/element';
 import { useNavigate } from 'react-router-dom';
 import { updateProfile } from '../../firebase/user';
@@ -6,11 +6,13 @@ import { useAuthContext } from '../../hooks/auth/useAuthContext';
 import { userTypeReducer } from '../../reducers';
 import { StateProps } from '../../reducers';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
+import { BeatLoader } from 'react-spinners';
 
 export const ReasonTemplate = (): React.JSX.Element => {
     const navigate = useNavigate();
     const { user } = useAuthContext();
     const { theme } = useThemeContext();
+    const [loading, setLoading] = useState<boolean>(false);
 
     //initial state
     const initialState: StateProps = {
@@ -33,6 +35,7 @@ export const ReasonTemplate = (): React.JSX.Element => {
     const handleNext = async () => {
         if (user) {
             let uid = user.uid;
+            setLoading(true);
             try {
                 const userType = {
                     isReader,
@@ -47,6 +50,7 @@ export const ReasonTemplate = (): React.JSX.Element => {
             } catch (error) {
                 console.log(error);
             }
+            setLoading(false);
         }
     };
 
@@ -114,7 +118,11 @@ export const ReasonTemplate = (): React.JSX.Element => {
                         onClick={handleNext}
                         className=" bg-pink-600 text-white-50 p-2 font-semibold rounded-[40px] w-[100px]"
                     >
-                        Next
+                        {loading ? (
+                            <BeatLoader size={8} color={'#ffffff'} />
+                        ) : (
+                            'Next'
+                        )}
                     </Button>
                 </div>
             </div>

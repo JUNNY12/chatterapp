@@ -6,6 +6,9 @@ export default {
         fontFamily: {
           'roboto':['Roboto Flex', 'sans-serif'],
         },
+          backgroundImage: {
+            'notfound': "url('/images/404.svg')"
+          },
        colors: {
          pink: {
            50: '#fdf6fc',
