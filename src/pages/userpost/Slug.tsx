@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 import { posts } from '../feed';
-import { Typography, Button, Input } from '../../components/element';
+import { Typography } from '../../components/element';
 import { Tags } from '../onboard';
 import {
     FaFacebook,
@@ -21,9 +21,6 @@ export default function Slug(): React.JSX.Element {
     const singlePost = posts.find((post) => post.postId === Number(postId));
 
     console.log(singlePost);
-
-    const date = new Date();
-    const year = date.getFullYear();
 
     return (
         <section className={` bg-white-100 h-max`}>
