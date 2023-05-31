@@ -5,33 +5,38 @@ import { useAuthContext } from '../../hooks/auth/useAuthContext';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 import { useState } from 'react';
 import { addProfileDetails } from '../../firebase/user';
+import { getUser } from '../../firebase/user';
 
 export const Onboard = () => {
     const navigate = useNavigate();
-    const { user } = useAuthContext();
     const { theme } = useThemeContext();
-
-    const [data, setData] = useState<any>({
-        fullName: '',
-        email: '',
-        photoUrl: '',
-    });
 
     //function to handle sign in
     const handleSignIn = async () => {
-        const { result, error } = await signIn();
-        if (result) {
-            const updatedData = {
-                fullName: result.user?.displayName,
-                email: result.user?.email,
-                photoUrl: result.user?.photoURL,
-            };
-            setData(updatedData);
+        try {
+            const { result } = await signIn();
+            //if user is signed in
+            if (result) {
+                const uid = result.user?.uid;
+                const userData = await getUser(uid);
 
-            console.log(updatedData);
-
-            await addProfileDetails(result.user?.uid, updatedData);
-        } else if (error) {
+                //check if user already onboarded
+                if (userData[0]?.data?.status === 'onboarded') {
+                    navigate('/feed');
+                }
+                //if user is not onboarded yet then redirect to create account
+                else {
+                    navigate('/onboard/create-account');
+                    // console.log(result);
+                    const updatedData = {
+                        fullName: result.user?.displayName,
+                        email: result.user?.email,
+                        photoUrl: result.user?.photoURL,
+                    };
+                    await addProfileDetails(uid, updatedData);
+                }
+            }
+        } catch (error) {
             console.log(error);
         }
     };

@@ -1,6 +1,29 @@
 import { Typography, Input } from '../../../components/element';
 
-export const BasicInfo = (): React.JSX.Element => {
+//interface BasicInfoProps {
+interface BasicInfoProps {
+    fullName: string;
+    displayName: string;
+    location: string;
+    occupation: string;
+    bio: string;
+    availability: string;
+    email: string;
+    handleChange: (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => void;
+}
+
+export const BasicInfo = ({
+    fullName,
+    displayName,
+    email,
+    location,
+    occupation,
+    bio,
+    availability,
+    handleChange,
+}: BasicInfoProps): React.JSX.Element => {
     return (
         <div className="">
             <Typography
@@ -25,6 +48,8 @@ export const BasicInfo = (): React.JSX.Element => {
                     placeholder="John Doe"
                     id="fullName"
                     name="fullName"
+                    value={fullName}
+                    onChange={handleChange}
                 />
             </div>
 
@@ -43,7 +68,29 @@ export const BasicInfo = (): React.JSX.Element => {
                     placeholder="John"
                     id="displayName"
                     name="displayName"
+                    value={displayName}
+                    onChange={handleChange}
                 />
+            </div>
+            <div className="flex  flex-col mb-4 ">
+                <label htmlFor="email" className="block  font-normal mb-1 mt-3">
+                    Email
+                </label>
+                <Input
+                    type="email"
+                    className=" bg-white-100 rounded-md max-w-[600px]
+                            transition duration-500 ease-in-out
+                            focus:border focus:border-pink-600 indent-3 placeholder:text-black-400 text-black-900 font-semibold "
+                    placeholder="John"
+                    id="email"
+                    name="email"
+                    value={email}
+                    disabled={true}
+                    onChange={handleChange}
+                />
+                <div className=" text-red-600 italic">
+                    Note: You cannot change your email address
+                </div>
             </div>
 
             <div className="flex  flex-col mb-4">
@@ -56,11 +103,13 @@ export const BasicInfo = (): React.JSX.Element => {
                 <Input
                     type="text"
                     id="Location"
-                    name="Location"
+                    name="location"
                     className=" bg-white-100
                             transition duration-500 ease-in-out
                             rounded-md focus:border focus:border-pink-600 indent-3 placeholder:text-black-400 text-black-900 font-semibold max-w-[600px] "
                     placeholder="Lagos, Nigeria"
+                    value={location}
+                    onChange={handleChange}
                 />
             </div>
 
@@ -79,6 +128,8 @@ export const BasicInfo = (): React.JSX.Element => {
                             transition duration-500 ease-in-out
                             rounded-md focus:border focus:border-pink-600 indent-3 placeholder:text-black-400 text-black-900 font-semibold max-w-[600px] "
                     placeholder="Software Engineer"
+                    value={occupation}
+                    onChange={handleChange}
                 />
             </div>
 
@@ -94,6 +145,8 @@ export const BasicInfo = (): React.JSX.Element => {
                     id="bio"
                     placeholder="Tell us who you are"
                     name="bio"
+                    value={bio}
+                    onChange={handleChange}
                 />
             </div>
 
@@ -111,7 +164,9 @@ export const BasicInfo = (): React.JSX.Element => {
                             rounded-md bg-white-100"
                     id="available"
                     placeholder="I am available for mentoring ..."
-                    name="available"
+                    name="availability"
+                    value={availability}
+                    onChange={handleChange}
                 />
             </div>
         </div>

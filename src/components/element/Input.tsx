@@ -10,6 +10,7 @@ interface inputProps {
     title?: string;
     role?: string;
     ariaLabel?: string;
+    disabled?: boolean;
 }
 
 export const Input = ({
@@ -17,6 +18,7 @@ export const Input = ({
     placeholder,
     type,
     value,
+    disabled,
     onChange,
     name,
     id,
@@ -34,6 +36,7 @@ export const Input = ({
             onChange={onChange}
             name={name}
             id={id}
+            disabled={disabled}
             required={required}
             title={title}
             role={role}

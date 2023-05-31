@@ -10,7 +10,7 @@ export const addProfileDetails = async (uid: string, details: any) => {
         const userProfileRef = collection(db, 'users', uid, 'profile');
         await setDoc(doc(userProfileRef), details);
         userProfileRefId = userProfileRef.id;
-        console.log(userProfileRefId);
+        // console.log(userProfileRefId);
     } catch (e) {
         console.log(e);
     }

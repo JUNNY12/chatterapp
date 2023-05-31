@@ -11,7 +11,7 @@ export const userTypeReducer = (state: StateProps, action: any) => {
                 isReader: true,
                 isWriter: false,
             };
-            console.log(updatedReaderState);
+            // console.log(updatedReaderState);
             return updatedReaderState;
 
         case 'SELECT_WRITER':
@@ -20,7 +20,7 @@ export const userTypeReducer = (state: StateProps, action: any) => {
                 isReader: false,
                 isWriter: true,
             };
-            console.log(updatedWriterState);
+            // console.log(updatedWriterState);
             return updatedWriterState;
 
         default:

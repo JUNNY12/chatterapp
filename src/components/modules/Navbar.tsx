@@ -3,8 +3,7 @@ import { Typography, Button } from '../element';
 import { FaUserCircle, FaPen, FaMoon, FaSun } from 'react-icons/fa';
 import { DropNav } from './dropNav/DropNav';
 import { useWidth } from '../../hooks';
-import { Link } from 'react-router-dom';
-import { useNavigation } from '../../hooks/navigation/useNavigation';
+import { Link, useLocation } from 'react-router-dom';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 import { useAuthContext } from '../../hooks/auth/useAuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +16,8 @@ export const Navbar = (): React.JSX.Element => {
     const { user } = useAuthContext();
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(false);
+
+    const { pathname } = useLocation();
 
     const [userDetails, setUserDetails] = useState<any>({
         photoUrl: '',
@@ -42,7 +43,8 @@ export const Navbar = (): React.JSX.Element => {
             };
             getUserDetails();
         }
-    }, [user]);
+        setShow(false);
+    }, [user, pathname]);
 
     const { photoUrl, displayName } = userDetails;
 
@@ -67,7 +69,6 @@ export const Navbar = (): React.JSX.Element => {
         setShow((prev) => !prev);
     };
     //close dropdown when path changes
-    useNavigation({ onPathChange: handleCloseMenu });
 
     // Close dropdown when clicked outside
     useEffect(() => {

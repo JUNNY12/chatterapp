@@ -14,7 +14,6 @@ import {
     FinishTemplate,
 } from '../../pages/onboard';
 
-
 const LazyHome = React.lazy(() => import('../../pages/home/Home'));
 const LazyFeed = React.lazy(() => import('../../pages/feed/Feed'));
 const LazyFeature = React.lazy(() => import('../../pages/featured/Feature'));

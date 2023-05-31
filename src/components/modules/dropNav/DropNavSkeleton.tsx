@@ -12,8 +12,6 @@ export const DropNavSkeleton = (): React.JSX.Element => {
                 <div className="bg-gray-300 h-[25px] w-[150px] rounded-sm mb-3"></div>
                 <div className="bg-gray-300 h-[25px] w-[150px] rounded-sm mb-3"></div>
                 <div className="bg-gray-300 h-[25px] w-[150px] rounded-sm mb-3"></div>
-                <div className="bg-gray-300 h-[25px] w-[150px] rounded-sm mb-3"></div>
-
                 <div className="bg-gray-300 h-[25px] w-[100px] p-4 rounded-[40px] mb-3"></div>
             </div>
         </div>

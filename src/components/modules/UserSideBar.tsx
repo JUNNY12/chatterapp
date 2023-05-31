@@ -31,7 +31,7 @@ export const UserSideBar = (): React.JSX.Element => {
                         : theme === 'darkMode' && 'bg-gray-800 text-white-100'
                 } `}
             >
-                <ul className=" p-4">
+                <ul className=" p-4 ">
                     <NavLink
                         to={`/settings`}
                         className={({ isActive }: any) =>
@@ -39,7 +39,7 @@ export const UserSideBar = (): React.JSX.Element => {
                         }
                         end
                     >
-                        <li className="text-xl tabletS:text-lg tabletS:font-bold  font-normal mb-4">
+                        <li className="text-xl tabletS:text-lg font-bold  mb-4">
                             Profile
                         </li>
                     </NavLink>
@@ -50,7 +50,7 @@ export const UserSideBar = (): React.JSX.Element => {
                         }
                         end
                     >
-                        <li className="text-xl tabletS:text-lg tabletS:font-bold font-normal mb-4">
+                        <li className="text-xl tabletS:text-lg font-bold mb-4">
                             Manage Post
                         </li>
                     </NavLink>
@@ -61,7 +61,7 @@ export const UserSideBar = (): React.JSX.Element => {
                         }
                         end
                     >
-                        <li className="text-xl tabletS:text-lg tabletS:font-bold font-normal mb-4">
+                        <li className="text-xl tabletS:text-lg font-bold mb-4">
                             Account
                         </li>
                     </NavLink>

@@ -31,7 +31,6 @@ export const DropNav = ({ handleClick }: DropNavProps): React.JSX.Element => {
                 {' '}
                 X{' '}
             </Button>
-            {loading && <DropNavSkeleton />}
             {!user && !loading && <UnAuthenticatedDropNav />}
             {user && !loading && <AuthenticatedDropNav />}
         </div>

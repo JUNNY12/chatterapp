@@ -16,11 +16,11 @@ export default function Slug(): React.JSX.Element {
     const { postId, userId } = useParams();
     const { theme } = useThemeContext();
 
-    console.log(postId, userId);
+    // console.log(postId, userId);
 
     const singlePost = posts.find((post) => post.postId === Number(postId));
 
-    console.log(singlePost);
+    // console.log(singlePost);
 
     return (
         <section className={` bg-white-100 h-max`}>
@@ -113,9 +113,12 @@ export default function Slug(): React.JSX.Element {
                         </div>
 
                         <div className="flex flex-wrap justify-center items-center mt-4 p-4">
-                            {Tags.slice(0, 4).map((tag) => {
+                            {Tags.slice(0, 4).map((tag, index) => {
                                 return (
-                                    <div className="p-2 cursor-pointer  text-white-50 mb-2 rounded-md bg-pink-600 max-w me-2">
+                                    <div
+                                        key={index}
+                                        className="p-2 cursor-pointer  text-white-50 mb-2 rounded-md bg-pink-600 max-w me-2"
+                                    >
                                         {tag}
                                     </div>
                                 );

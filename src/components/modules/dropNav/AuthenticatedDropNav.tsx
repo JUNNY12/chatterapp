@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { getUser } from '../../../firebase/user';
 import { useEffect, useState } from 'react';
 import { DropNavSkeleton } from './DropNavSkeleton';
+import { NavLink } from 'react-router-dom';
 
 export const AuthenticatedDropNav = (): React.JSX.Element => {
     const navigate = useNavigate();
@@ -75,18 +76,22 @@ export const AuthenticatedDropNav = (): React.JSX.Element => {
                     </div>
 
                     <ul className=" mt-3 mb-4 font-semibold text-lg">
-                        <li className="mb-3 hover:text-pink-600 transition duration-500 ease-in-out">
-                            My Feed
-                        </li>
-                        <li className="mb-3 hover:text-pink-600 transition duration-500 ease-in-out">
-                            My Drafts
-                        </li>
-                        <li className="mb-3 hover:text-pink-600 transition duration-500 ease-in-out">
-                            Dashboard
-                        </li>
-                        <li className="mb-3 hover:text-pink-600 transition duration-500 ease-in-out">
-                            Account settings
-                        </li>
+                        <NavLink to={`/feed`}>
+                            <li className="mb-3 hover:text-pink-600 transition duration-500 ease-in-out">
+                                My Feed
+                            </li>
+                        </NavLink>
+                        <NavLink to={`/`}>
+                            <li className="mb-3 hover:text-pink-600 transition duration-500 ease-in-out">
+                                My Drafts
+                            </li>
+                        </NavLink>
+
+                        <NavLink to={`/settings`}>
+                            <li className="mb-3 hover:text-pink-600 transition duration-500 ease-in-out">
+                                Account settings
+                            </li>
+                        </NavLink>
                     </ul>
                     <div className=" ">
                         <Button

@@ -23,6 +23,7 @@ export const CreateAccountTemplate = () => {
     });
 
     useEffect(() => {
+        //if user is logged in, get user details
         if (user) {
             const getDetails: any = async () => {
                 let uid;
@@ -32,7 +33,7 @@ export const CreateAccountTemplate = () => {
                 }
                 try {
                     const userData = await getUser(uid);
-                    console.log(userData[0].data);
+                    // console.log(userData[0].data);
                     const { fullName, email } = userData[0].data;
                     setValues({
                         ...values,
