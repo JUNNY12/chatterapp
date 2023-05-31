@@ -42,7 +42,7 @@ export default function Profile(): React.JSX.Element {
 
         // Check if the same file exists in storage
         try {
-            const downloadURL = await getDownloadURL(storageRef);
+            await getDownloadURL(storageRef);
             toast.error('File with the same name already exists!', {
                 position: toast.POSITION.TOP_CENTER,
                 autoClose: 1000,
@@ -64,6 +64,7 @@ export default function Profile(): React.JSX.Element {
             (snapshot) => {
                 const progress =
                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log(progress);
             },
             (error) => {
                 console.log(error);

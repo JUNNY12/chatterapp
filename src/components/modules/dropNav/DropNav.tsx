@@ -2,7 +2,6 @@ import React from 'react';
 import { useAuthContext } from '../../../hooks/auth/useAuthContext';
 import { UnAuthenticatedDropNav } from './UnAuthenticatedDropNav';
 import { AuthenticatedDropNav } from './AuthenticatedDropNav';
-import { DropNavSkeleton } from './DropNavSkeleton';
 import { Button } from '../../element';
 import { useThemeContext } from '../../../hooks/theme/useThemeContext';
 

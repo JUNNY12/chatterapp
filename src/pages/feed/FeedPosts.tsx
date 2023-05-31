@@ -1,4 +1,3 @@
-import { useThemeContext } from '../../hooks/theme/useThemeContext';
 import { Post } from './Post';
 
 export const posts = [
