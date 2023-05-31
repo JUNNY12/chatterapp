@@ -3,7 +3,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { checkGoogleError } from '../utils/checkError';
 import { toast } from 'react-toastify';
 
-export const signIn = async () => {
+export const googleSignin = async () => {
     const provider = new GoogleAuthProvider();
     const auth = getAuth(firebaseApp);
 

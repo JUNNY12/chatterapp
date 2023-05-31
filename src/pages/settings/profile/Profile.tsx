@@ -9,7 +9,6 @@ import { updateProfile } from '../../../firebase/user';
 import { BeatLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import { MdOutlinePhotoCamera } from 'react-icons/md';
-import { Input } from '../../../components/element';
 import firebaseApp from '../../../firebase/config';
 import {
     ref,
@@ -22,8 +21,8 @@ export default function Profile(): React.JSX.Element {
     const { theme } = useThemeContext();
     const { user } = useAuthContext();
     const [loading, setLoading] = useState<boolean>(false);
-
-    const imageRef = useRef<any> (null);
+    const imageRef = useRef<any>(null);
+    const [image, setImage] = useState<string | null>(null);
 
     const storage = getStorage(firebaseApp);
 
@@ -44,20 +43,18 @@ export default function Profile(): React.JSX.Element {
         // Check if the same file exists in storage
         try {
             const downloadURL = await getDownloadURL(storageRef);
-            if (downloadURL) {
-                toast.error('File with the same name already exists!', {
-                    position: toast.POSITION.TOP_CENTER,
-                    autoClose: 1000,
-                    hideProgressBar: true,
-                    closeButton: true,
-                    draggable: false,
-                    pauseOnHover: true,
-                    progress: undefined,
-                });
-                return;
-            }
+            toast.error('File with the same name already exists!', {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 1000,
+                hideProgressBar: true,
+                closeButton: true,
+                draggable: false,
+                pauseOnHover: true,
+                progress: undefined,
+            });
+            return;
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
 
         const uploadTask = uploadBytesResumable(storageRef, imageFile);
@@ -74,6 +71,23 @@ export default function Profile(): React.JSX.Element {
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     console.log(downloadURL);
+                    setImage(downloadURL);
+
+                    toast.success('Image uploaded successfully!', {
+                        position: toast.POSITION.TOP_CENTER,
+                        autoClose: 1000,
+                        hideProgressBar: true,
+                        closeButton: true,
+                        draggable: false,
+                        pauseOnHover: true,
+                        progress: undefined,
+                    });
+
+                    if (user) {
+                        updateProfile(user.uid, {
+                            photoUrl: downloadURL,
+                        });
+                    }
                 });
             }
         );
@@ -207,7 +221,7 @@ export default function Profile(): React.JSX.Element {
                         className="relative block cursor-pointer w-24 h-24  object-cover rounded-full"
                     >
                         <img
-                            src={photoUrl}
+                            src={image || photoUrl}
                             className=" w-full h-full rounded-full"
                             alt=""
                         />

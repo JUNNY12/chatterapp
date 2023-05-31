@@ -6,6 +6,7 @@ import { getUser } from '../../../firebase/user';
 import { useEffect, useState } from 'react';
 import { DropNavSkeleton } from './DropNavSkeleton';
 import { NavLink } from 'react-router-dom';
+import { greetings } from '../../../utils';
 
 export const AuthenticatedDropNav = (): React.JSX.Element => {
     const navigate = useNavigate();
@@ -40,7 +41,7 @@ export const AuthenticatedDropNav = (): React.JSX.Element => {
     }, [user]);
 
     //destructure user details
-    const { fullName, photoUrl, displayName } = userDetails;
+    const { photoUrl, displayName } = userDetails;
 
     //handle sign out
     const handleSignOut = async () => {
@@ -59,18 +60,18 @@ export const AuthenticatedDropNav = (): React.JSX.Element => {
                 <DropNavSkeleton />
             ) : (
                 <div>
-                    <div className=" flex justify-between items-center cursor-pointer font-semibold mb-4 pb-3 border-b border-black-300">
-                        <div className=" relative w-16 h-16 object-cover rounded-full me-3 ">
+                    <div className=" flex me-2 cursor-pointer font-semibold mb-4 pb-3 border-b border-black-300">
+                        <div className=" relative w-[70px] h-[70px] object-cover rounded-full me-3 ">
                             <img
                                 title="user profile picture"
-                                className="rounded-full object-contain w-full h-full"
+                                className="rounded-full object-cover w-full h-full"
                                 src={photoUrl}
                                 alt={displayName}
                             />
                         </div>
 
-                        <div>
-                            <div>{fullName}</div>
+                        <div className="text-base w-[100px]">
+                            <div className="text-[14px]">{greetings()}</div>
                             <div>{displayName}</div>
                         </div>
                     </div>

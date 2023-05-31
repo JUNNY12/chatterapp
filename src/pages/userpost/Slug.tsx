@@ -18,7 +18,10 @@ export default function Slug(): React.JSX.Element {
 
     // console.log(postId, userId);
 
-    const singlePost = posts.find((post) => post.postId === Number(postId));
+    const singlePost = posts.find(
+        (post) =>
+            post.postId === Number(postId) && post.userId === Number(userId)
+    );
 
     // console.log(singlePost);
 
@@ -35,51 +38,62 @@ export default function Slug(): React.JSX.Element {
                         }
                         `}
                 >
-                    <article className="me-8 laptopS:me-0">
-                        <Typography
-                            variant={1}
-                            className=" font-semibold text-3xl tabletXS:text-xl mb-3 max-w-[600px]"
-                        >
-                            {singlePost?.title}.
-                        </Typography>
+                    <div>
+                        <article className="me-8 laptopS:me-0">
+                            <Typography
+                                variant={1}
+                                className=" font-semibold text-3xl tabletXS:text-xl mb-3 max-w-[600px]"
+                            >
+                                {singlePost?.title}.
+                            </Typography>
 
-                        <div className=" max-w-[600px] h-[400px] tabletS:h-[300px] object-cover relative">
-                            <img
-                                src="/images/post.jpg"
-                                className=" object-cover h-full w-full"
-                                alt=""
-                            />
-                        </div>
-
-                        <p className="my-4 max-w-[600px] text-[16px] ">
-                            {singlePost?.description}
-                        </p>
-                        <div className=" flex items-center justify-center mt-12 text-xl">
-                            <div className=" flex items-center me-3">
-                                <FaComment className=" " />
-                                <Typography variant={2} className="text-base">
-                                    {' '}
-                                    10{' '}
-                                </Typography>
+                            <div className=" max-w-[600px] h-[400px] tabletS:h-[300px] object-cover relative">
+                                <img
+                                    src="/images/post.jpg"
+                                    className=" object-cover h-full w-full"
+                                    alt=""
+                                />
                             </div>
 
-                            <div className=" flex items-center me-3">
-                                <MdFavorite className=" " />
-                                <Typography variant={2} className="text-base">
-                                    {' '}
-                                    10{' '}
-                                </Typography>
-                            </div>
+                            <p className="my-4 max-w-[600px] text-[16px] ">
+                                {singlePost?.description}
+                            </p>
+                            <div className=" flex items-center justify-center mt-12 text-xl">
+                                <div className=" flex items-center me-3">
+                                    <FaComment className=" " />
+                                    <Typography
+                                        variant={2}
+                                        className="text-base"
+                                    >
+                                        {' '}
+                                        10{' '}
+                                    </Typography>
+                                </div>
 
-                            <div className=" flex items-center me-3">
-                                <MdInsights className=" " />
-                                <Typography variant={2} className="text-base">
-                                    {' '}
-                                    10{' '}
-                                </Typography>
+                                <div className=" flex items-center me-3">
+                                    <MdFavorite className=" " />
+                                    <Typography
+                                        variant={2}
+                                        className="text-base"
+                                    >
+                                        {' '}
+                                        10{' '}
+                                    </Typography>
+                                </div>
+
+                                <div className=" flex items-center me-3">
+                                    <MdInsights className=" " />
+                                    <Typography
+                                        variant={2}
+                                        className="text-base"
+                                    >
+                                        {' '}
+                                        10{' '}
+                                    </Typography>
+                                </div>
                             </div>
-                        </div>
-                    </article>
+                        </article>
+                    </div>
 
                     <aside
                         className=" border border-gray-300 w-[250px] laptopS:w-full laptopS:mt-8 

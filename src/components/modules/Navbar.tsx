@@ -60,9 +60,9 @@ export const Navbar = (): React.JSX.Element => {
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     //close menu
-    const handleCloseMenu = () => {
-        setShow(false);
-    };
+    // const handleCloseMenu = () => {
+    //     setShow(false);
+    // };
 
     //function to handle dropdown
     const handleClick = () => {

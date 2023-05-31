@@ -1,9 +1,7 @@
 import { Button, Container, Typography } from '../../components/element';
 import { useNavigate } from 'react-router-dom';
-import { signIn } from '../../firebase/auth';
-import { useAuthContext } from '../../hooks/auth/useAuthContext';
+import { googleSignin, facebookSignin } from '../../firebase/auth';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
-import { useState } from 'react';
 import { addProfileDetails } from '../../firebase/user';
 import { getUser } from '../../firebase/user';
 
@@ -12,9 +10,9 @@ export const Onboard = () => {
     const { theme } = useThemeContext();
 
     //function to handle sign in
-    const handleSignIn = async () => {
+    const handleGoogleSignIn = async () => {
         try {
-            const { result } = await signIn();
+            const { result } = await googleSignin();
             //if user is signed in
             if (result) {
                 const uid = result.user?.uid;
@@ -41,6 +39,21 @@ export const Onboard = () => {
         }
     };
 
+    //function to handle facebook sign in
+    const handleFacebookSignIn = async () => {
+        try {
+            const result = await facebookSignin();
+            if (result) {
+                const { token, userInfo } = result;
+                console.log(token, userInfo);
+            } else {
+                // Handle null case
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <Container
             className={` h-screen transition duration-500 ease-in-out flex items-center flex-col
@@ -58,7 +71,7 @@ export const Onboard = () => {
 
                 <div className=" flex flex-col ">
                     <Button
-                        onClick={handleSignIn}
+                        onClick={handleGoogleSignIn}
                         className=" bg-pink-600 text-white-50  mb-6 shadow-sm shadow-white-100 flex items-center w-[250px] rounded-[40px] p-2"
                     >
                         <span className="relative block w-8 h-8 me-4">
@@ -77,7 +90,10 @@ export const Onboard = () => {
                             or
                         </Typography>
                     </div>
-                    <Button className=" bg-pink-600 w-[250px] flex items-center shadow-sm shadow-white-100 text-white-50 rounded-[40px] p-2">
+                    <Button
+                        onClick={handleFacebookSignIn}
+                        className=" bg-pink-600 w-[250px] flex items-center shadow-sm shadow-white-100 text-white-50 rounded-[40px] p-2"
+                    >
                         <span className="relative block w-8 h-8 me-4">
                             <img src="/icons/facebook.svg" alt="facebook" />
                         </span>

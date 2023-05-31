@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Suspense } from 'react';
 import { Loader } from './components/modules';
+import { ScrollToTop } from './components/modules';
 
 function App() {
     return (
@@ -11,6 +12,7 @@ function App() {
             <Provider>
                 <Routes />
                 <ToastContainer />
+                <ScrollToTop />
             </Provider>
         </Suspense>
     );

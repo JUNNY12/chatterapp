@@ -6,52 +6,52 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getUser } from '../firebase/user';
 
+//interface for provider props
 interface ProviderProps {
     children: React.ReactNode;
 }
 
+//protected routes of onboard pages
 const ProtectedRoutes = ({ children }: ProviderProps) => {
     const { user, loading } = useAuthContext();
     const navigate = useNavigate();
-    const [userDetails, setUserDetails] = useState<any>({
+    const [userDetails, setUserDetails] = useState<{ status: string }>({
         status: '',
     });
 
-    let uid: any;
-
-    //get user status
+    // Get user status
     useEffect(() => {
-        if (user) {
-            uid = user.uid;
-
-            const getUserDetails = async () => {
-                const userData = await getUser(uid);
-                setUserDetails({
-                    ...userDetails,
+        const fetchUserDetails = async () => {
+            if (user) {
+                const userData = await getUser(user.uid);
+                setUserDetails((prevUserDetails) => ({
+                    ...prevUserDetails,
                     status: userData[0].data.status,
-                });
-            };
-            getUserDetails();
-        }
+                }));
+            }
+        };
+
+        fetchUserDetails();
     }, [user]);
 
-    //destructuring
-    const { status } = userDetails;
-
-    //redirect to feed if user is onboarded or redirect to onboard if user is not onboarded
+    // Redirect to feed if user is onboarded or redirect to onboard if user is not onboarded
     useEffect(() => {
-        if (!user && !loading) {
-            navigate('/onboard');
-        }
-        if (user && !loading && status === 'onboarded') {
-            navigate('/feed');
-        }
-    }, [navigate, user, loading, status]);
+        const checkUserStatus = async () => {
+            if (!user && !loading) {
+                navigate('/onboard');
+            }
+            if (!loading && userDetails.status === 'onboarded') {
+                navigate('/feed');
+            }
+        };
+
+        checkUserStatus();
+    }, [navigate, user, loading, userDetails.status]);
 
     return <>{user ? children : null}</>;
 };
 
-//routes that need to be protected
+// Routes that need to be protected
 const protectedRoutes = [
     '/onboard/finish',
     '/onboard/reason',
@@ -59,16 +59,39 @@ const protectedRoutes = [
     '/onboard/interested-tag',
 ];
 
-//Provider component
+// Protected pages for user settings
+const Protected = ({ children }: ProviderProps) => {
+    const { user, loading } = useAuthContext();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const checkUserStatus = async () => {
+            if (!user && !loading) {
+                navigate('/onboard');
+            }
+        };
+
+        checkUserStatus();
+    }, [navigate, user, loading]);
+
+    return <>{user ? children : null}</>;
+};
+
+const protectProfilePage = ['/settings', '/settings/post', '/settings/account'];
+
+// Provider component
 export const Provider = ({ children }: ProviderProps) => {
     const location = useLocation();
     const pathName = location.pathname;
+
     return (
         <ThemeProvider>
             <NavProvider>
                 <AuthProvider>
                     {protectedRoutes.includes(pathName) ? (
                         <ProtectedRoutes>{children}</ProtectedRoutes>
+                    ) : protectProfilePage.includes(pathName) ? (
+                        <Protected>{children}</Protected>
                     ) : (
                         <>{children}</>
                     )}

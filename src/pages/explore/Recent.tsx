@@ -1,9 +1,20 @@
 import { Typography } from '../../components/element';
 import { posts } from '../feed/FeedPosts';
+import { useThemeContext } from '../../hooks/theme/useThemeContext';
 
 export const Recent = (): React.JSX.Element => {
+    const { theme } = useThemeContext();
+
     return (
-        <section>
+        <section
+            className={`rounded-md m-8 tabletXS:m-3 h-full transition duration-500 ease-in-out 
+         ${
+             theme === 'lightMode'
+                 ? 'bg-white-50 text-black-950'
+                 : theme === 'darkMode' && 'bg-gray-800 text-white-100'
+         }
+        `}
+        >
             <Typography
                 variant={1}
                 className="text-3xl font-bold mb-3 px-8 pt-8 mobileXL:px-2 "
