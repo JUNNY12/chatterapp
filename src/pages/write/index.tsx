@@ -1,1 +1,1 @@
-export * from './MarkDownEditor'
+export * from './MarkDownEditor.tsx'
