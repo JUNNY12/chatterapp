@@ -1,7 +1,6 @@
 import { Typography } from '../../element';
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { useState } from 'react';
-import { useArticleContext } from '../../../hooks/article/useArticleContext';
 
 export const PostSideBar = () => {
     const [showDraft, setShowDraft] = useState(false);

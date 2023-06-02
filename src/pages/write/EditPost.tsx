@@ -2,7 +2,7 @@ import { MarkdownEditor } from '.';
 import { useArticleContext } from '../../hooks/article/useArticleContext';
 
 export default function PostPage() {
-    const { setArticle, article } = useArticleContext();
+    const { article } = useArticleContext();
 
     const handleUpdate = () => {
         console.log('handleUpdate');
