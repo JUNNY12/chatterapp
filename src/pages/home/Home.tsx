@@ -4,8 +4,7 @@ import { useThemeContext } from '../../hooks/theme/useThemeContext';
 
 export default function Home() {
     const { theme } = useThemeContext();
-   
-;
+
     return (
         <Container
             className={`transition duration-500 ease-in-out pt-44 tabletM:pt-24

@@ -10,91 +10,42 @@ import { BeatLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import { MdOutlinePhotoCamera } from 'react-icons/md';
 import firebaseApp from '../../../firebase/config';
-import {
-    ref,
-    getDownloadURL,
-    uploadBytesResumable,
-    getStorage,
-} from 'firebase/storage';
+import { ref, getStorage } from 'firebase/storage';
+import { handleCustomImageUpload } from '../../../firebase/upload/handleCustomImageUpload';
 
 export default function Profile(): React.JSX.Element {
     const { theme } = useThemeContext();
     const { user } = useAuthContext();
     const [loading, setLoading] = useState<boolean>(false);
     const imageRef = useRef<any>(null);
-    const [image, setImage] = useState<string | null>(null);
+    const [image, setImage] = useState<any>(null);
 
     const storage = getStorage(firebaseApp);
 
+    // Upload image to firebase storage
     const handleImageUpload = async (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
-
-        if (!imageRef) return;
-
-        // Get image file on change event
         const imageFile = imageRef.current?.files?.[0];
-
-        // Storage ref for each user with their uid
         const storageRef = ref(
             storage,
             `${user?.uid}/profileImage/${imageFile?.name}`
         );
 
-        // Check if the same file exists in storage
         try {
-            await getDownloadURL(storageRef);
-            toast.error('File with the same name already exists!', {
-                position: toast.POSITION.TOP_CENTER,
-                autoClose: 1000,
-                hideProgressBar: true,
-                closeButton: true,
-                draggable: false,
-                pauseOnHover: true,
-                progress: undefined,
-            });
-            return;
-        } catch (error) {
-            // console.log(error);
-        }
-
-        const uploadTask = uploadBytesResumable(storageRef, imageFile);
-
-        uploadTask.on(
-            'state_changed',
-            (snapshot) => {
-                const progress =
-                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log(progress);
-            },
-            (error) => {
-                console.log(error);
-            },
-            () => {
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    console.log(downloadURL);
-                    setImage(downloadURL);
-
-                    toast.success('Image uploaded successfully!', {
-                        position: toast.POSITION.TOP_CENTER,
-                        autoClose: 1000,
-                        hideProgressBar: true,
-                        closeButton: true,
-                        draggable: false,
-                        pauseOnHover: true,
-                        progress: undefined,
-                    });
-
-                    if (user) {
-                        updateProfile(user.uid, {
-                            photoUrl: downloadURL,
-                        });
-                    }
+            const downloadURL = await handleCustomImageUpload(
+                storageRef,
+                imageFile
+            );
+            setImage(downloadURL);
+            if (user) {
+                updateProfile(user.uid, {
+                    photoUrl: downloadURL,
                 });
             }
-        );
+        } catch (error) {
+            console.log(error);
+        }
     };
-
-    //destructure form data
     const {
         values: {
             displayName,

@@ -1,9 +1,33 @@
 import { Typography } from '../../../components/element';
 import { useThemeContext } from '../../../hooks/theme/useThemeContext';
 import { FaTrash } from 'react-icons/fa';
+import { getUserArticles } from '../../../firebase/article';
+import { useAuthContext } from '../../../hooks/auth/useAuthContext';
+import { useState, useEffect } from 'react';
 
 export default function Post(): React.JSX.Element {
     const { theme } = useThemeContext();
+    const { user } = useAuthContext();
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const fetchUserArticles = async () => {
+        try {
+            setLoading(true);
+            const userArticles = await getUserArticles(user?.uid);
+            setPosts(userArticles);
+            setLoading(false);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    useEffect(() => {
+        fetchUserArticles();
+    }, []);
+
+    console.log(posts);
+
     return (
         <div
             className={` transition p-4 me-8  tabletL:ms-8 tabletXS:mx-4 duration-500 mb-4 rounded-md border border-gray-300 ease-in-out ${
@@ -24,24 +48,54 @@ export default function Post(): React.JSX.Element {
 
                 <div>
                     <div className="flex items-center font-semibold">
-                        <div className="me-3 w-[70%]">Posts</div>
-                        <div className="me-3  w-[20%]">Date</div>
-                        <div className="me-3 w-[10%]">Actions</div>
+                        <div className="me-3 w-[50%]">Posts</div>
+                        <div className="me-3  w-[30%]">Date</div>
+                        <div className="me-3 w-[20%]">Actions</div>
                     </div>
-
-                    <div className="flex items-center mt-8">
-                        <div className="me-3 w-[70%]">
-                            Lorem ipsum dolor sit amet consectetur.
+                    {/* display loading animation when fechting post */}
+                    {loading ? (
+                        [...Array(5)].map((_, index) => {
+                            return (
+                                <div
+                                    className="flex items-center mt-8"
+                                    key={index}
+                                >
+                                    <div className="me-3 w-[50%] h-8 bg-gray-300 animate-pulse">
+                                        {' '}
+                                    </div>
+                                    <div className="me-3  w-[30%] h-8  bg-gray-300 animate-pulse"></div>
+                                    <div className="me-3 w-[20%] h-8 bg-gray-300 animate-pulse"></div>
+                                </div>
+                            );
+                        })
+                    ) : (
+                        <div>
+                            {posts.map((post) => {
+                                const { id, data } = post;
+                                const { title } = data;
+                                return (
+                                    <div
+                                        key={id}
+                                        className="flex items-center mt-8"
+                                    >
+                                        <div className="me-3 w-[50%]">
+                                            {title}
+                                        </div>
+                                        <div className="me-3  w-[30%]">
+                                            May 25, 2023
+                                        </div>
+                                        <div
+                                            className="me-3 w-[20%] text-red-600 cursor-pointer"
+                                            title="delete post"
+                                            role="button"
+                                        >
+                                            <FaTrash />
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </div>
-                        <div className="me-3  w-[20%]">May 25, 2023</div>
-                        <div
-                            className="me-3 w-[10%] text-red-600 cursor-pointer"
-                            title="delete post"
-                            role="button"
-                        >
-                            <FaTrash />
-                        </div>
-                    </div>
+                    )}
                 </div>
             </div>
         </div>

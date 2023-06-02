@@ -1,51 +1,78 @@
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
-import { useState } from 'react';
+import { Header } from '.';
+import { useArticleContext } from '../../hooks/article/useArticleContext';
+import { Preview } from '.';
 
+const mdParser = new MarkdownIt();
 
-const mdParser = new MarkdownIt(/* Markdown-it options */);
+export const MarkdownEditor = ({ onSave, mode }: any): React.JSX.Element => {
+    const { setArticle, article } = useArticleContext();
 
-export const MarkdownEditor = () => {
-    const [content, setContent] = useState('');
+    const { body } = article;
 
-    const handleEditorChange = ({ text }:any) => {
-        setContent(text);
+    const handleEditorChange = ({ text }: any) => {
+        setArticle((prevState) => ({
+            ...prevState,
+            body: text,
+        }));
     };
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
-        console.log(JSON.stringify(content));
+        await onSave();
+        console.log(article);
     };
- 
 
     return (
-        <div className="mx-8 tabletS:mx-4 mb-8">
-          
-            <form action="" onSubmit={handleSubmit}>
-                <MdEditor
-                    
-                onImageUpload={  (file:any) => new Promise(resolve => {
-                    const reader = new FileReader();
-                    reader.onload = data => resolve(data.target?.result);
-                    reader.readAsDataURL(file);
-                  }
+        <div className="mx-8 tabletS:mx-4 mb-8 relative">
+            <form className="flex flex-col">
+                <Header />
+                <div className="ms-[250px] tabletS:ms-0  flex flex-wrap justify-end my-3 items-center">
+                    {mode === 'update' ? (
+                        <button
+                            className="bg-pink-600 text-white-50 p-2 rounded-[40px] w-[200px] mobileXL:w-[100px] me-8"
+                            onClick={handleSubmit}
+                        >
+                            Update
+                        </button>
+                    ) : (
+                        <div>
+                            <button
+                                className="bg-pink-600 text-white-50 p-2 rounded-[40px] w-[200px] mobileXL:w-[100px] me-8"
+                                onClick={handleSubmit}
+                            >
+                                publish
+                            </button>
 
-                    )
-                }
-                    className="ms-[250px] h-[500px] tabletS:ms-0"
+                            <button
+                                className="bg-pink-600 text-white-50 p-2 rounded-[40px] w-[200px] mobileXL:w-[100px] me-8"
+                                onClick={handleSubmit}
+                            >
+                                Draft
+                            </button>
+                        </div>
+                    )}
+                </div>
+                <MdEditor
+                    className="ms-[250px] h-[400px] tabletS:ms-0"
                     renderHTML={(text) => mdParser.render(text)}
                     onChange={handleEditorChange}
+                    value={body}
+                    shortcuts={true}
+                    view={{ menu: true, md: true, html: false }}
+                    canView={{
+                        menu: true,
+                        md: true,
+                        html: false,
+                        both: false,
+                        fullScreen: false,
+                        hideMenu: false,
+                    }}
                 />
-
-                <div>
-                    <button className='bg-red-500'>Submit</button>
-                </div>
             </form>
-
-            <div className="markdown-content bg-white-50 ms-[250px]">
-                {content}
-                </div>
+            <Preview />
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import { ThemeProvider } from '../context/theme/ThemeContext';
 import AuthProvider from '../context/auth/AuthContext';
 import { NavProvider } from '../context/nav/NavContext';
+import { ArticleProvider } from '../context/article/ArticleContext';
 import { useAuthContext } from '../hooks/auth/useAuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -88,13 +89,15 @@ export const Provider = ({ children }: ProviderProps) => {
         <ThemeProvider>
             <NavProvider>
                 <AuthProvider>
-                    {protectedRoutes.includes(pathName) ? (
-                        <ProtectedRoutes>{children}</ProtectedRoutes>
-                    ) : protectProfilePage.includes(pathName) ? (
-                        <Protected>{children}</Protected>
-                    ) : (
-                        <>{children}</>
-                    )}
+                    <ArticleProvider>
+                        {protectedRoutes.includes(pathName) ? (
+                            <ProtectedRoutes>{children}</ProtectedRoutes>
+                        ) : protectProfilePage.includes(pathName) ? (
+                            <Protected>{children}</Protected>
+                        ) : (
+                            <>{children}</>
+                        )}
+                    </ArticleProvider>
                 </AuthProvider>
             </NavProvider>
         </ThemeProvider>

@@ -1,15 +1,13 @@
-import { useThemeContext } from '../../hooks/theme/useThemeContext';
-import { useAuthContext } from '../../hooks/auth/useAuthContext';
+import { useAuthContext } from '../../../hooks/auth/useAuthContext';
+import { useNavigate } from 'react-router-dom';
 import { MdFeed, MdOutlineFeaturedPlayList, MdExplore } from 'react-icons/md';
 import { RiDraftLine } from 'react-icons/ri';
 import { DiGoogleAnalytics } from 'react-icons/di';
 import { NavLink } from 'react-router-dom';
-import { Button } from '../element';
+import { Button } from '../../element';
 import { FaPen } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
 
-export const SideBar = (): React.JSX.Element => {
-    const { theme } = useThemeContext();
+export const SharedSideBar = () => {
     const { user } = useAuthContext();
     const navigate = useNavigate();
 
@@ -23,16 +21,7 @@ export const SideBar = (): React.JSX.Element => {
     };
 
     return (
-        <div
-            className={`h-full fixed z-10 top-0 pt-36 left-0 w-[250px]
-            border-r border-gray-300 p-8 transition duration-500 ease-in-out 
-        ${
-            theme === 'lightMode'
-                ? 'bg-white-50 text-black-950'
-                : theme === 'darkMode' && 'bg-gray-800 text-white-100'
-        }
-        `}
-        >
+        <div>
             <ul className="font-semibold text-xl">
                 <li className="mb-6">
                     <Button

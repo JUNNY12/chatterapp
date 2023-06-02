@@ -18,7 +18,6 @@ const LazyHome = React.lazy(() => import('../../pages/home/Home'));
 const LazyFeed = React.lazy(() => import('../../pages/feed/Feed'));
 const LazyFeature = React.lazy(() => import('../../pages/featured/Feature'));
 const LazyExplore = React.lazy(() => import('../../pages/explore/Explore'));
-const LazyWrite = React.lazy(() => import('../../pages/write/Write'));
 const LazySlug = React.lazy(() => import('../../pages/userpost/Slug'));
 const LazyProfile = React.lazy(
     () => import('../../pages/settings/profile/Profile')
@@ -29,6 +28,10 @@ const LazyAccount = React.lazy(
 const LazyManagePost = React.lazy(
     () => import('../../pages/settings/posts/Post')
 );
+
+const LazyPostPage = React.lazy(() => import('../../pages/write/EditPost'));
+const LazyDraftPage = React.lazy(() => import('../../pages/write/DraftPage'));
+
 const LazyNotFound = React.lazy(() => import('../../pages/notfound/NotFound'));
 
 export function Routes() {
@@ -64,7 +67,10 @@ export function Routes() {
         {
             path: '/write',
             element: <FeedLayout />,
-            children: [{ index: true, element: <LazyWrite /> }],
+            children: [
+                { index: true, element: <LazyDraftPage /> },
+                { path: 'edit', element: <LazyPostPage /> },
+            ],
         },
         {
             path: '/:userId/:postId',
