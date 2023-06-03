@@ -1,4 +1,6 @@
 import { Post } from './Post';
+import { getAllArticle } from '../../firebase/article';
+import { useEffect, useState } from 'react';
 
 export const posts = [
     {
@@ -76,6 +78,17 @@ export const posts = [
 ];
 
 export const FeedPosts = (): React.JSX.Element => {
+    const [posts, setPosts] = useState([]);
+
+    const fetchPosts = async () => {
+        const {articles} = await getAllArticle();
+       console.log(articles);
+    };
+
+    useEffect(() => {
+        fetchPosts();
+    }, []);
+    
     return (
         <div>
             {posts.map((post) => {
