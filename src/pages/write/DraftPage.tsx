@@ -20,6 +20,7 @@ export default function DraftPage() {
                 ...prevState,
                 author: {
                     authorId: user?.uid,
+                    occupation: userDataItem?.data?.occupation,
                     displayName: userDataItem?.data?.displayName,
                     fullName: userDataItem?.data?.fullName,
                     bio: userDataItem?.data?.bio,

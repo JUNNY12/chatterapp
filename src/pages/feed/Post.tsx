@@ -20,8 +20,9 @@ interface PostInterface {
             fullName: string;
             bio: string;
             photoUrl: string;
+            occupation: string;
         };
-        createdAt: string;
+        createdAgo: string;
         updatedAt: string;
         slug: string;
         likeCount: number;
@@ -39,7 +40,7 @@ export const Post = ({ post }: PostInterface): React.JSX.Element => {
         subtitle,
         tagList,
         author,
-        createdAt,
+        createdAgo,
         updatedAt,
         slug,
         likeCount,
@@ -82,9 +83,9 @@ export const Post = ({ post }: PostInterface): React.JSX.Element => {
                             variant={2}
                             className=" font-semibold mobileXL:text-[12px] inline-flex flex-wrap"
                         >
-                            <span> Product Manager </span>
+                            <span> {author.occupation} </span>
                             <span className=" ms-6 mobileXL:ms-3">
-                                {formatDate(createdAt)}
+                                {createdAgo}
                             </span>
                         </Typography>
                     </div>
@@ -93,9 +94,7 @@ export const Post = ({ post }: PostInterface): React.JSX.Element => {
                 <div
                     onClick={() => {
                         navigate(
-                            `/${author.fullName.split(' ').join('-')}/${slug
-                                .split(' ')
-                                .join('-')}`
+                            `/${author.fullName}/${slug}`
                         );
                     }}
                 >

@@ -13,12 +13,14 @@ import { MdFavorite, MdInsights } from 'react-icons/md';
 import { useEffect, useState } from 'react';
 import { getAllArticle } from '../../firebase/article';
 import { DocumentData } from '@firebase/firestore-types';
-import { Preview } from '../write';
 import { MdLaoder } from './MdLoader';
 
 export default function Slug(): React.JSX.Element {
     const { fullName, slug } = useParams();
     const { theme } = useThemeContext();
+
+    // const formattedSlug = slug?.split('-').join(' ');
+    // const formattedFullName = fullName?.split('-').join(' ');
 
     const [posts, setPosts] = useState<DocumentData>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -29,14 +31,12 @@ export default function Slug(): React.JSX.Element {
         setPosts(articles);
         setLoading(false);
     };
-
-    const formattedSlug = slug?.split('-').join(' ');
-    const formattedFullName = fullName?.split('-').join(' ');
+  
 
     const singlePost = posts.find(
         (post: DocumentData) =>
-            post.slug === formattedSlug &&
-            post.author.fullName === formattedFullName
+            post.slug === slug &&
+            post.author.fullName === fullName
     );
 
     console.log(singlePost);
@@ -134,10 +134,10 @@ export default function Slug(): React.JSX.Element {
                             </Typography>
                         </div>
 
-                        <div className=" flex items-center justify-center mb-3 p-4 flex-wrap">
+                        <div className=" flex items-center justify-center p-4 flex-wrap">
                             <div className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] me-4 border border-gray-300 relative rounded-full object-cover">
                                 <img
-                                    src="/images/hero.svg"
+                                    src={singlePost?.author.photoUrl}
                                     alt="user"
                                     className=" rounded-full object-cover w-full h-full"
                                 />
@@ -145,25 +145,24 @@ export default function Slug(): React.JSX.Element {
                             <div>
                                 <Typography
                                     variant={1}
-                                    className="font-bold text-xl mobileXL:text-lg"
+                                    className="font-bold text-xl mobileXL:text-lg text-center"
                                 >
-                                    John Doe
+                                    {singlePost?.author.fullName}
                                 </Typography>
                             </div>
                         </div>
 
-                        <div className="flex flex-wrap justify-center items-center mt-4 p-4">
-                            {Tags.slice(0, 4).map((tag, index) => {
-                                return (
-                                    <div
-                                        key={index}
-                                        className="p-2 cursor-pointer  text-white-50 mb-2 rounded-md bg-pink-600 max-w me-2"
-                                    >
-                                        {tag}
-                                    </div>
-                                );
-                            })}
-                        </div>
+                       <div>
+                        <Typography variant={2} className='text-center text-xl font-bold'>
+                            {singlePost?.author.occupation}
+                        </Typography>
+                       </div>
+
+                       <div>
+                        <p className='p-2 text-center'>
+                            {singlePost?.author.bio}
+                        </p>
+                       </div>
 
                         <div>
                             <Typography

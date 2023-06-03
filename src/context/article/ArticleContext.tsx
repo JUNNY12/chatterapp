@@ -27,6 +27,7 @@ export interface ArticleContextProps {
             fullName?: string;
             bio?: string;
             photoUrl?: string;
+            occupation?: string;
         };
         createdAt?: string;
         updatedAt?: string;
@@ -53,6 +54,7 @@ export interface ArticleContextProps {
                 fullName?: string;
                 bio?: string;
                 photoUrl?: string;
+                occupation?: string;
             };
             createdAt?: string;
             updatedAt?: string;
@@ -85,6 +87,7 @@ export const ArticleContext = createContext<ArticleContextProps>({
             fullName: '',
             bio: '',
             photoUrl: '',
+            occupation: '',
         },
         createdAt: '',
         updatedAt: '',
@@ -135,6 +138,7 @@ export const ArticleProvider = ({ children }: ArticleProviderProps) => {
             fullName: '',
             bio: '',
             photoUrl: '',
+            occupation: '',
         },
         createdAt: '',
         updatedAt: '',
@@ -214,6 +218,7 @@ export const ArticleProvider = ({ children }: ArticleProviderProps) => {
                 fullName: '',
                 bio: '',
                 photoUrl: '',
+                occupation: '',
             },
             createdAt: '',
             updatedAt: '',
