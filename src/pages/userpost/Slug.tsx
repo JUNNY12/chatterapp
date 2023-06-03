@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 import { Typography } from '../../components/element';
-import { Tags } from '../onboard';
 import {
     FaFacebook,
     FaTwitter,
@@ -31,6 +30,7 @@ export default function Slug(): React.JSX.Element {
         setPosts(articles);
         setLoading(false);
     };
+    console.log(loading)
   
 
     const singlePost = posts.find(

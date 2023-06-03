@@ -4,8 +4,7 @@ import { FaShare, FaComment } from 'react-icons/fa';
 import { MdFavorite, MdInsights } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
-import { Tags } from '../onboard';
-import { formatDate } from '../../utils/formatDate';
+
 
 interface PostInterface {
     post: {
@@ -35,16 +34,13 @@ interface PostInterface {
 export const Post = ({ post }: PostInterface): React.JSX.Element => {
     const {
         title,
-        body,
         coverImage,
         subtitle,
         tagList,
         author,
         createdAgo,
-        updatedAt,
         slug,
         likeCount,
-        commentCount,
         views,
         comments,
     } = post;
