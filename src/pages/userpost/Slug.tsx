@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
-import { posts } from '../feed';
 import { Typography } from '../../components/element';
 import { Tags } from '../onboard';
 import {
@@ -11,19 +10,40 @@ import {
     FaComment,
 } from 'react-icons/fa';
 import { MdFavorite, MdInsights } from 'react-icons/md';
+import { useEffect, useState } from 'react';
+import { getAllArticle } from '../../firebase/article';
+import { DocumentData } from '@firebase/firestore-types';
+import { Preview } from '../write';
+import { MdLaoder } from './MdLoader';
 
 export default function Slug(): React.JSX.Element {
-    const { postId, userId } = useParams();
+    const { fullName, slug } = useParams();
     const { theme } = useThemeContext();
 
-    // console.log(postId, userId);
+    const [posts, setPosts] = useState<DocumentData>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const fetchPosts = async () => {
+        setLoading(true);
+        const { articles } = await getAllArticle();
+        setPosts(articles);
+        setLoading(false);
+    };
+
+    const formattedSlug = slug?.split('-').join(' ');
+    const formattedFullName = fullName?.split('-').join(' ');
 
     const singlePost = posts.find(
-        (post) =>
-            post.postId === Number(postId) && post.userId === Number(userId)
+        (post: DocumentData) =>
+            post.slug === formattedSlug &&
+            post.author.fullName === formattedFullName
     );
 
-    // console.log(singlePost);
+    console.log(singlePost);
+
+    useEffect(() => {
+        fetchPosts();
+    }, []);
 
     return (
         <section className={` bg-white-100 h-max`}>
@@ -40,6 +60,13 @@ export default function Slug(): React.JSX.Element {
                 >
                     <div>
                         <article className="me-8 laptopS:me-0">
+                            <div className=" max-w-[600px] mb-4 h-[400px] tabletS:h-[300px] object-cover relative">
+                                <img
+                                    src={singlePost?.coverImage}
+                                    className=" object-cover h-full w-full"
+                                    alt=""
+                                />
+                            </div>
                             <Typography
                                 variant={1}
                                 className=" font-semibold text-3xl tabletXS:text-xl mb-3 max-w-[600px]"
@@ -47,17 +74,16 @@ export default function Slug(): React.JSX.Element {
                                 {singlePost?.title}.
                             </Typography>
 
-                            <div className=" max-w-[600px] h-[400px] tabletS:h-[300px] object-cover relative">
-                                <img
-                                    src="/images/post.jpg"
-                                    className=" object-cover h-full w-full"
-                                    alt=""
-                                />
-                            </div>
+                            <Typography
+                                variant={1}
+                                className=" font-normal text-xl tabletXS:text-lg mb-3 max-w-[600px]"
+                            >
+                                {singlePost?.subtitle}.
+                            </Typography>
 
-                            <p className="my-4 max-w-[600px] text-[16px] ">
-                                {singlePost?.description}
-                            </p>
+                            <div>
+                                <MdLaoder content={singlePost?.body} />
+                            </div>
                             <div className=" flex items-center justify-center mt-12 text-xl">
                                 <div className=" flex items-center me-3">
                                     <FaComment className=" " />
@@ -144,7 +170,7 @@ export default function Slug(): React.JSX.Element {
                                 variant={1}
                                 className="p-4 text-center font-semibold text-xl mb-3 text-pink-600"
                             >
-                                Social Share
+                            Share Article
                             </Typography>
 
                             <div className=" mb-4">

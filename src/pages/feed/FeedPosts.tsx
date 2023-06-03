@@ -1,6 +1,8 @@
 import { Post } from './Post';
 import { getAllArticle } from '../../firebase/article';
 import { useEffect, useState } from 'react';
+import { DocumentData } from 'firebase/firestore';
+import { PostLoader } from '../../components/modules/skeletonloader/PostLoader';
 
 export const posts = [
     {
@@ -78,31 +80,37 @@ export const posts = [
 ];
 
 export const FeedPosts = (): React.JSX.Element => {
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState<DocumentData>([]);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const fetchPosts = async () => {
-        const {articles} = await getAllArticle();
-       console.log(articles);
+        setLoading(true);
+        const { articles } = await getAllArticle();
+        setPosts(articles);
+        setLoading(false);
     };
 
     useEffect(() => {
         fetchPosts();
     }, []);
-    
+
     return (
         <div>
-            {posts.map((post) => {
-                const { id, title, description, datePosted } = post;
-                return (
-                    <Post
-                        key={id}
-                        id={id}
-                        title={title}
-                        description={description}
-                        datePosted={datePosted}
-                    />
-                );
-            })}
+            {loading ? (
+                <div>
+                    {[...Array(5)].map((_, index) => (
+                        <PostLoader key={index} />
+                    ))}
+                </div>
+            ) : (
+                <div>
+                    {posts.map((post: any, index: number) => {
+                        console.log(post);
+
+                        return <Post key={index} post={post} />;
+                    })}
+                </div>
+            )}
         </div>
     );
 };

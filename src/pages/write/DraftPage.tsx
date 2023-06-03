@@ -4,44 +4,33 @@ import { useAuthContext } from '../../hooks/auth/useAuthContext';
 import { publishArticle } from '../../firebase/article';
 import { getUser } from '../../firebase/user';
 import { useNavigate } from 'react-router';
-import { useState ,useEffect} from 'react';
+import { useEffect } from 'react';
 
 export default function DraftPage() {
-    const { article, clearArticle , setArticle} = useArticleContext();
+    const { article, clearArticle, setArticle } = useArticleContext();
     const { user } = useAuthContext();
     const navigate = useNavigate();
-    const [author, setAuthor] = useState({
-        authorId: '',
-        displayName: '',
-        fullName: '',
-        bio: '',
-        photoUrl: '',
-    });
 
+    const fetchUser = async () => {
+        if (user) {
+            const userData = await getUser(user?.uid);
+
+            const userDataItem = userData[0];
+            setArticle((prevState) => ({
+                ...prevState,
+                author: {
+                    authorId: user?.uid,
+                    displayName: userDataItem?.data?.displayName,
+                    fullName: userDataItem?.data?.fullName,
+                    bio: userDataItem?.data?.bio,
+                    photoUrl: userDataItem?.data?.photoUrl,
+                },
+            }));
+        }
+    };
     useEffect(() => {
-        const fetchUser = async () => {
-            if (user) {
-                try {
-                    const userData = await getUser(user.uid);
-                    console.log(userData);
-                    if (userData.length > 0) {
-                        const { displayName, fullName, bio, photoUrl } = userData[0].data;
-                        setAuthor({
-                            authorId: user.uid,
-                            displayName: displayName || '',
-                            fullName: fullName || '',
-                            bio: bio || '',
-                            photoUrl: photoUrl || '',
-                        });
-                    }
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-        };
         fetchUser();
     }, [user]);
-
 
     const redirect = async () => {
         navigate('/settings/post');
@@ -49,18 +38,9 @@ export default function DraftPage() {
 
     const handlePublish = async () => {
         console.log('handleDraft');
-        setArticle(prevState => ({
-            ...prevState,
-            author: author,
-            slug: `${author.displayName}/${article?.title}`,
-            createdAt: new Date().toISOString(),
-        }));
-        
         try {
-           
-            console.log(article);
-            // await publishArticle(user?.uid, article);
-            // await redirect();
+            await publishArticle(user?.uid, article);
+            await redirect();
             clearArticle();
         } catch (e) {
             console.log(e);

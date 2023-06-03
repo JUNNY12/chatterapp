@@ -1,8 +1,4 @@
-interface Date {
-    date: any;
-}
-
-export const formatDate = ({ date }: Date) => {
+export const formatDate = (date: string | Date) => {
     const newDate = new Date(date);
     const month = newDate.toLocaleString('default', { month: 'long' });
     const day = newDate.toLocaleString('default', { day: 'numeric' });

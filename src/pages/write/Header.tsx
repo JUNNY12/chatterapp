@@ -38,6 +38,7 @@ export const Header = (): React.JSX.Element => {
         e.preventDefault();
 
         const imageFile = imageRef.current?.files?.[0];
+        console.log(imageFile);
         const storageRef = ref(
             storage,
             `${user?.uid}/articleImage/${imageFile?.name}`

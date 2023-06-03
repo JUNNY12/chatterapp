@@ -4,25 +4,33 @@ import 'react-markdown-editor-lite/lib/index.css';
 import { Header } from '.';
 import { useArticleContext } from '../../hooks/article/useArticleContext';
 import { Preview } from '.';
+import { useState } from 'react';
+import { BeatLoader } from 'react-spinners';
 
 const mdParser = new MarkdownIt();
 
 export const MarkdownEditor = ({ onSave, mode }: any): React.JSX.Element => {
     const { setArticle, article } = useArticleContext();
+    const [isLoading, setIsLoading] = useState(false);
 
-    const { body } = article;
+    const { body, title, tagList } = article;
+
+    const isDisabled = body === '' || title === '' || tagList.length === 0;
 
     const handleEditorChange = ({ text }: any) => {
         setArticle((prevState) => ({
             ...prevState,
+            createdAt: new Date().toISOString(),
             body: text,
+            slug: title,
         }));
     };
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
+        setIsLoading(true);
         await onSave();
-        console.log(article);
+        setIsLoading(false);
     };
 
     return (
@@ -40,10 +48,14 @@ export const MarkdownEditor = ({ onSave, mode }: any): React.JSX.Element => {
                     ) : (
                         <div>
                             <button
-                                className="bg-pink-600 text-white-50 p-2 rounded-[40px] w-[200px] mobileXL:w-[100px] me-8"
+                                className={`bg-pink-600 text-white-50 p-2 
+                                rounded-[40px] w-[200px] mobileXL:w-[100px] me-8 
+                                ${isDisabled && 'opacity-40'}
+                                `}
                                 onClick={handleSubmit}
+                                disabled={isDisabled}
                             >
-                                publish
+                                {isLoading ? <BeatLoader /> : 'Publish'}
                             </button>
 
                             <button

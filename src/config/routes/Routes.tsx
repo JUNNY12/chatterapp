@@ -73,7 +73,7 @@ export function Routes() {
             ],
         },
         {
-            path: '/:userId/:postId',
+            path: '/:fullName/:slug',
             element: <FeedLayout />,
             children: [{ index: true, element: <LazySlug /> }],
         },
