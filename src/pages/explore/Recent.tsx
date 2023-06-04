@@ -31,7 +31,7 @@ export const Recent = (): React.JSX.Element => {
             <div>
                 <div>
                     {posts.slice(0,6).map((post, index) => {
-                        const { title, subtitle, author, createdAgo , body} = post;
+                        const { title, subtitle, author, createdAgo , body, slug} = post;
                         const readingTime = calculateReadingTime(body);
                         return (
                             <article key={index} className="border-b cursor-pointer border-gray-300 p-8 mobileXL:px-2">
@@ -63,7 +63,7 @@ export const Recent = (): React.JSX.Element => {
                                     </div>
                                 </div>
                                 <div 
-                                onClick={() => {navigate(`/${author.fullName}/${title}`)}}
+                                onClick={() => {navigate(`/post/${author.fullName.split(' ').join('_')}/${slug.split(' ').join('_')}`)}}
                                 className=" mb-3">
                                     <Typography
                                         variant={1}

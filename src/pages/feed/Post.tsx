@@ -90,7 +90,7 @@ export const Post = ({ post }: PostInterface): React.JSX.Element => {
 
                 <div
                     onClick={() => {
-                        navigate(`/${author.fullName}/${slug}`);
+                        navigate(`/post/${author.fullName.split(' ').join('_')}/${slug.split(' ').join('_')}`);
                     }}
                 >
                     <Typography

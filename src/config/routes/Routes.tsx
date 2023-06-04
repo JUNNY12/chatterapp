@@ -31,7 +31,6 @@ const LazyManagePost = React.lazy(
 
 const LazyPostPage = React.lazy(() => import('../../pages/write/EditPost'));
 const LazyDraftPage = React.lazy(() => import('../../pages/write/DraftPage'));
-
 const LazyNotFound = React.lazy(() => import('../../pages/notfound/NotFound'));
 
 export function Routes() {
@@ -41,7 +40,6 @@ export function Routes() {
             element: <GeneralLayout />,
             children: [
                 { index: true, element: <LazyHome /> },
-                { path: '*', element: <LazyNotFound /> },
             ],
         },
         {
@@ -59,10 +57,19 @@ export function Routes() {
             path: '/feed',
             element: <FeedLayout />,
             children: [
-                { index: true, element: <LazyFeed /> },
-                { path: 'feature', element: <LazyFeature /> },
-                { path: 'explore', element: <LazyExplore /> },
+                { index: true, element: <LazyFeed /> }
             ],
+        },
+
+        {
+            path: '/explore',
+            element: <FeedLayout />,
+            children: [{ index: true, element: <LazyExplore /> }],
+        },
+        {
+            path: '/feature',
+            element: <FeedLayout />,
+            children: [{ index: true, element: <LazyFeature /> }],
         },
         {
             path: '/write',
@@ -73,7 +80,7 @@ export function Routes() {
             ],
         },
         {
-            path: '/:fullName/:slug',
+            path: '/post/:fullName/:slug',
             element: <FeedLayout />,
             children: [{ index: true, element: <LazySlug /> }],
         },
@@ -84,7 +91,9 @@ export function Routes() {
                 { index: true, element: <LazyProfile /> },
                 { path: 'account', element: <LazyAccount /> },
                 { path: 'post', element: <LazyManagePost /> },
+                { path: 'post/:slug', element: <UserLayout /> }
             ],
         },
+        { path: '*', element: <LazyNotFound /> },
     ]);
 }

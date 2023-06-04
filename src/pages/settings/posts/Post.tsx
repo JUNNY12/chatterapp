@@ -1,10 +1,11 @@
-import { Typography } from '../../../components/element';
+import { Button, Typography } from '../../../components/element';
 import { useThemeContext } from '../../../hooks/theme/useThemeContext';
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash, FaEye } from 'react-icons/fa';
 import { getUserArticles } from '../../../firebase/article';
 import { useAuthContext } from '../../../hooks/auth/useAuthContext';
 import { useState, useEffect } from 'react';
 import { formatDate } from '../../../utils/formatDate';
+
 
 export default function Post(): React.JSX.Element {
     const { theme } = useThemeContext();
@@ -92,12 +93,15 @@ export default function Post(): React.JSX.Element {
                                             <div className="me-3  w-[30%]">
                                                 {formatDate(createdAt)}
                                             </div>
-                                            <div
-                                                className="me-3 w-[20%] text-red-600 cursor-pointer"
-                                                title="delete post"
-                                                role="button"
-                                            >
-                                                <FaTrash />
+                                            <div className="me-3 w-[20%] inline-flex items-center" >
+                                                <Button 
+                                                    title="delete post"
+                                                    role="button"
+                                                className=' text-red-600 cursor-pointer'><FaTrash /></Button>
+                                                <Button 
+                                                    title="Preview post"
+                                                    role="button"
+                                                className=' text-green-600 cursor-pointer'><FaEye className="ms-2" /></Button>
                                             </div>
                                         </div>
                                     );

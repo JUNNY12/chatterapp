@@ -52,7 +52,7 @@ export const SharedSideBar = () => {
                 </NavLink>
 
                 <NavLink
-                    to={'/feed/explore'}
+                    to={'/explore'}
                     className={({ isActive }: any) =>
                         isActive ? 'text-pink-600' : ''
                     }
@@ -75,7 +75,7 @@ export const SharedSideBar = () => {
                     <span>Drafts</span>
                 </li>
                 <NavLink
-                    to={`/feed/feature`}
+                    to={`/feature`}
                     className={({ isActive }: any) =>
                         isActive ? 'text-pink-600' : ''
                     }

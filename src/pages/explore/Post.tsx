@@ -11,6 +11,7 @@ import { calculateReadingTime } from '../../utils';
 
 export const Post = ({ post:{
     title,
+    slug,
     createdAgo,
     tagList,
     author:{ displayName, photoUrl, occupation, fullName},
@@ -62,7 +63,7 @@ export const Post = ({ post:{
 
                 <div
                     onClick={() => {
-                        navigate(`/${fullName}/${title}`);
+                        navigate(`/post/${fullName.split(' ').join('_')}/${slug.split(' ').join('_')}`);
                     }}
                 >
                     <Typography

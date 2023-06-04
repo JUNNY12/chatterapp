@@ -19,11 +19,15 @@ export default function Slug(): React.JSX.Element {
     const { fullName, slug } = useParams();
     const { theme } = useThemeContext();
     const { posts, loading } = useFetchPost();
+    console.log(slug);
 
+    const formattedSlug = slug?.split('_').join(' ');
+    const formattedFullName = fullName?.split('_').join(' ');
+    console.log(formattedSlug, formattedFullName);
  
     const singlePost = posts.find(
         (post: DocumentData) =>
-            post.slug === slug && post.author.fullName === fullName
+            post.slug === formattedSlug && post.author.fullName === formattedFullName
     );
 
     return (
@@ -67,6 +71,18 @@ export default function Slug(): React.JSX.Element {
                                     <div>
                                         <MdLaoder content={singlePost?.body} />
                                     </div>
+                                    
+                                    <div className="flex flex-wrap items-center my-3">
+                                        {singlePost?.tagList.map((tag, index) => (
+                                            <div key={index} className="me-1">
+                                                <span>#</span>
+                                                <span className=" me-2 mb-2 text-sm font-semibold text-pink-600">
+                                                    {tag}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+
                                     <div className=" flex items-center justify-center mt-12 text-xl">
                                         <div className=" flex items-center me-3">
                                             <FaComment className=" " />

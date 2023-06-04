@@ -7,7 +7,7 @@ export default function NotFound(): React.JSX.Element {
 
     return (
         <div
-            className={`transition duration-500 ease-in-out flex items-center justify-center pt-36 ${
+            className={`transition h-screen duration-500 ease-in-out flex items-center justify-center pt-36 ${
                 theme === 'lightMode'
                     ? 'bg-white-50 text-black-950'
                     : theme === 'darkMode' && 'bg-gray-800 text-white-100'

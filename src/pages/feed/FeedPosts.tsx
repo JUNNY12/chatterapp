@@ -1,7 +1,4 @@
 import { Post } from './Post';
-import { getAllArticle } from '../../firebase/article';
-import { useEffect, useState } from 'react';
-import { DocumentData } from 'firebase/firestore';
 import { PostLoader } from '../../components/modules/skeletonloader/PostLoader';
 import { useFetchPost } from '../../hooks/article/useFetchPost';
 export const posts = [
