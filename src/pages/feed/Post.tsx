@@ -5,7 +5,6 @@ import { MdFavorite, MdInsights } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 
-
 interface PostInterface {
     post: {
         title: string;
@@ -89,9 +88,7 @@ export const Post = ({ post }: PostInterface): React.JSX.Element => {
 
                 <div
                     onClick={() => {
-                        navigate(
-                            `/${author.fullName}/${slug}`
-                        );
+                        navigate(`/${author.fullName}/${slug}`);
                     }}
                 >
                     <Typography
@@ -114,9 +111,9 @@ export const Post = ({ post }: PostInterface): React.JSX.Element => {
 
                     <div className="flex flex-wrap items-center my-3">
                         {tagList.map((tag, index) => (
-                            <div key={index} className="me-1">
-                                <span> # </span>
-                                <span className=" me-2 text-sm font-semibold text-pink-600">
+                            <div key={index} className="me-2">
+                                <span>#</span>
+                                <span className=" text-sm font-semibold text-pink-600">
                                     {tag}
                                 </span>
                             </div>

@@ -3,6 +3,7 @@ import { SideBar, FeedNav } from '../modules';
 import { useWidth } from '../../hooks';
 import { useNav } from '../../hooks/nav/useNav';
 import { useEffect } from 'react';
+import PostProvider from '../../context/article/FetchAllPostContext';
 
 export const FeedLayout = (): React.JSX.Element => {
     const width = useWidth();
@@ -19,10 +20,10 @@ export const FeedLayout = (): React.JSX.Element => {
     }, [width, setShow, pathname]);
 
     return (
-        <>
+        <PostProvider>
             <FeedNav />
             <div>{!show && <SideBar />}</div>
             <Outlet />
-        </>
+        </PostProvider>
     );
 };

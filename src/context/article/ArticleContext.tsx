@@ -38,8 +38,6 @@ export interface ArticleContextProps {
         comments: Comment[];
     };
     addTag: (tag: string) => void;
-    addComment: (comment: Comment) => void;
-    deleteComment: (commentId: string) => void;
     clearArticle: () => void;
     setArticle: React.Dispatch<
         React.SetStateAction<{
@@ -66,10 +64,7 @@ export interface ArticleContextProps {
         }>
     >;
     handleOnChange: (event: ChangeEvent<HTMLInputElement>) => void;
-    handleCommentInput: (
-        event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-    ) => void;
-    commentInput?: string;
+ 
     tagQuery: string;
     handleTagQuery: (event: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -97,10 +92,7 @@ export const ArticleContext = createContext<ArticleContextProps>({
         views: 0,
         comments: [],
     },
-    //function to add comment
-    addComment: () => {},
-    //function to delete comment
-    deleteComment: () => {},
+
 
     addTag: () => {},
 
@@ -110,10 +102,7 @@ export const ArticleContext = createContext<ArticleContextProps>({
     handleOnChange: () => {},
 
     clearArticle: () => {},
-    //function to handle onChange event for comment
-    handleCommentInput: () => {},
-    commentInput: '',
-
+ 
     tagQuery: '',
     handleTagQuery: () => {},
 });
@@ -124,7 +113,6 @@ type ArticleProviderProps = {
 };
 
 export const ArticleProvider = ({ children }: ArticleProviderProps) => {
-    const [commentInput, setCommentInput] = useState('');
     const [tagQuery, setTagQuery] = useState('');
     const [article, setArticle] = useState<ArticleContextProps['article']>({
         title: '',
@@ -180,30 +168,6 @@ export const ArticleProvider = ({ children }: ArticleProviderProps) => {
         }
     };
 
-    //function to handle onChange event for comment
-    const handleCommentInput = (
-        event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
-        setCommentInput(event.target.value);
-    };
-
-    //function to add comment
-    const addComment = (comment: Comment) => {
-        setArticle((prevArticle) => ({
-            ...prevArticle,
-            comments: [...prevArticle.comments, comment],
-        }));
-    };
-
-    //function to delete comment
-    const deleteComment = (commentId: string) => {
-        setArticle((prevArticle) => ({
-            ...prevArticle,
-            comments: prevArticle.comments.filter(
-                (comment) => comment.id !== commentId
-            ),
-        }));
-    };
 
     const clearArticle = () => {
         setArticle({
@@ -228,7 +192,6 @@ export const ArticleProvider = ({ children }: ArticleProviderProps) => {
             views: 0,
             comments: [],
         });
-        setCommentInput('');
         setTagQuery('');
     };
 
@@ -239,10 +202,6 @@ export const ArticleProvider = ({ children }: ArticleProviderProps) => {
                 article,
                 setArticle,
                 handleOnChange,
-                handleCommentInput,
-                addComment,
-                deleteComment,
-                commentInput,
                 tagQuery,
                 handleTagQuery,
                 addTag,

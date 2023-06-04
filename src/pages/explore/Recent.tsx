@@ -1,9 +1,13 @@
 import { Typography } from '../../components/element';
 import { posts } from '../feed/FeedPosts';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
+import { useFetchPost } from '../../hooks/article/useFetchPost';
 
 export const Recent = (): React.JSX.Element => {
     const { theme } = useThemeContext();
+    const { loading, posts} = useFetchPost();
+
+    console.log(posts, loading)
 
     return (
         <section
@@ -23,15 +27,16 @@ export const Recent = (): React.JSX.Element => {
             </Typography>
             <div>
                 <div>
-                    {posts.slice(0, 5).map((post) => {
-                        const { id, title, description, datePosted } = post;
+                    {posts.slice(0,6).map((post, index) => {
+                        const { title, subtitle, author, createdAgo } = post;
                         return (
-                            <article className="border-b border-gray-300 p-8 mobileXL:px-2">
+                            <article key={index} className="border-b border-gray-300 p-8 mobileXL:px-2">
                                 <div className=" flex items-center mb-3">
                                     <div className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] me-4 border border-gray-300 relative rounded-full object-cover">
                                         <img
-                                            src="/images/hero.svg"
-                                            alt="user"
+                                            src={author.photoUrl}
+                                            title={author.displayName}
+                                            alt={author.displayName}
                                             className=" rounded-full object-cover w-full h-full"
                                         />
                                     </div>
@@ -40,28 +45,28 @@ export const Recent = (): React.JSX.Element => {
                                             variant={1}
                                             className="font-bold text-2xl mobileXL:text-lg"
                                         >
-                                            John Doe
+                                            {author.fullName}
                                         </Typography>
                                         <Typography
                                             variant={2}
                                             className=" font-semibold mobileXL:text-[12px] inline-flex flex-wrap"
                                         >
-                                            <span> Product Manager </span>
+                                            <span> {author.occupation} </span>
                                             <span className=" ms-6 mobileXL:ms-3">
-                                                {datePosted}
+                                                {createdAgo}
                                             </span>
                                         </Typography>
                                     </div>
                                 </div>
-                                <div key={id} className=" mb-3">
+                                <div  className=" mb-3">
                                     <Typography
                                         variant={1}
                                         className=" text-3xl mobileXL:text-xl font-bold mb-2"
                                     >
                                         {title}
                                     </Typography>
-                                    <p className=" max-w-[600px]">
-                                        {description.substring(0, 100)}
+                                    <p className=" max-w-[600px] text-2xl mobileXL:text-lg font-normal">
+                                        {subtitle}
                                     </p>
                                     <Typography
                                         variant={2}

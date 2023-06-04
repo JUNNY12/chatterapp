@@ -3,7 +3,7 @@ import { getAllArticle } from '../../firebase/article';
 import { useEffect, useState } from 'react';
 import { DocumentData } from 'firebase/firestore';
 import { PostLoader } from '../../components/modules/skeletonloader/PostLoader';
-
+import { useFetchPost } from '../../hooks/article/useFetchPost';
 export const posts = [
     {
         id: 1,
@@ -80,60 +80,9 @@ export const posts = [
 ];
 
 export const FeedPosts = (): React.JSX.Element => {
-    const [posts, setPosts] = useState<DocumentData>([]);
-    const [loading, setLoading] = useState<boolean>(false);
 
-    const fetchPosts = async () => {
-        setLoading(true);
-        const { articles } = await getAllArticle();
-
-        // Sort articles in descending order based on creation time
-        const sortedArticles = articles.sort((a: any, b: any) => {
-            const dateA = new Date(a.createdAt);
-            const dateB = new Date(b.createdAt);
-
-            return dateB.getTime() - dateA.getTime();
-        });
-
-        // Update posts based on creation time
-        const updatedPosts = sortedArticles.map((post: any) => {
-            const createdDate = new Date(post.createdAt);
-            const currentDate = new Date();
-            const timeDifference = currentDate.getTime() - createdDate.getTime();
-
-            // Update the post object with the relative time
-            return {
-                ...post,
-                createdAgo: getTimeDifferenceString(timeDifference),
-            };
-        });
-
-        setPosts(updatedPosts);
-        setLoading(false);
-    };
-
-    // Get the relative time difference string
-    const getTimeDifferenceString = (timeDifference: number): string => {
-        const seconds = Math.floor(timeDifference / 1000);
-        const minutes = Math.floor(seconds / 60);
-        const hours = Math.floor(minutes / 60);
-        const days = Math.floor(hours / 24);
-
-        if (days > 0) {
-            return `${days} days ago`;
-        } else if (hours > 0) {
-            return `${hours} hours ago`;
-        } else if (minutes > 0) {
-            return `${minutes} minutes ago`;
-        } else {
-            return `${seconds} seconds ago`;
-        }
-    };
-
-    useEffect(() => {
-        fetchPosts();
-    }, []);
-
+    const { posts, loading } = useFetchPost();   
+     
     return (
         <div>
             {loading ? (
@@ -144,10 +93,8 @@ export const FeedPosts = (): React.JSX.Element => {
                 </div>
             ) : (
                 <div>
-                    {posts.map((post: any, index: number) => {
-                        console.log(post);
-
-                        return <Post key={index} post={post} />;
+                    {posts.map((post: any, index: number) => {   
+                     return <Post key={index} post={post} />;
                     })}
                 </div>
             )}

@@ -1,9 +1,15 @@
 import { posts } from '../feed/FeedPosts';
 import { Typography } from '../../components/element';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
+// import { useFetchPost } from '../../hooks/article/useFetchPost';
 
 export const Trending = (): React.JSX.Element => {
     const { theme } = useThemeContext();
+
+    // const {loading, trendingPosts } = useFetchPost();
+
+    // console.log(trendingPosts, loading)
+
     return (
         <section
             className={`rounded-md m-8 tabletXS:m-3 h-full transition duration-500 ease-in-out 
