@@ -4,8 +4,9 @@ import { FaShare, FaComment } from 'react-icons/fa';
 import { MdFavorite, MdInsights } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
+import { calculateReadingTime } from '../../utils';
 
-interface PostInterface {
+export interface PostInterface {
     post: {
         title: string;
         body: string;
@@ -39,6 +40,7 @@ export const Post = ({ post }: PostInterface): React.JSX.Element => {
         author,
         createdAgo,
         slug,
+        body,
         likeCount,
         views,
         comments,
@@ -106,7 +108,7 @@ export const Post = ({ post }: PostInterface): React.JSX.Element => {
                     </Typography>
 
                     <Typography variant={2} className="font-semibold mb-1">
-                        10 mins read
+                        {calculateReadingTime(body)} mins read
                     </Typography>
 
                     <div className="flex flex-wrap items-center my-3">

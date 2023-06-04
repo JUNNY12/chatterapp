@@ -1,24 +1,17 @@
-import { posts } from '../feed';
 import { Post, Trending, Recent } from '.';
+import { useFetchPost } from '../../hooks/article/useFetchPost';
+
 
 export const ExplorePosts = (): React.JSX.Element => {
+    const { posts } = useFetchPost();
     return (
         <div>
             <Trending />
             <Recent />
             <div>
-                {posts.map((post) => {
-                    const { id, title, description, datePosted } = post;
-                    return (
-                        <Post
-                            key={id}
-                            id={id}
-                            title={title}
-                            description={description}
-                            datePosted={datePosted}
-                        />
-                    );
-                })}
+                {posts.map((post:any, index:number) => (
+                    <Post key={index} post={post} />
+                ))}
             </div>
         </div>
     );

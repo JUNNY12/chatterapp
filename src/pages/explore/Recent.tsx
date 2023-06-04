@@ -1,11 +1,14 @@
 import { Typography } from '../../components/element';
-import { posts } from '../feed/FeedPosts';
+import { useNavigate } from 'react-router';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 import { useFetchPost } from '../../hooks/article/useFetchPost';
+import { calculateReadingTime } from '../../utils';
 
 export const Recent = (): React.JSX.Element => {
     const { theme } = useThemeContext();
     const { loading, posts} = useFetchPost();
+
+    const navigate = useNavigate();
 
     console.log(posts, loading)
 
@@ -28,9 +31,10 @@ export const Recent = (): React.JSX.Element => {
             <div>
                 <div>
                     {posts.slice(0,6).map((post, index) => {
-                        const { title, subtitle, author, createdAgo } = post;
+                        const { title, subtitle, author, createdAgo , body} = post;
+                        const readingTime = calculateReadingTime(body);
                         return (
-                            <article key={index} className="border-b border-gray-300 p-8 mobileXL:px-2">
+                            <article key={index} className="border-b cursor-pointer border-gray-300 p-8 mobileXL:px-2">
                                 <div className=" flex items-center mb-3">
                                     <div className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] me-4 border border-gray-300 relative rounded-full object-cover">
                                         <img
@@ -58,7 +62,9 @@ export const Recent = (): React.JSX.Element => {
                                         </Typography>
                                     </div>
                                 </div>
-                                <div  className=" mb-3">
+                                <div 
+                                onClick={() => {navigate(`/${author.fullName}/${title}`)}}
+                                className=" mb-3">
                                     <Typography
                                         variant={1}
                                         className=" text-3xl mobileXL:text-xl font-bold mb-2"
@@ -68,6 +74,10 @@ export const Recent = (): React.JSX.Element => {
                                     <p className=" max-w-[600px] text-2xl mobileXL:text-lg font-normal">
                                         {subtitle}
                                     </p>
+                                    <Typography variant={2} className="font-semibold my-3">
+                                        {readingTime} mins read
+                                    </Typography>
+
                                     <Typography
                                         variant={2}
                                         className="text-sm font-bold mb-3 text-pink-600"

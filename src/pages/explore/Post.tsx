@@ -4,19 +4,21 @@ import { FaShare, FaComment } from 'react-icons/fa';
 import { MdFavorite, MdInsights } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
-import { Tags } from '../onboard';
+import { PostInterface } from '../feed';
+import { calculateReadingTime } from '../../utils';
 
-interface PostProps {
-    id?: any;
-    title?: string;
-    description?: string;
-    datePosted?: string;
-}
 
-export const Post = ({ title, datePosted }: PostProps): React.JSX.Element => {
-    const postId = 23;
-    const userId = 23;
 
+export const Post = ({ post:{
+    title,
+    createdAgo,
+    tagList,
+    author:{ displayName, photoUrl, occupation, fullName},
+    coverImage,
+    subtitle,
+    body
+} }:PostInterface): React.JSX.Element => {
+  
     const navigate = useNavigate();
     const { theme } = useThemeContext();
 
@@ -34,8 +36,8 @@ export const Post = ({ title, datePosted }: PostProps): React.JSX.Element => {
                 <div className=" flex items-center mb-3">
                     <div className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] me-4 border border-gray-300 relative rounded-full object-cover">
                         <img
-                            src="/images/hero.jpg"
-                            alt="user"
+                            src={photoUrl}
+                            alt={displayName}
                             className=" rounded-full object-cover w-full h-full"
                         />
                     </div>
@@ -44,15 +46,15 @@ export const Post = ({ title, datePosted }: PostProps): React.JSX.Element => {
                             variant={1}
                             className="font-bold text-2xl mobileXL:text-lg"
                         >
-                            John Doe
+                            {fullName}
                         </Typography>
                         <Typography
                             variant={2}
                             className=" font-semibold mobileXL:text-[12px] inline-flex flex-wrap"
                         >
-                            <span> Product Manager </span>
+                            <span>{occupation}</span>
                             <span className=" ms-6 mobileXL:ms-3">
-                                {datePosted}
+                                {createdAgo}
                             </span>
                         </Typography>
                     </div>
@@ -60,7 +62,7 @@ export const Post = ({ title, datePosted }: PostProps): React.JSX.Element => {
 
                 <div
                     onClick={() => {
-                        navigate(`/${userId}/${postId}`);
+                        navigate(`/${fullName}/${title}`);
                     }}
                 >
                     <Typography
@@ -70,15 +72,22 @@ export const Post = ({ title, datePosted }: PostProps): React.JSX.Element => {
                         {title}
                     </Typography>
 
+                    <Typography
+                        variant={2}
+                        className=" text-2xl mobileXL:text-lg font-normal mb-2"
+                    >
+                        {subtitle}
+                    </Typography>
+
                     <Typography variant={2} className="font-semibold mb-1">
-                        10 mins read
+                        {calculateReadingTime(body)} mins read
                     </Typography>
 
                     <div className="flex flex-wrap items-center my-3">
-                        {Tags.slice(0, 3).map((tag, index) => (
+                        {tagList.map((tag, index) => (
                             <div key={index} className="me-1">
-                                <span> # </span>
-                                <span className=" me-2 text-sm font-semibold text-pink-600">
+                                <span>#</span>
+                                <span className=" me-2 mb-2 text-sm font-semibold text-pink-600">
                                     {tag}
                                 </span>
                             </div>
@@ -96,8 +105,8 @@ export const Post = ({ title, datePosted }: PostProps): React.JSX.Element => {
 
                     <div className=" relative object-cover max-w-[600px] h-[300px] my-3">
                         <img
-                            src="/images/hero.jpg"
-                            alt="post"
+                            src={coverImage}
+                            alt={title}
                             className=" object-cover h-full w-full"
                         />
                     </div>
