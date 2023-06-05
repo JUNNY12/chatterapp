@@ -2,7 +2,6 @@ import { useArticleContext } from '../../hooks/article/useArticleContext';
 import { MarkdownEditor } from '.';
 import { useAuthContext } from '../../hooks/auth/useAuthContext';
 import { publishArticle } from '../../firebase/article';
-import { getUser } from '../../firebase/user';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 
@@ -13,18 +12,10 @@ export default function DraftPage() {
 
     const fetchUser = async () => {
         if (user) {
-            const userData = await getUser(user?.uid);
-
-            const userDataItem = userData[0];
             setArticle((prevState) => ({
                 ...prevState,
                 author: {
                     authorId: user?.uid,
-                    occupation: userDataItem?.data?.occupation,
-                    displayName: userDataItem?.data?.displayName,
-                    fullName: userDataItem?.data?.fullName,
-                    bio: userDataItem?.data?.bio,
-                    photoUrl: userDataItem?.data?.photoUrl,
                 },
             }));
         }

@@ -1,4 +1,3 @@
-import { posts } from '../feed/FeedPosts';
 import { Typography } from '../../components/element';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 // import { useFetchPost } from '../../hooks/article/useFetchPost';
@@ -27,7 +26,7 @@ export const Trending = (): React.JSX.Element => {
                 Trending
             </Typography>
             <div>
-                <div>
+                {/* <div>
                     {posts.slice(0, 5).map((post) => {
                         const { id, title, description, datePosted } = post;
                         return (
@@ -78,7 +77,7 @@ export const Trending = (): React.JSX.Element => {
                             </article>
                         );
                     })}
-                </div>
+                </div> */}
             </div>
         </section>
     );

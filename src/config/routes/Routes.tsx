@@ -32,15 +32,16 @@ const LazyManagePost = React.lazy(
 const LazyPostPage = React.lazy(() => import('../../pages/write/EditPost'));
 const LazyDraftPage = React.lazy(() => import('../../pages/write/DraftPage'));
 const LazyNotFound = React.lazy(() => import('../../pages/notfound/NotFound'));
+const LazyPreviewSlug = React.lazy(
+    () => import('../../pages/settings/posts/PreviewSlug')
+);
 
 export function Routes() {
     return useRoutes([
         {
             path: '/',
             element: <GeneralLayout />,
-            children: [
-                { index: true, element: <LazyHome /> },
-            ],
+            children: [{ index: true, element: <LazyHome /> }],
         },
         {
             path: '/onboard',
@@ -56,9 +57,7 @@ export function Routes() {
         {
             path: '/feed',
             element: <FeedLayout />,
-            children: [
-                { index: true, element: <LazyFeed /> }
-            ],
+            children: [{ index: true, element: <LazyFeed /> }],
         },
 
         {
@@ -91,7 +90,14 @@ export function Routes() {
                 { index: true, element: <LazyProfile /> },
                 { path: 'account', element: <LazyAccount /> },
                 { path: 'post', element: <LazyManagePost /> },
-                { path: 'post/:slug', element: <UserLayout /> }
+            ],
+        },
+        {
+            path: '/preview',
+            element: <UserLayout />,
+            children: [
+                { index: true, element: <FeedLayout /> },
+                { path: ':slug', element: <LazyPreviewSlug /> },
             ],
         },
         { path: '*', element: <LazyNotFound /> },

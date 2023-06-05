@@ -1,17 +1,36 @@
-import { createContext } from "react";
-import { getAllArticle } from "../../firebase/article";
-import { useEffect, useState } from "react";
-import { getTimeDifferenceString } from "../../utils/getTimeDifference";
-import { getTopArticle } from "../../firebase/article";
-
+import { createContext } from 'react';
+import { getAllArticle } from '../../firebase/article';
+import { useEffect, useState } from 'react';
+import { getTimeDifferenceString } from '../../utils/getTimeDifference';
+import { getTopArticle } from '../../firebase/article';
+import { getUser } from '../../firebase/user';
 
 export interface Author {
-    authorId: string;
-    displayName: string;
-    fullName: string;
-    bio: string;
-    photoUrl: string;
-    occupation: string;
+    id: string;
+    data: {
+        socialInfo: {
+            twitter: string;
+            website: string;
+            instagram: string;
+            facebook: string;
+            linkedIn: string;
+            github: string;
+        };
+        bio: string;
+        status: string;
+        tags: string[];
+        displayName: string;
+        location: string;
+        availability: string;
+        photoUrl: string;
+        fullName: string;
+        email: string;
+        userType: {
+            isWriter: boolean;
+            isReader: boolean;
+        };
+        occupation: string;
+    }[];
 }
 
 export interface Comment {
@@ -26,7 +45,7 @@ export interface Comment {
     replies: Comment[];
 }
 
-export interface Post {
+export interface SinglePostInterface {
     title: string;
     body: string;
     subtitle: string;
@@ -43,8 +62,8 @@ export interface Post {
 }
 
 export interface PostInterface {
-    posts: Post[];
-    trendingPosts: Post[];
+    posts: SinglePostInterface[];
+    trendingPosts: SinglePostInterface[];
     loading: boolean;
 }
 
@@ -55,38 +74,51 @@ type ProviderChildren = {
 };
 
 export default function PostProvider({ children }: ProviderChildren) {
-    const [posts, setPosts] = useState<Post[]>([]);
-    const [trendingPosts, setTrendingPosts] = useState<Post[]>([]);
+    const [posts, setPosts] = useState<SinglePostInterface[]>([]);
+    const [trendingPosts, setTrendingPosts] = useState<SinglePostInterface[]>(
+        []
+    );
     const [loading, setLoading] = useState<boolean>(false);
 
     const fetchPosts = async () => {
         setLoading(true);
-        const { articles } = await getAllArticle();
+        try {
+            const { articles } = await getAllArticle();
 
-        // Sort articles in descending order based on creation time
-        const sortedArticles = articles.sort((a: any, b: any) => {
-            const dateA = new Date(a.createdAt);
-            const dateB = new Date(b.createdAt);
+            // Sort articles in descending order based on creation time
+            const sortedArticles = articles.sort((a: any, b: any) => {
+                const dateA = new Date(a.createdAt);
+                const dateB = new Date(b.createdAt);
 
-            return dateB.getTime() - dateA.getTime();
-        });
+                return dateB.getTime() - dateA.getTime();
+            });
 
-        // Update posts based on creation time
-        const updatedPosts = sortedArticles.map((post: any) => {
-            const createdDate = new Date(post.createdAt);
-            const currentDate = new Date();
-            const timeDifference =
-                currentDate.getTime() - createdDate.getTime();
+            // Fetch author details for each article by authorId
+            const updatedPosts = await Promise.all(
+                sortedArticles.map(async (post: any) => {
+                    const createdDate = new Date(post.createdAt);
+                    const currentDate = new Date();
+                    const timeDifference =
+                        currentDate.getTime() - createdDate.getTime();
 
-            // Update the post object with the relative time
-            return {
-                ...post,
-                createdAgo: getTimeDifferenceString(timeDifference),
-            };
-        });
+                    // Fetch author details using authorId
+                    const author = await getUser(post.author.authorId);
 
-        setPosts(updatedPosts);
-        setLoading(false);
+                    // Update the post object with the relative time and author details
+                    return {
+                        ...post,
+                        createdAgo: getTimeDifferenceString(timeDifference),
+                        author: author as Author, // Assuming `getUser` returns an Author object
+                    };
+                })
+            );
+
+            setPosts(updatedPosts);
+            setLoading(false);
+        } catch (error) {
+            console.log('Error fetching posts:', error);
+            setLoading(false);
+        }
     };
 
     const fetchTopPosts = async () => {

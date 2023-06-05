@@ -21,14 +21,7 @@ export interface ArticleContextProps {
         body?: string;
         coverImage?: string;
         tagList: string[];
-        author?: {
-            authorId?: string;
-            displayName?: string;
-            fullName?: string;
-            bio?: string;
-            photoUrl?: string;
-            occupation?: string;
-        };
+        author?: { authorId?: string };
         createdAt?: string;
         updatedAt?: string;
         slug?: string;
@@ -46,14 +39,7 @@ export interface ArticleContextProps {
             body?: string;
             coverImage?: string;
             tagList: string[];
-            author?: {
-                authorId?: string;
-                displayName?: string;
-                fullName?: string;
-                bio?: string;
-                photoUrl?: string;
-                occupation?: string;
-            };
+            author?: { authorId?: string };
             createdAt?: string;
             updatedAt?: string;
             slug?: string;
@@ -64,7 +50,7 @@ export interface ArticleContextProps {
         }>
     >;
     handleOnChange: (event: ChangeEvent<HTMLInputElement>) => void;
- 
+
     tagQuery: string;
     handleTagQuery: (event: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -76,14 +62,7 @@ export const ArticleContext = createContext<ArticleContextProps>({
         body: '',
         coverImage: '',
         tagList: [],
-        author: {
-            authorId: '',
-            displayName: '',
-            fullName: '',
-            bio: '',
-            photoUrl: '',
-            occupation: '',
-        },
+        author: { authorId: '' },
         createdAt: '',
         updatedAt: '',
         slug: '',
@@ -93,7 +72,6 @@ export const ArticleContext = createContext<ArticleContextProps>({
         comments: [],
     },
 
-
     addTag: () => {},
 
     //function to set article
@@ -102,7 +80,7 @@ export const ArticleContext = createContext<ArticleContextProps>({
     handleOnChange: () => {},
 
     clearArticle: () => {},
- 
+
     tagQuery: '',
     handleTagQuery: () => {},
 });
@@ -120,14 +98,7 @@ export const ArticleProvider = ({ children }: ArticleProviderProps) => {
         body: '',
         coverImage: '',
         tagList: [],
-        author: {
-            authorId: '',
-            displayName: '',
-            fullName: '',
-            bio: '',
-            photoUrl: '',
-            occupation: '',
-        },
+        author: { authorId: '' },
         createdAt: '',
         updatedAt: '',
         slug: '',
@@ -168,7 +139,6 @@ export const ArticleProvider = ({ children }: ArticleProviderProps) => {
         }
     };
 
-
     const clearArticle = () => {
         setArticle({
             title: '',
@@ -176,14 +146,7 @@ export const ArticleProvider = ({ children }: ArticleProviderProps) => {
             body: '',
             coverImage: '',
             tagList: [],
-            author: {
-                authorId: '',
-                displayName: '',
-                fullName: '',
-                bio: '',
-                photoUrl: '',
-                occupation: '',
-            },
+            author: { authorId: '' },
             createdAt: '',
             updatedAt: '',
             slug: '',

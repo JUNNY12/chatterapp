@@ -5,13 +5,15 @@ import { getUserArticles } from '../../../firebase/article';
 import { useAuthContext } from '../../../hooks/auth/useAuthContext';
 import { useState, useEffect } from 'react';
 import { formatDate } from '../../../utils/formatDate';
-
+import { useNavigate } from 'react-router';
 
 export default function Post(): React.JSX.Element {
     const { theme } = useThemeContext();
     const { user } = useAuthContext();
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    const navigate = useNavigate();
 
     const fetchUserArticles = async () => {
         try {
@@ -79,33 +81,35 @@ export default function Post(): React.JSX.Element {
                             })
                         ) : (
                             <div>
-                                {posts.map((post) => {
-                                    const { id, data } = post;
-                                    const { title, createdAt } = data;
-                                    return (
-                                        <div
-                                            key={id}
-                                            className="flex items-center mt-8"
-                                        >
-                                            <div className="me-3 w-[50%]">
-                                                {title}
-                                            </div>
-                                            <div className="me-3  w-[30%]">
-                                                {formatDate(createdAt)}
-                                            </div>
-                                            <div className="me-3 w-[20%] inline-flex items-center" >
-                                                <Button 
-                                                    title="delete post"
-                                                    role="button"
-                                                className=' text-red-600 cursor-pointer'><FaTrash /></Button>
-                                                <Button 
-                                                    title="Preview post"
-                                                    role="button"
-                                                className=' text-green-600 cursor-pointer'><FaEye className="ms-2" /></Button>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
+                                        {posts.map((post: { id: string; data: { title: string; createdAt: string; slug: string } }) => {
+                                            const { id, data } = post;
+                                            const { title, createdAt, slug } = data;
+
+                                            return (
+                                                <div key={id} className="flex items-center mt-8">
+                                                    <div className="me-3 w-[50%]">{title}</div>
+                                                    <div className="me-3 w-[30%]">{formatDate(createdAt)}</div>
+                                                    <div className="me-3 w-[20%] inline-flex items-center">
+                                                        <Button
+                                                            title="delete post"
+                                                            role="button"
+                                                            className="text-red-600 cursor-pointer"
+                                                        >
+                                                            <FaTrash />
+                                                        </Button>
+                                                        <Button
+                                                            onClick={() => navigate(`/preview/${slug.split(' ').join('_')}`)}
+                                                            title="Preview post"
+                                                            role="button"
+                                                            className="text-green-600 cursor-pointer"
+                                                        >
+                                                            <FaEye className="ms-2" />
+                                                        </Button>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+
                             </div>
                         )}
                     </div>

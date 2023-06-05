@@ -55,7 +55,7 @@ export const MarkdownEditor = ({ onSave, mode }: any): React.JSX.Element => {
                                 onClick={handleSubmit}
                                 disabled={isDisabled}
                             >
-                                {isLoading ? <BeatLoader /> : 'Publish'}
+                                {isLoading ? <BeatLoader color='#ffffff' size={10}/> : 'Publish'}
                             </button>
 
                             <button

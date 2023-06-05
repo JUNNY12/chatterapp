@@ -5,7 +5,12 @@ import { NavLink, useLocation } from 'react-router-dom';
 export const UserSideBar = (): React.JSX.Element => {
     const { theme } = useThemeContext();
     const { pathname } = useLocation();
-    const formattedPathname = pathname.replace(/\/([^/]+)/g, ' / $1');
+
+    let formattedPathname = pathname.replace(/\/([^/]+)/g, ' / $1');
+
+    if (pathname.includes('/preview')) {
+        formattedPathname = pathname.replace(/\/preview(\/*[^/]*)/, ' / preview');
+    }
 
     return (
         <div className="mx-8  tabletXS:mx-4">

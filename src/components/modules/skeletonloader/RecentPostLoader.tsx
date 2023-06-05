@@ -1,6 +1,6 @@
 import { useThemeContext } from '../../../hooks/theme/useThemeContext';
 
-export const PostLoader = (): React.JSX.Element => {
+export const RecentPostLoader = (): React.JSX.Element => {
     const { theme } = useThemeContext();
     return (
         <div
@@ -36,8 +36,6 @@ export const PostLoader = (): React.JSX.Element => {
                     ))}
                 </div>
             </div>
-
-            <div className=" max-w-[600px] tabletS:w-[400px] mobileXL:w-[300px] mobileL:w-[250px] h-[250px] bg-gray-300 animate-pulse mb-2"></div>
         </div>
     );
 };

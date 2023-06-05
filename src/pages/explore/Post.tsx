@@ -4,22 +4,29 @@ import { FaShare, FaComment } from 'react-icons/fa';
 import { MdFavorite, MdInsights } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
-import { PostInterface } from '../feed';
 import { calculateReadingTime } from '../../utils';
+import { SinglePostInterface } from '../../context/article/FetchAllPostContext';
+interface PostProps {
+    post: SinglePostInterface;
+}
 
+export const Post = ({ post }: PostProps): React.JSX.Element => {
+    const {
+        title,
+        coverImage,
+        subtitle,
+        tagList,
+        author = {} as any,
+        createdAgo,
+        slug,
+        body,
+        likeCount,
+        views,
+        comments,
+    } = post;
 
+    const { displayName, photoUrl, fullName, occupation } = author[0].data;
 
-export const Post = ({ post:{
-    title,
-    slug,
-    createdAgo,
-    tagList,
-    author:{ displayName, photoUrl, occupation, fullName},
-    coverImage,
-    subtitle,
-    body
-} }:PostInterface): React.JSX.Element => {
-  
     const navigate = useNavigate();
     const { theme } = useThemeContext();
 
@@ -35,9 +42,10 @@ export const Post = ({ post:{
         >
             <article className="border-b border-gray-300 p-8 my-8 tabletXS:my-3 mobileXL:px-2 cursor-pointer">
                 <div className=" flex items-center mb-3">
-                    <div className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] me-4 border border-gray-300 relative rounded-full object-cover">
+                    <div className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] me-4 relative rounded-full object-cover">
                         <img
                             src={photoUrl}
+                            title={displayName}
                             alt={displayName}
                             className=" rounded-full object-cover w-full h-full"
                         />
@@ -53,7 +61,7 @@ export const Post = ({ post:{
                             variant={2}
                             className=" font-semibold mobileXL:text-[12px] inline-flex flex-wrap"
                         >
-                            <span>{occupation}</span>
+                            <span> {occupation} </span>
                             <span className=" ms-6 mobileXL:ms-3">
                                 {createdAgo}
                             </span>
@@ -63,7 +71,11 @@ export const Post = ({ post:{
 
                 <div
                     onClick={() => {
-                        navigate(`/post/${fullName.split(' ').join('_')}/${slug.split(' ').join('_')}`);
+                        navigate(
+                            `/post/${fullName.split(' ').join('_')}/${slug
+                                .split(' ')
+                                .join('_')}`
+                        );
                     }}
                 >
                     <Typography
@@ -77,7 +89,7 @@ export const Post = ({ post:{
                         variant={2}
                         className=" text-2xl mobileXL:text-lg font-normal mb-2"
                     >
-                        {subtitle}
+                        {subtitle.substring(0, 75) + ' ... '}
                     </Typography>
 
                     <Typography variant={2} className="font-semibold mb-1">
@@ -86,9 +98,9 @@ export const Post = ({ post:{
 
                     <div className="flex flex-wrap items-center my-3">
                         {tagList.map((tag, index) => (
-                            <div key={index} className="me-1">
+                            <div key={index} className="me-2">
                                 <span>#</span>
-                                <span className=" me-2 mb-2 text-sm font-semibold text-pink-600">
+                                <span className=" text-sm font-semibold text-pink-600">
                                     {tag}
                                 </span>
                             </div>
@@ -114,31 +126,28 @@ export const Post = ({ post:{
                 </div>
 
                 <div className=" flex items-center justify-center mt-12 text-xl">
-                    <div className=" flex items-center me-3">
+                    <div className=" flex items-center me-6">
                         <FaComment className=" " />
                         <Typography variant={2} className="text-base">
-                            {' '}
-                            10{' '}
+                            {comments.length}
                         </Typography>
                     </div>
 
-                    <div className=" flex items-center me-3">
+                    <div className=" flex items-center me-6">
                         <MdFavorite className=" " />
                         <Typography variant={2} className="text-base">
-                            {' '}
-                            10{' '}
+                            {likeCount}
                         </Typography>
                     </div>
 
-                    <div className=" flex items-center me-3">
+                    <div className=" flex items-center me-6">
                         <MdInsights className=" " />
                         <Typography variant={2} className="text-base">
-                            {' '}
-                            10{' '}
+                            {views}
                         </Typography>
                     </div>
 
-                    <div className=" flex items-center me-3">
+                    <div className=" flex items-center me-6">
                         <FaShare className=" " />
                         <Typography variant={2} className="text-base">
                             {' '}

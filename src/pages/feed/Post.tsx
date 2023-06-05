@@ -5,39 +5,18 @@ import { MdFavorite, MdInsights } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 import { calculateReadingTime } from '../../utils';
-
-export interface PostInterface {
-    post: {
-        title: string;
-        body: string;
-        subtitle: string;
-        coverImage: string;
-        tagList: string[];
-        author: {
-            authorId: string;
-            displayName: string;
-            fullName: string;
-            bio: string;
-            photoUrl: string;
-            occupation: string;
-        };
-        createdAgo: string;
-        updatedAt: string;
-        slug: string;
-        likeCount: number;
-        commentCount: number;
-        views: number;
-        comments: Comment[];
-    };
+import { SinglePostInterface } from '../../context/article/FetchAllPostContext';
+interface PostProps {
+    post: SinglePostInterface;
 }
 
-export const Post = ({ post }: PostInterface): React.JSX.Element => {
+export const Post = ({ post }: PostProps): React.JSX.Element => {
     const {
         title,
         coverImage,
         subtitle,
         tagList,
-        author,
+        author = {} as any,
         createdAgo,
         slug,
         body,
@@ -45,6 +24,8 @@ export const Post = ({ post }: PostInterface): React.JSX.Element => {
         views,
         comments,
     } = post;
+
+    const { displayName, photoUrl, fullName, occupation } = author[0].data;
 
     const navigate = useNavigate();
     const { theme } = useThemeContext();
@@ -63,9 +44,9 @@ export const Post = ({ post }: PostInterface): React.JSX.Element => {
                 <div className=" flex items-center mb-3">
                     <div className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] me-4 relative rounded-full object-cover">
                         <img
-                            src={author.photoUrl}
-                            title={author.displayName}
-                            alt={author.displayName}
+                            src={photoUrl}
+                            title={displayName}
+                            alt={displayName}
                             className=" rounded-full object-cover w-full h-full"
                         />
                     </div>
@@ -74,13 +55,13 @@ export const Post = ({ post }: PostInterface): React.JSX.Element => {
                             variant={1}
                             className="font-bold text-2xl mobileXL:text-lg"
                         >
-                            {author.fullName}
+                            {fullName}
                         </Typography>
                         <Typography
                             variant={2}
                             className=" font-semibold mobileXL:text-[12px] inline-flex flex-wrap"
                         >
-                            <span> {author.occupation} </span>
+                            <span> {occupation} </span>
                             <span className=" ms-6 mobileXL:ms-3">
                                 {createdAgo}
                             </span>
@@ -90,7 +71,11 @@ export const Post = ({ post }: PostInterface): React.JSX.Element => {
 
                 <div
                     onClick={() => {
-                        navigate(`/post/${author.fullName.split(' ').join('_')}/${slug.split(' ').join('_')}`);
+                        navigate(
+                            `/post/${fullName.split(' ').join('_')}/${slug
+                                .split(' ')
+                                .join('_')}`
+                        );
                     }}
                 >
                     <Typography
