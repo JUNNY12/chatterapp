@@ -1,5 +1,5 @@
 // import { posts } from '../feed';
-import { Post } from '.';
+
 
 export const FeaturedPosts = (): React.JSX.Element => {
     return (
