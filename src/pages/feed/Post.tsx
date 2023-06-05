@@ -6,12 +6,15 @@ import { useNavigate } from 'react-router-dom';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 import { calculateReadingTime } from '../../utils';
 import { SinglePostInterface } from '../../context/article/FetchAllPostContext';
+import { updateArticle } from '../../firebase/article';
+
 interface PostProps {
     post: SinglePostInterface;
 }
 
 export const Post = ({ post }: PostProps): React.JSX.Element => {
     const {
+        id,
         title,
         coverImage,
         subtitle,
@@ -29,6 +32,11 @@ export const Post = ({ post }: PostProps): React.JSX.Element => {
 
     const navigate = useNavigate();
     const { theme } = useThemeContext();
+
+    const handleNavigate = async () => {
+        await updateArticle(author[0].data.uid, id, { views: views + 1 })
+        navigate( `/post/${fullName.split(' ').join('_')}/${slug.split(' ').join('_')}`);
+    };
 
     return (
         <div
@@ -69,15 +77,7 @@ export const Post = ({ post }: PostProps): React.JSX.Element => {
                     </div>
                 </div>
 
-                <div
-                    onClick={() => {
-                        navigate(
-                            `/post/${fullName.split(' ').join('_')}/${slug
-                                .split(' ')
-                                .join('_')}`
-                        );
-                    }}
-                >
+                <div onClick={handleNavigate}>
                     <Typography
                         variant={1}
                         className=" text-3xl mobileXL:text-xl font-bold mb-2"

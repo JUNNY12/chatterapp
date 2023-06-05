@@ -60,7 +60,14 @@ export const CreateAccountTemplate = () => {
             setLoading(true);
             try {
                 let uid = user.uid;
-                const { userProfileRefId } = await updateProfile(uid, values);
+                const { userProfileRefId } = await updateProfile(uid,{
+                    uid,
+                    fullName,
+                    displayName,
+                    email,
+                    occupation,
+                    bio,
+                });
 
                 if (userProfileRefId) {
                     navigate('/onboard/reason');

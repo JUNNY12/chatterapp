@@ -4,7 +4,7 @@ import { logout } from '../../../firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../../../firebase/user';
 import { useEffect, useState } from 'react';
-import { DropNavSkeleton } from './DropNavSkeleton';
+import { DropNavSkeleton } from '../skeletonloader/DropNavSkeleton';
 import { NavLink } from 'react-router-dom';
 import { greetings } from '../../../utils';
 

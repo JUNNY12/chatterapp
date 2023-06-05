@@ -16,6 +16,7 @@ export interface Author {
             linkedIn: string;
             github: string;
         };
+        uid: string;
         bio: string;
         status: string;
         tags: string[];
@@ -46,6 +47,7 @@ export interface Comment {
 }
 
 export interface SinglePostInterface {
+    id: string;
     title: string;
     body: string;
     subtitle: string;
@@ -84,6 +86,7 @@ export default function PostProvider({ children }: ProviderChildren) {
         setLoading(true);
         try {
             const { articles } = await getAllArticle();
+            // console.log('articles', articles);
 
             // Sort articles in descending order based on creation time
             const sortedArticles = articles.sort((a: any, b: any) => {
@@ -101,6 +104,8 @@ export default function PostProvider({ children }: ProviderChildren) {
                     const timeDifference =
                         currentDate.getTime() - createdDate.getTime();
 
+                    // console.log(post.author.authorId)
+
                     // Fetch author details using authorId
                     const author = await getUser(post.author.authorId);
 
@@ -108,7 +113,7 @@ export default function PostProvider({ children }: ProviderChildren) {
                     return {
                         ...post,
                         createdAgo: getTimeDifferenceString(timeDifference),
-                        author: author as Author, // Assuming `getUser` returns an Author object
+                        author: author as Author,
                     };
                 })
             );

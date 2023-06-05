@@ -1,6 +1,6 @@
 import { Post, Trending, Recent } from '.';
 import { useFetchPost } from '../../hooks/article/useFetchPost';
-import { PostLoader } from '../../components/modules/skeletonloader/PostLoader';
+import { PostLoader } from '../../components/modules/skeletonloader';
 
 export const ExplorePosts = (): React.JSX.Element => {
     const { posts, loading } = useFetchPost();
@@ -15,9 +15,11 @@ export const ExplorePosts = (): React.JSX.Element => {
                     [...Array(10)].map((_, index) => <PostLoader key={index} />)
                 ) : (
                     <div>
-                        {posts.map((post: any, index: number) => (
-                            <Post key={index} post={post} />
-                        ))}
+                        {posts.map((post: any) =>{
+                            const {id}=post;
+                            return <Post key={id} post={post} />;
+                        }
+                        )}
                     </div>
                 )}
             </div>

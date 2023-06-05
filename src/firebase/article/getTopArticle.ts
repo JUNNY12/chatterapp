@@ -18,13 +18,13 @@ export const getTopArticle = async () => {
             orderBy('views', 'desc'),
             orderBy('likeCount', 'desc')
         );
-        console.log(q);
+        // console.log(q);
         const snapshot = await getDocsFromServer(q);
-        console.log(snapshot);
+        // console.log(snapshot);
 
         const articles = snapshot.docs.map((doc) => doc.data());
 
-        console.log(articles);
+        // console.log(articles);
 
         return { articles, error: null };
     } catch (error) {

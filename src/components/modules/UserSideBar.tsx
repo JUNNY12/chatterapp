@@ -49,7 +49,7 @@ export const UserSideBar = (): React.JSX.Element => {
                         </li>
                     </NavLink>
                     <NavLink
-                        to={`post`}
+                        to={`/settings/post`}
                         className={({ isActive }: any) =>
                             isActive ? 'text-pink-600' : ''
                         }
@@ -60,7 +60,7 @@ export const UserSideBar = (): React.JSX.Element => {
                         </li>
                     </NavLink>
                     <NavLink
-                        to={`account`}
+                        to={`/settings/account`}
                         className={({ isActive }: any) =>
                             isActive ? 'text-pink-600' : ''
                         }

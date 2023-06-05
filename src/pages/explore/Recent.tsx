@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 import { useFetchPost } from '../../hooks/article/useFetchPost';
 import { calculateReadingTime } from '../../utils';
-import { RecentPostLoader } from '../../components/modules/skeletonloader/RecentPostLoader';
+import { RecentPostLoader } from '../../components/modules/skeletonloader';
 
 export const Recent = (): React.JSX.Element => {
     const { theme } = useThemeContext();
@@ -36,8 +36,9 @@ export const Recent = (): React.JSX.Element => {
                     ))
                 ) : (
                     <div>
-                        {posts.slice(0, 6).map((post, index) => {
+                        {posts.slice(0, 6).map((post) => {
                             const {
+                                id,
                                 title,
                                 subtitle,
                                 author = {} as any,
@@ -49,7 +50,7 @@ export const Recent = (): React.JSX.Element => {
                             const readingTime = calculateReadingTime(body);
                             return (
                                 <article
-                                    key={index}
+                                    key={id}
                                     className="border-b cursor-pointer border-gray-300 p-8 mobileXL:px-2"
                                 >
                                     <div className=" flex items-center mb-3">

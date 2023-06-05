@@ -13,9 +13,9 @@ export const RecentPostLoader = (): React.JSX.Element => {
         `}
         >
             <div className=" flex items-center mb-3">
-                <div className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] me-4 bg-gray-300 animate-pulse relative rounded-full object-cover"></div>
+                <div className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] mobileM:w-[40px] mobileM:h-[40px] me-4 bg-gray-300 animate-pulse relative rounded-full object-cover"></div>
                 <div>
-                    <div className="w-[350px] mobileXL:w-[200px] mobileL:w-[150px] h-8 bg-gray-300 mb-4"></div>
+                    <div className="w-[350px] animate-pulse mobileXL:w-[200px] mobileL:w-[150px] h-8 bg-gray-300 mb-4"></div>
                     <div className="inline-flex flex-wrap">
                         <span className="inline-block w-[100px] mobileXL:w-[70px] bg-gray-300 h-8 animate-pulse"></span>
                         <span className=" ms-6 mobileXL:ms-3 inline-block w-[100px] mobileXL:w-[70px] animate-pulse bg-gray-300 h-8"></span>
@@ -24,8 +24,8 @@ export const RecentPostLoader = (): React.JSX.Element => {
             </div>
 
             <div>
-                <div className=" max-w-[600px] tabletS:w-[400px] mobileXL:w-[300px] mobileL:w-[250px] bg-gray-300 animate-pulse h-8 mb-2"></div>
-                <div className=" max-w-[600px] tabletS:w-[400px] mobileXL:w-[300px] mobileL:w-[250px] bg-gray-300 animate-pulse h-8 mb-2"></div>
+                <div className=" max-w-[600px] tabletS:w-[400px] mobileXL:w-[300px] mobileL:w-[250px] mobileM:w-[220px] bg-gray-300 animate-pulse h-8 mb-2"></div>
+                <div className=" max-w-[600px] tabletS:w-[400px] mobileXL:w-[300px] mobileL:w-[250px] mobileM:w-[220px] bg-gray-300 animate-pulse h-8 mb-2"></div>
 
                 <div className="flex flex-wrap items-center my-3">
                     {[...Array(5)].map((_, index) => (
