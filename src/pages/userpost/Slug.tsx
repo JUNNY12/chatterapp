@@ -12,15 +12,15 @@ import { MdFavorite, MdInsights } from 'react-icons/md';
 import { MdLaoder } from './MdLoader';
 import { SinglePageLoader } from '../../components/modules/skeletonloader';
 import { useFetchPost } from '../../hooks/article/useFetchPost';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { updateArticle } from '../../firebase/article';
-import { useLocation } from 'react-router-dom';
+
 
 export default function Slug(): React.JSX.Element {
     const { slug } = useParams();
     const { theme } = useThemeContext();
     const { posts, loading } = useFetchPost();
-    const { pathname } = useLocation();
+   
 
     const formattedSlug = slug?.split('_').join(' ');
 
