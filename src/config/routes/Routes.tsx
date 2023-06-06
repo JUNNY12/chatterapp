@@ -35,7 +35,9 @@ const LazyNotFound = React.lazy(() => import('../../pages/notfound/NotFound'));
 const LazyPreviewSlug = React.lazy(
     () => import('../../pages/settings/posts/PreviewSlug')
 );
-
+const LazyAnalytics = React.lazy(
+    () => import('../../pages/analytics/Analytics')
+);
 export function Routes() {
     return useRoutes([
         {
@@ -69,6 +71,11 @@ export function Routes() {
             path: '/feature',
             element: <FeedLayout />,
             children: [{ index: true, element: <LazyFeature /> }],
+        },
+        {
+            path: '/analytics',
+            element: <FeedLayout />,
+            children: [{ index: true, element: <LazyAnalytics /> }],
         },
         {
             path: '/write',

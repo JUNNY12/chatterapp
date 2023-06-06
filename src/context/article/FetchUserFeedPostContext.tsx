@@ -9,7 +9,9 @@ type childrenProps = {
     children: React.ReactNode;
 };
 
-export const FetchUserFeedPostContextProvider = ({ children }: childrenProps) => {
+export const FetchUserFeedPostContextProvider = ({
+    children,
+}: childrenProps) => {
     const { user } = useAuthContext();
     const { posts } = useFetchPost();
     const [userFeed, setUserFeed] = useState([] as any);
@@ -31,7 +33,6 @@ export const FetchUserFeedPostContextProvider = ({ children }: childrenProps) =>
 
         fetchUserDetail();
     }, [user, posts]);
-
 
     return (
         <FetchUserFeedPostContext.Provider value={{ userFeed, loading }}>

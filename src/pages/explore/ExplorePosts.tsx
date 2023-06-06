@@ -15,11 +15,10 @@ export const ExplorePosts = (): React.JSX.Element => {
                     [...Array(10)].map((_, index) => <PostLoader key={index} />)
                 ) : (
                     <div>
-                        {posts.map((post: any) =>{
-                            const {id}=post;
+                        {posts.map((post: any) => {
+                            const { id } = post;
                             return <Post key={id} post={post} />;
-                        }
-                        )}
+                        })}
                     </div>
                 )}
             </div>

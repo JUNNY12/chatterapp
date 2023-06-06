@@ -81,35 +81,56 @@ export default function Post(): React.JSX.Element {
                             })
                         ) : (
                             <div>
-                                        {posts.map((post: { id: string; data: { title: string; createdAt: string; slug: string } }) => {
-                                            const { id, data } = post;
-                                            const { title, createdAt, slug } = data;
+                                {posts.map(
+                                    (post: {
+                                        id: string;
+                                        data: {
+                                            title: string;
+                                            createdAt: string;
+                                            slug: string;
+                                        };
+                                    }) => {
+                                        const { id, data } = post;
+                                        const { title, createdAt, slug } = data;
 
-                                            return (
-                                                <div key={id} className="flex items-center mt-8">
-                                                    <div className="me-3 w-[50%]">{title}</div>
-                                                    <div className="me-3 w-[30%]">{formatDate(createdAt)}</div>
-                                                    <div className="me-3 w-[20%] inline-flex items-center">
-                                                        <Button
-                                                            title="delete post"
-                                                            role="button"
-                                                            className="text-red-600 cursor-pointer"
-                                                        >
-                                                            <FaTrash />
-                                                        </Button>
-                                                        <Button
-                                                            onClick={() => navigate(`/preview/${slug.split(' ').join('_')}`)}
-                                                            title="Preview post"
-                                                            role="button"
-                                                            className="text-green-600 cursor-pointer"
-                                                        >
-                                                            <FaEye className="ms-2" />
-                                                        </Button>
-                                                    </div>
+                                        return (
+                                            <div
+                                                key={id}
+                                                className="flex items-center mt-8"
+                                            >
+                                                <div className="me-3 w-[50%]">
+                                                    {title}
                                                 </div>
-                                            );
-                                        })}
-
+                                                <div className="me-3 w-[30%]">
+                                                    {formatDate(createdAt)}
+                                                </div>
+                                                <div className="me-3 w-[20%] inline-flex items-center">
+                                                    <Button
+                                                        title="delete post"
+                                                        role="button"
+                                                        className="text-red-600 cursor-pointer"
+                                                    >
+                                                        <FaTrash />
+                                                    </Button>
+                                                    <Button
+                                                        onClick={() =>
+                                                            navigate(
+                                                                `/preview/${slug
+                                                                    .split(' ')
+                                                                    .join('_')}`
+                                                            )
+                                                        }
+                                                        title="Preview post"
+                                                        role="button"
+                                                        className="text-green-600 cursor-pointer"
+                                                    >
+                                                        <FaEye className="ms-2" />
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        );
+                                    }
+                                )}
                             </div>
                         )}
                     </div>

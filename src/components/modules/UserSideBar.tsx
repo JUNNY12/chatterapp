@@ -9,7 +9,10 @@ export const UserSideBar = (): React.JSX.Element => {
     let formattedPathname = pathname.replace(/\/([^/]+)/g, ' / $1');
 
     if (pathname.includes('/preview')) {
-        formattedPathname = pathname.replace(/\/preview(\/*[^/]*)/, ' / preview');
+        formattedPathname = pathname.replace(
+            /\/preview(\/*[^/]*)/,
+            ' / preview'
+        );
     }
 
     return (

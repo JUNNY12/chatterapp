@@ -60,7 +60,7 @@ export const CreateAccountTemplate = () => {
             setLoading(true);
             try {
                 let uid = user.uid;
-                const { userProfileRefId } = await updateProfile(uid,{
+                const { userProfileRefId } = await updateProfile(uid, {
                     uid,
                     fullName,
                     displayName,

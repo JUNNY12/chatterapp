@@ -15,12 +15,10 @@ import { useFetchPost } from '../../hooks/article/useFetchPost';
 import { useEffect } from 'react';
 import { updateArticle } from '../../firebase/article';
 
-
 export default function Slug(): React.JSX.Element {
     const { slug } = useParams();
     const { theme } = useThemeContext();
     const { posts, loading } = useFetchPost();
-   
 
     const formattedSlug = slug?.split('_').join(' ');
 
@@ -28,23 +26,21 @@ export default function Slug(): React.JSX.Element {
         const post = posts.find(({ slug }) => slug === formattedSlug);
         if (post) {
             //destructuring the single post to get the id, views and authorId
-            const { id, views, author = {} as any } = post
+            const { id, views, author = {} as any } = post;
             //update the views
-            const newViews = views + 1
-            console.log(newViews)
-            console.log(views)
-            console.log(author[0].data.uid, id, views)
-            await updateArticle(author[0].data.uid, id , { views: views + 1 })
+            const newViews = views + 1;
+            console.log(newViews);
+            console.log(views);
+            console.log(author[0].data.uid, id, views);
+            await updateArticle(author[0].data.uid, id, { views: views + 1 });
         }
-    }
+    };
     useEffect(() => {
-        handlePageView()
-    }, [slug])
-
-
+        handlePageView();
+    }, [slug]);
 
     //get the single post
-    const singlePost = posts.find(({ slug }) => slug === formattedSlug);;
+    const singlePost = posts.find(({ slug }) => slug === formattedSlug);
 
     if (!singlePost) {
         return <SinglePageLoader />;
@@ -65,7 +61,7 @@ export default function Slug(): React.JSX.Element {
     } = singlePost;
 
     console.log(author);
-    console.log(id)
+    console.log(id);
     return (
         <section className={` bg-white-100 h-max`}>
             {loading || posts.length === 0 ? (

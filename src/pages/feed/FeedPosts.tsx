@@ -5,7 +5,6 @@ import { useFetchFeed } from '../../hooks/article/useFetchFeed';
 
 export const FeedPosts = (): React.JSX.Element => {
     const { userFeed, loading } = useFetchFeed();
-    
 
     return (
         <div>
@@ -18,7 +17,7 @@ export const FeedPosts = (): React.JSX.Element => {
             ) : (
                 <div>
                     {userFeed.map((post: SinglePostInterface) => {
-                        const {id}=post;
+                        const { id } = post;
                         return <Post key={id} post={post} />;
                     })}
                 </div>

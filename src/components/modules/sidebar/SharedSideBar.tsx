@@ -89,13 +89,21 @@ export const SharedSideBar = () => {
                         <span> Featured Post</span>
                     </li>
                 </NavLink>
-                <li
-                    title="Analytics"
-                    className="mb-6 cursor-pointer hover:text-pink-600"
+                <NavLink
+                    to={`/analytics`}
+                    className={({ isActive }: any) =>
+                        isActive ? 'text-pink-600' : ''
+                    }
+                    end
                 >
-                    <DiGoogleAnalytics className="inline-block me-2" />
-                    <span>Analytics</span>
-                </li>
+                    <li
+                        title="Analytics"
+                        className="mb-6 cursor-pointer hover:text-pink-600"
+                    >
+                        <DiGoogleAnalytics className="inline-block me-2" />
+                        <span>Analytics</span>
+                    </li>
+                </NavLink>
             </ul>
         </div>
     );

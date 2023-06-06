@@ -34,8 +34,12 @@ export const Post = ({ post }: PostProps): React.JSX.Element => {
     const { theme } = useThemeContext();
 
     const handleNavigate = async () => {
-        await updateArticle(author[0].data.uid, id, { views: views + 1 })
-        navigate( `/post/${fullName.split(' ').join('_')}/${slug.split(' ').join('_')}`);
+        await updateArticle(author[0].data.uid, id, { views: views + 1 });
+        navigate(
+            `/post/${fullName.split(' ').join('_')}/${slug
+                .split(' ')
+                .join('_')}`
+        );
     };
 
     return (
