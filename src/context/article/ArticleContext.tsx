@@ -26,6 +26,7 @@ export interface ArticleContextProps {
         updatedAt?: string;
         slug?: string;
         likeCount?: number;
+        likeCounts: string[];
         commentCount?: number;
         views?: number;
         comments: Comment[];
@@ -44,6 +45,7 @@ export interface ArticleContextProps {
             updatedAt?: string;
             slug?: string;
             likeCount?: number;
+            likeCounts: string[];
             commentCount?: number;
             views?: number;
             comments: Comment[];
@@ -68,6 +70,7 @@ export const ArticleContext = createContext<ArticleContextProps>({
         slug: '',
         likeCount: 0,
         commentCount: 0,
+        likeCounts:[],
         views: 0,
         comments: [],
     },
@@ -102,6 +105,7 @@ export const ArticleProvider = ({ children }: ArticleProviderProps) => {
         createdAt: '',
         updatedAt: '',
         slug: '',
+        likeCounts:[],
         likeCount: 0,
         commentCount: 0,
         views: 0,
@@ -151,6 +155,7 @@ export const ArticleProvider = ({ children }: ArticleProviderProps) => {
             updatedAt: '',
             slug: '',
             likeCount: 0,
+            likeCounts:[],
             commentCount: 0,
             views: 0,
             comments: [],

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { getTimeDifferenceString } from '../../utils/getTimeDifference';
 import { getTopArticle } from '../../firebase/article';
 import { getUser } from '../../firebase/user';
+import { useNavigate } from 'react-router';
 
 export interface Author {
     id: string;
@@ -51,6 +52,7 @@ export interface SinglePostInterface {
     title: string;
     body: string;
     subtitle: string;
+    likeCounts:string[]
     coverImage: string;
     tagList: string[];
     author: Author;
@@ -81,6 +83,7 @@ export default function PostProvider({ children }: ProviderChildren) {
         []
     );
     const [loading, setLoading] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     const fetchPosts = async () => {
         setLoading(true);
@@ -130,6 +133,7 @@ export default function PostProvider({ children }: ProviderChildren) {
         setLoading(true);
         const { articles } = await getTopArticle();
 
+        // console.log('artcles fectced');
         // Sort articles in descending order based on creation time
         const sortedArticles = articles.sort((a: any, b: any) => {
             const dateA = new Date(a.createdAt);
@@ -138,6 +142,7 @@ export default function PostProvider({ children }: ProviderChildren) {
             return dateB.getTime() - dateA.getTime();
         });
 
+        // console.log('sorted articles', sortedArticles);
         const updatedPost = sortedArticles.map((post: any) => {
             const createdDate = new Date(post.createdAt);
             const currentDate = new Date();
@@ -158,7 +163,9 @@ export default function PostProvider({ children }: ProviderChildren) {
     useEffect(() => {
         fetchPosts();
         fetchTopPosts();
-    }, []);
+    }, [navigate]);
+
+    // console.log('posts', posts, loading);
 
     return (
         <PostContext.Provider value={{ posts, loading, trendingPosts }}>

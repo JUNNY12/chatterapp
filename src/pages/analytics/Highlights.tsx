@@ -7,6 +7,7 @@ import { Post } from './Analytics';
 import { calculateReadingTime } from '../../utils';
 import { formatDate } from '../../utils/formatDate';
 import { getTimeDifferenceString } from '../../utils/getTimeDifference';
+import { AnalyticsLoader } from '../../components/modules/skeletonloader';
 
 interface HighlightsProps {
     highestPost: Post | any;
@@ -18,9 +19,17 @@ export const Highlights = ({
     postSummaries,
 }: HighlightsProps): React.JSX.Element => {
     const { theme } = useThemeContext();
+
     if (!highestPost) {
-        return <div>Loading...</div>;
+        return (
+            <div>
+                <AnalyticsLoader />
+            </div>
+        );
     }
+
+    console.log(highestPost);
+
     const {
         data: {
             title,
@@ -35,8 +44,15 @@ export const Highlights = ({
         },
     } = highestPost;
 
-    const { month, year, totalPosts, totalViews, totalLikes, totalComments } =
-        postSummaries;
+    const {
+        month,
+        year,
+        totalPosts,
+        totalViews,
+        totalLikes,
+        totalComments,
+        filteredPosts,
+    } = postSummaries;
 
     console.log(postSummaries);
 
@@ -58,7 +74,7 @@ export const Highlights = ({
                     Post Analytics
                 </Typography>
 
-                <Typography variant={2} className={`text-xl font-normal`}>
+                <Typography variant={2} className={`text-base font-normal`}>
                     <span> {formatDate(createdAt)}, </span>
                     <span> {getTimeDifferenceString(timeDifference)} </span>
                 </Typography>
@@ -67,12 +83,12 @@ export const Highlights = ({
             <div className=" flex items-center">
                 <Typography
                     variant={1}
-                    className={`text-2xl font-bold mb-6 mt-6`}
+                    className={`text-xl font-bold mb-6 mt-6`}
                 >
                     Top Post
                 </Typography>
 
-                <Typography variant={2} className={`ms-12 text-xl font-normal`}>
+                <Typography variant={2} className={`ms-12 text-lg font-normal`}>
                     earned {views} views
                 </Typography>
             </div>
@@ -209,6 +225,15 @@ export const Highlights = ({
                         </Typography>
                     </div>
                 </div>
+            </div>
+            <div>
+                {filteredPosts.length === 0 && (
+                    <div className="mt-4">
+                        <Typography variant={3} className={`font-normal mb-3`}>
+                            <span> No Posts this </span>
+                        </Typography>
+                    </div>
+                )}
             </div>
         </div>
     );

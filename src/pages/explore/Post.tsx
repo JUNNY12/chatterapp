@@ -20,10 +20,11 @@ export const Post = ({ post }: PostProps): React.JSX.Element => {
         createdAgo,
         slug,
         body,
-        likeCount,
+        likeCounts,
         views,
         comments,
     } = post;
+
 
     const { displayName, photoUrl, fullName, occupation } = author[0].data;
 
@@ -136,7 +137,7 @@ export const Post = ({ post }: PostProps): React.JSX.Element => {
                     <div className=" flex items-center me-6">
                         <MdFavorite className=" " />
                         <Typography variant={2} className="text-base">
-                            {likeCount}
+                            {likeCounts?.length}
                         </Typography>
                     </div>
 

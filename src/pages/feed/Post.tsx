@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 import { calculateReadingTime } from '../../utils';
 import { SinglePostInterface } from '../../context/article/FetchAllPostContext';
+import { useAuthContext } from '../../hooks/auth/useAuthContext';
 import { updateArticle } from '../../firebase/article';
 
 interface PostProps {
@@ -23,23 +24,45 @@ export const Post = ({ post }: PostProps): React.JSX.Element => {
         createdAgo,
         slug,
         body,
-        likeCount,
         views,
         comments,
+        likeCounts,
     } = post;
+
+    console.log(likeCounts)
 
     const { displayName, photoUrl, fullName, occupation } = author[0].data;
 
     const navigate = useNavigate();
     const { theme } = useThemeContext();
+    const { user } = useAuthContext();
 
-    const handleNavigate = async () => {
-        await updateArticle(author[0].data.uid, id, { views: views + 1 });
+    const handleNavigate = () => {
+        // await updateArticle(author[0].data.uid, id, { views: views + 1 });
         navigate(
             `/post/${fullName.split(' ').join('_')}/${slug
                 .split(' ')
                 .join('_')}`
         );
+    };
+
+    let userUID = user?.uid as string;
+    const handleLike = async () => {
+        let uid = user?.uid;
+        console.log(uid);
+
+        const liked = likeCounts.includes(uid as string);
+
+        if(liked){
+            const updatedLikeCounts = likeCounts.filter((id) => id !== uid);
+            await updateArticle(author[0].data.uid, id, { likeCounts: updatedLikeCounts });
+
+        }
+        else{
+            const updatedLikeCounts = [...likeCounts, uid as string];
+            await updateArticle(author[0].data.uid, id, { likeCounts: updatedLikeCounts });
+        }
+
     };
 
     return (
@@ -137,10 +160,10 @@ export const Post = ({ post }: PostProps): React.JSX.Element => {
                         </Typography>
                     </div>
 
-                    <div className=" flex items-center me-6">
-                        <MdFavorite className=" " />
+                    <div className={`${likeCounts?.includes(userUID) && 'text-pink-600'} flex items-center me-6`} onClick={handleLike}>
+                        <MdFavorite className={` `} />
                         <Typography variant={2} className="text-base">
-                            {likeCount}
+                            {likeCounts?.length}
                         </Typography>
                     </div>
 

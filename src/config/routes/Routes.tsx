@@ -5,6 +5,7 @@ import {
     OnboardLayout,
     FeedLayout,
     UserLayout,
+    ProfileUserLayout,
 } from '../../components/layout';
 import {
     Onboard,
@@ -38,6 +39,8 @@ const LazyPreviewSlug = React.lazy(
 const LazyAnalytics = React.lazy(
     () => import('../../pages/analytics/Analytics')
 );
+const LazyUser = React.lazy(() => import('../../pages/settings/profile/User'));
+
 export function Routes() {
     return useRoutes([
         {
@@ -108,5 +111,8 @@ export function Routes() {
             ],
         },
         { path: '*', element: <LazyNotFound /> },
+        { path: '/user/:displayName', element: <ProfileUserLayout />,
+         children: [{ index: true, element: <LazyUser /> }]
+        },
     ]);
 }

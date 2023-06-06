@@ -40,31 +40,14 @@ export default function Slug(): React.JSX.Element {
     }, [slug]);
 
     //get the single post
-    const singlePost = posts.find(({ slug }) => slug === formattedSlug);
+    const singlePost: any = posts.find(({ slug }) => slug === formattedSlug);
+    console.log(singlePost)
 
-    if (!singlePost) {
-        return <SinglePageLoader />;
-    }
-
-    //destructuring the single post
-    const {
-        id,
-        title,
-        coverImage,
-        subtitle,
-        tagList,
-        author = {} as any,
-        body,
-        likeCount,
-        views,
-        comments,
-    } = singlePost;
-
-    console.log(author);
-    console.log(id);
     return (
         <section className={` bg-white-100 h-max`}>
-            {loading || posts.length === 0 ? (
+            {(loading && posts.length === 0) ||
+            (!loading && posts.length === 0) ||
+            (loading && posts.length !== 0) ? (
                 <SinglePageLoader />
             ) : (
                 <div className={` ms-[250px] tabletS:ms-0 pt-24   `}>
@@ -82,7 +65,7 @@ export default function Slug(): React.JSX.Element {
                             <article className="me-8 laptopS:me-0">
                                 <div className=" max-w-[600px] mb-4 h-[400px] tabletS:h-[300px] object-cover relative">
                                     <img
-                                        src={coverImage}
+                                        src={singlePost?.coverImage}
                                         className=" object-cover h-full w-full"
                                         alt=""
                                     />
@@ -91,29 +74,31 @@ export default function Slug(): React.JSX.Element {
                                     variant={1}
                                     className=" font-semibold text-3xl tabletXS:text-xl mb-3 max-w-[600px]"
                                 >
-                                    {title}.
+                                    {singlePost?.title}.
                                 </Typography>
 
                                 <Typography
                                     variant={1}
                                     className=" font-normal text-xl tabletXS:text-lg mb-3 max-w-[600px]"
                                 >
-                                    {subtitle}.
+                                    {singlePost?.subtitle}.
                                 </Typography>
 
                                 <div>
-                                    <MdLaoder content={body} />
+                                    <MdLaoder content={singlePost?.body} />
                                 </div>
 
                                 <div className="flex flex-wrap items-center my-3">
-                                    {tagList.map((tag, index) => (
-                                        <div key={index} className="me-1">
-                                            <span>#</span>
-                                            <span className=" me-2 mb-2 text-sm font-semibold text-pink-600">
-                                                {tag}
-                                            </span>
-                                        </div>
-                                    ))}
+                                    {singlePost?.tagList.map(
+                                        (tag: string, index: number) => (
+                                            <div key={index} className="me-1">
+                                                <span>#</span>
+                                                <span className=" me-2 mb-2 text-sm font-semibold text-pink-600">
+                                                    {tag}
+                                                </span>
+                                            </div>
+                                        )
+                                    )}
                                 </div>
 
                                 <div className=" flex items-center justify-center mt-12 text-xl">
@@ -123,7 +108,7 @@ export default function Slug(): React.JSX.Element {
                                             variant={2}
                                             className="text-base"
                                         >
-                                            {comments.length}
+                                            {singlePost?.comments.length}
                                         </Typography>
                                     </div>
 
@@ -133,7 +118,7 @@ export default function Slug(): React.JSX.Element {
                                             variant={2}
                                             className="text-base"
                                         >
-                                            {likeCount}
+                                            {singlePost?.likeCount}
                                         </Typography>
                                     </div>
 
@@ -143,7 +128,7 @@ export default function Slug(): React.JSX.Element {
                                             variant={2}
                                             className="text-base"
                                         >
-                                            {views}
+                                            {singlePost?.views}
                                         </Typography>
                                     </div>
                                 </div>
@@ -166,7 +151,9 @@ export default function Slug(): React.JSX.Element {
                             <div className=" flex items-center justify-center p-4 flex-wrap">
                                 <div className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] me-4 border border-gray-300 relative rounded-full object-cover">
                                     <img
-                                        src={author[0].data.photoUrl}
+                                        src={
+                                            singlePost?.author[0].data.photoUrl
+                                        }
                                         alt="user"
                                         className=" rounded-full object-cover w-full h-full"
                                     />
@@ -176,7 +163,7 @@ export default function Slug(): React.JSX.Element {
                                         variant={1}
                                         className="font-bold text-xl mobileXL:text-lg text-center"
                                     >
-                                        {author[0].data.fullName}
+                                        {singlePost?.author[0].data.fullName}
                                     </Typography>
                                 </div>
                             </div>
@@ -186,13 +173,13 @@ export default function Slug(): React.JSX.Element {
                                     variant={2}
                                     className="text-center text-xl font-bold"
                                 >
-                                    {author[0].data.occupation}
+                                    {singlePost?.author[0].data.occupation}
                                 </Typography>
                             </div>
 
                             <div>
                                 <p className="p-2 text-center">
-                                    {author[0].data.bio}
+                                    {singlePost?.author[0].data.bio}
                                 </p>
                             </div>
 

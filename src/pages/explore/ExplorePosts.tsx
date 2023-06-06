@@ -11,7 +11,8 @@ export const ExplorePosts = (): React.JSX.Element => {
             <Recent />
 
             <div>
-                {loading || posts.length === 0 ? (
+                {(loading && posts.length === 0) ||
+                (!loading && posts.length === 0) ? (
                     [...Array(10)].map((_, index) => <PostLoader key={index} />)
                 ) : (
                     <div>

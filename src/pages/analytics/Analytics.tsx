@@ -27,7 +27,6 @@ export interface Post {
 export default function Analytics(): React.JSX.Element {
     const [posts, setPosts] = useState<Post[]>([] as any);
     const [postSummaries, setPostSummaries] = useState({} as any);
-    // const [totalSummaries, setTotalSummaries] = useState({} as any);
     const [loading, setLoading] = useState(false);
     const { user } = useAuthContext();
 
@@ -69,6 +68,7 @@ export default function Analytics(): React.JSX.Element {
             totalViews,
             totalLikes,
             totalComments,
+            filteredPosts,
         };
         setPostSummaries(summary);
     };
@@ -120,6 +120,17 @@ export default function Analytics(): React.JSX.Element {
                     highestPost={highestViewedLikedAndCommentedPost}
                     postSummaries={postSummaries}
                 />
+            </div>
+            <div>
+                {!loading && posts.length === 0 && (
+                    <div className={`ms-[250px] tabletS:ms-0`}>
+                        <div
+                            className={`flex justify-center items-center h-[80vh]`}
+                        >
+                            <p className={`text-2xl font-bold`}>No posts yet</p>
+                        </div>
+                    </div>
+                )}
             </div>
         </section>
     );

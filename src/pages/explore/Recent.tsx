@@ -30,7 +30,8 @@ export const Recent = (): React.JSX.Element => {
                 Recent
             </Typography>
             <div>
-                {loading || posts.length === 0 ? (
+                {(loading && posts.length === 0) ||
+                (!loading && posts.length === 0) ? (
                     [...Array(6)].map((_, index) => (
                         <RecentPostLoader key={index} />
                     ))
