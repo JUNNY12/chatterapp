@@ -60,7 +60,7 @@ export const UserProvider = ({ children }: Children) => {
         fetchUser();
     }, [user]);
 
-    console.log(userInfo);
+    // console.log(userInfo);
     return (
         <UserContext.Provider value={{ userInfo, loading }}>
             {children}

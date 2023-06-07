@@ -14,6 +14,7 @@ import { SinglePageLoader } from '../../components/modules/skeletonloader';
 import { useFetchPost } from '../../hooks/article/useFetchPost';
 import { useEffect } from 'react';
 import { updateArticle } from '../../firebase/article';
+import { CommentSection } from './CommentSection';
 
 export default function Slug(): React.JSX.Element {
     const { slug } = useParams();
@@ -41,7 +42,7 @@ export default function Slug(): React.JSX.Element {
 
     //get the single post
     const singlePost: any = posts.find(({ slug }) => slug === formattedSlug);
-    console.log(singlePost);
+    // console.log(singlePost);
 
     return (
         <section className={` bg-white-100 h-max`}>
@@ -103,7 +104,7 @@ export default function Slug(): React.JSX.Element {
 
                                 <div className=" flex items-center justify-center mt-12 text-xl">
                                     <div className=" flex items-center me-3">
-                                        <FaComment className=" " />
+                                        <FaComment className=" me-1" />
                                         <Typography
                                             variant={2}
                                             className="text-base"
@@ -113,7 +114,7 @@ export default function Slug(): React.JSX.Element {
                                     </div>
 
                                     <div className=" flex items-center me-3">
-                                        <MdFavorite className=" " />
+                                        <MdFavorite className=" me-1" />
                                         <Typography
                                             variant={2}
                                             className="text-base"
@@ -122,8 +123,8 @@ export default function Slug(): React.JSX.Element {
                                         </Typography>
                                     </div>
 
-                                    <div className=" flex items-center me-3">
-                                        <MdInsights className=" " />
+                                    <div className=" flex items-center me-1">
+                                        <MdInsights className=" me-2" />
                                         <Typography
                                             variant={2}
                                             className="text-base"
@@ -133,6 +134,12 @@ export default function Slug(): React.JSX.Element {
                                     </div>
                                 </div>
                             </article>
+
+                            <div>
+                                <CommentSection 
+                                comments={singlePost?.comments}
+                                />
+                            </div>
                         </div>
 
                         <aside

@@ -123,7 +123,7 @@ export const ArticleProvider = ({ children }: ArticleProviderProps) => {
 
     const handleTagQuery = (event: ChangeEvent<HTMLInputElement>) => {
         setTagQuery(event.target.value);
-        console.log(tagQuery);
+        // console.log(tagQuery);
     };
 
     const addTag = (tag: string) => {

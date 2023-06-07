@@ -5,6 +5,7 @@ import { getTimeDifferenceString } from '../../utils/getTimeDifference';
 import { getTopArticle } from '../../firebase/article';
 import { getUser } from '../../firebase/user';
 import { useNavigate } from 'react-router';
+
 export interface Author {
     id: string;
     data: {
@@ -35,13 +36,11 @@ export interface Author {
 }
 
 export interface Comment {
-    id: string;
-    text: string;
-    author: {
-        authorId: string;
-    };
-    createdAt: string;
-    replies: Comment[];
+    commentId?: string;
+    comment?: string;
+    commentorId?:string
+    createdAt?: string;
+    reply?: Comment[];
 }
 
 export interface SinglePostInterface {
@@ -49,7 +48,7 @@ export interface SinglePostInterface {
     title: string;
     body: string;
     subtitle: string;
-    likeCounts: string[];
+    likeCounts:string[]
     coverImage: string;
     tagList: string[];
     author: Author;

@@ -15,7 +15,7 @@ const initialState: initialStateInterface = {
 interface articleContextInterface {
     articles: SinglePostInterface[];
     likeArticle: (articleId: any, userId: any) => void;
-    commentOnArticle: (articleId: any, comment: any, userId: any) => void;
+    commentOnArticle: (articleId: any, comment: any, userId: any, authorId:any) => void;
     handleInput: (e: any) => void;
     comment: string;
     setArticles: (posts: SinglePostInterface[]) => void;
@@ -48,8 +48,8 @@ export const ArticleInteractionProvider = ({ children }: childrenProps) => {
     const { LIKE_ARTICLE, COMMENT_ON_ARTICLE, SET_ARTICLES } =
         Article_Action_Types;
 
-    console.log('posts', posts);
-    console.log('state', state);
+    // console.log('posts', posts);
+    // console.log('state', state);
 
     // Set the articles
     const setArticles = (posts: SinglePostInterface[]) => {
@@ -73,10 +73,10 @@ export const ArticleInteractionProvider = ({ children }: childrenProps) => {
         });
     };
 
-    const commentOnArticle = (articleId: any, comment: any, userId: any) => {
+    const commentOnArticle = (articleId: any, comment: any, userId: any, authorId:any) => {
         dispatch({
             type: COMMENT_ON_ARTICLE,
-            payload: { articleId, comment, userId },
+            payload: { articleId, comment, userId, authorId },
         });
     };
 

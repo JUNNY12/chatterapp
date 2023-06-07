@@ -3,6 +3,7 @@ export const Article_Action_Types = {
     COMMENT_ON_ARTICLE: 'COMMENT_ON_ARTICLE',
     SET_ARTICLES: 'SET_ARTICLES',
 };
+import { updateArticle } from "../firebase/article";
 
 const { LIKE_ARTICLE, COMMENT_ON_ARTICLE, SET_ARTICLES } = Article_Action_Types;
 
@@ -41,19 +42,20 @@ export const articleReducer = (state: any, action: any) => {
             };
 
         case COMMENT_ON_ARTICLE:
-            const { articleId, comment, authorId } = action.payload;
+            const { articleId, comment, userId, authorId } = action.payload;
             const updatedArticlesWithComment = state.articles.map(
                 (article: any) => {
                     if (article.id === articleId) {
                         const updatedComments = [
                             ...article.comments,
-                            { authorId, comment },
+                            { userId, comment },
                         ];
-
+                        
                         return {
                             ...article,
                             comments: updatedComments,
                         };
+
                     }
                     return article;
                 }

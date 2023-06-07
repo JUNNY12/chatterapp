@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Typography } from '../../components/element';
 import { FaComment } from 'react-icons/fa';
 import { MdFavorite, MdInsights } from 'react-icons/md';
@@ -6,10 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 import { calculateReadingTime } from '../../utils';
 import { SinglePostInterface } from '../../context/article/FetchAllPostContext';
-import { useAuthContext } from '../../hooks/auth/useAuthContext';
 import { updateArticle } from '../../firebase/article';
 import { useState } from 'react';
 import { Comment } from '.';
+import { useFetchUser } from '../../hooks/user/useFetchUser';
 
 interface PostProps {
     post: SinglePostInterface;
@@ -19,21 +19,29 @@ interface PostProps {
 export const PostCard = ({ post }: PostProps): React.JSX.Element => {
     const navigate = useNavigate();
     const { theme } = useThemeContext();
-    const { user } = useAuthContext();
-
     const [comment, setComment] = useState('');
     const [showComment, setShowComment] = useState(false);
+    const {userInfo} = useFetchUser();
+    const [allComments, setAllComments] = useState(post.comments);
+    const [allLikes, setAllLikes] = useState(post.likeCounts);
+    const [like, setLike] = useState(false);
+    // const [likeCount, setLikeCount] = useState(post.likeCounts.length);
+
+    console.log('allComments', post.comments);
+   
+    useEffect(() => {
+        setAllComments(post?.comments);
+        setAllLikes(post?.likeCounts);
+    }, [post]);
+
+    console.log('allComments', allComments.length);
+    console.log('allLikes', allLikes);
+    console.log(post.likeCounts)
 
     const handleCommentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setComment(e.target.value);
     };
 
-    const handleCommentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        // Add your comment submission logic here
-        console.log('Comment submitted:', comment);
-        setComment('');
-    };
 
     const {
         id,
@@ -50,6 +58,29 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
         likeCounts,
     } = post;
 
+    const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            const newComment = {
+                commentId: new Date().getTime().toString(),
+                createdAt: new Date().toISOString(),
+                comment,
+                commentorId: userInfo.uid,
+            };
+            setAllComments([...allComments, newComment]);
+            await updateArticle(author?.uid, id, {
+                comments: [...allComments, newComment],
+            });
+
+            console.log('Comment submitted:', comment);
+            setComment('');
+            setShowComment(false);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    };
+
     // console.log(likeCounts);
 
     const { displayName, photoUrl, fullName, occupation } = author;
@@ -63,23 +94,21 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
         );
     };
 
-    let userUID = user?.uid as string;
     const handleLike = async () => {
-        let uid = user?.uid;
-        // console.log(uid);
-
-        const liked = likeCounts.includes(uid as string);
+        const liked = likeCounts.includes(userInfo.uid as string);
 
         if (liked) {
-            const updatedLikeCounts = likeCounts.filter((id) => id !== uid);
+            const updatedLikeCounts = likeCounts.filter((id) => id !== userInfo.uid);
             await updateArticle(author?.uid, id, {
                 likeCounts: updatedLikeCounts,
             });
+            setLike(false); // Update the like state
         } else {
-            const updatedLikeCounts = [...likeCounts, uid as string];
+            const updatedLikeCounts = [...likeCounts, userInfo.uid as string];
             await updateArticle(author?.uid, id, {
                 likeCounts: updatedLikeCounts,
             });
+            setLike(true); // Update the like state
         }
     };
 
@@ -178,26 +207,25 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
                         onClick={() => setShowComment(!showComment)}
                         className=" flex items-center me-6"
                     >
-                        <FaComment className=" " />
+                        <FaComment className=" me-1" />
                         <Typography variant={2} className="text-base">
-                            {comments.length}
+                            {allComments.length || comments.length}
                         </Typography>
                     </div>
 
                     <div
-                        className={`${
-                            likeCounts?.includes(userUID) && 'text-pink-600'
-                        } flex items-center me-6`}
+                        className={`${like ? 'text-pink-600' : ''
+                            } flex items-center me-6`}
                         onClick={handleLike}
                     >
-                        <MdFavorite className={` `} />
+                        <MdFavorite className={`me-1`} />
                         <Typography variant={2} className="text-base">
-                            {likeCounts?.length}
+                            {allLikes?.length || likeCounts?.length}
                         </Typography>
                     </div>
 
                     <div className=" flex items-center me-6">
-                        <MdInsights className=" " />
+                        <MdInsights className="me-1 " />
                         <Typography variant={2} className="text-base">
                             {views}
                         </Typography>
