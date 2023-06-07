@@ -1,47 +1,14 @@
-import { useAuthContext } from '../../../hooks/auth/useAuthContext';
 import { Button } from '../../element';
 import { logout } from '../../../firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { getUser } from '../../../firebase/user';
-import { useEffect, useState } from 'react';
 import { DropNavSkeleton } from '../skeletonloader/DropNavSkeleton';
 import { NavLink } from 'react-router-dom';
 import { greetings } from '../../../utils';
+import { useFetchUser } from '../../../hooks/user/useFetchUser';
 
 export const AuthenticatedDropNav = (): React.JSX.Element => {
     const navigate = useNavigate();
-    const { user } = useAuthContext();
-    const [loading, setLoading] = useState<boolean>(false);
-    const [userDetails, setUserDetails] = useState<any>({
-        fullName: '',
-        displayName: '',
-        photoUrl: '',
-    });
-
-    let uid: any;
-
-    //get user details
-    useEffect(() => {
-        if (user) {
-            uid = user.uid;
-
-            const getUserDetails = async () => {
-                setLoading(true);
-                const userData = await getUser(uid);
-                setUserDetails({
-                    ...userDetails,
-                    fullName: userData[0].data.fullName,
-                    photoUrl: userData[0].data.photoUrl,
-                    displayName: userData[0].data.displayName,
-                });
-                setLoading(false);
-            };
-            getUserDetails();
-        }
-    }, [user]);
-
-    //destructure user details
-    const { photoUrl, displayName } = userDetails;
+    const { userInfo, loading } = useFetchUser(); //fetch user details
 
     //handle sign out
     const handleSignOut = async () => {
@@ -65,14 +32,14 @@ export const AuthenticatedDropNav = (): React.JSX.Element => {
                             <img
                                 title="user profile picture"
                                 className="rounded-full object-cover w-full h-full"
-                                src={photoUrl}
-                                alt={displayName}
+                                src={userInfo?.photoUrl}
+                                alt={userInfo?.displayName}
                             />
                         </div>
 
                         <div className="text-base w-[100px]">
                             <div className="text-[14px]">{greetings()}</div>
-                            <div>{displayName}</div>
+                            <div>{userInfo?.displayName}</div>
                         </div>
                     </div>
 

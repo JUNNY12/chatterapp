@@ -1,6 +1,6 @@
 import { Navbar } from '../modules';
 import { Outlet } from 'react-router';
-import { UsersProvider } from '../../context/users/FetchUserContext';
+import { UsersProvider } from '../../context/users/FetchAllUserContext';
 
 export const ProfileUserLayout = (): React.JSX.Element => {
     return (

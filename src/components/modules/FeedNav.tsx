@@ -4,46 +4,18 @@ import { FaMoon, FaSun } from 'react-icons/fa';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { useNav } from '../../hooks/nav/useNav';
 import { DropNav } from '.';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getUser } from '../../firebase/user';
 import { useAuthContext } from '../../hooks/auth/useAuthContext';
 import { FaUserCircle } from 'react-icons/fa';
+import { useFetchUser } from '../../hooks/user/useFetchUser';
 
 export const FeedNav = (): React.JSX.Element => {
     const { theme, toggleTheme } = useThemeContext();
-    const { user } = useAuthContext();
     const { setShow } = useNav();
     const [showDrop, setShowDrop] = useState(false);
-    const [loading, setLoading] = useState<boolean>(false);
-    const [userDetails, setUserDetails] = useState<any>({
-        photoUrl: '',
-        displayName: '',
-    });
-
-    let uid: any;
-
-    //get user details
-    useEffect(() => {
-        if (user) {
-            uid = user.uid;
-
-            const getUserDetails = async () => {
-                setLoading(true);
-                const userData = await getUser(uid);
-                setUserDetails({
-                    ...userDetails,
-                    photoUrl: userData[0].data.photoUrl,
-                    displayName: userData[0].data.displayName,
-                });
-                setLoading(false);
-            };
-            getUserDetails();
-        }
-    }, [user]);
-
-    //destructure user details
-    const { photoUrl, displayName } = userDetails;
+    const { userInfo, loading } = useFetchUser();
+    const { user } = useAuthContext();
 
     //show side bar
     const handleShow = () => {
@@ -118,8 +90,8 @@ export const FeedNav = (): React.JSX.Element => {
                                     <img
                                         title="profile picture"
                                         className="rounded-full object-cover w-full h-full"
-                                        src={photoUrl}
-                                        alt={displayName}
+                                        src={userInfo?.photoUrl}
+                                        alt={userInfo?.displayName}
                                     />
                                 </div>
                             )}

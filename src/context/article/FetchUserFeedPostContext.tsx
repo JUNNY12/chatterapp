@@ -1,38 +1,29 @@
 import { createContext, useState, useEffect } from 'react';
 import { useFetchPost } from '../../hooks/article/useFetchPost';
-import { useAuthContext } from '../../hooks/auth/useAuthContext';
-import { getUser } from '../../firebase/user';
+import { useFetchUser } from '../../hooks/user/useFetchUser';
 
-export const FetchUserFeedPostContext = createContext({} as any);
+export const FetchUserFeedPostContext = createContext<any>({});
 
-type childrenProps = {
+type ChildrenProps = {
     children: React.ReactNode;
 };
 
 export const FetchUserFeedPostContextProvider = ({
     children,
-}: childrenProps) => {
-    const { user } = useAuthContext();
+}: ChildrenProps) => {
     const { posts } = useFetchPost();
-    const [userFeed, setUserFeed] = useState([] as any);
-    const [loading, setLoading] = useState(false);
+    const { userInfo, loading } = useFetchUser();
+    const [userFeed, setUserFeed] = useState<any[]>([]);
 
     useEffect(() => {
-        const fetchUserDetail = async () => {
-            setLoading(true);
-            if (user) {
-                const userDetails = await getUser(user?.uid);
-                const userTags = userDetails[0]?.data?.tags;
-                const updated = posts.filter((post) =>
-                    post.tagList?.some((tag: any) => userTags?.includes(tag))
-                );
-                setUserFeed(updated);
-                setLoading(false);
-            }
-        };
-
-        fetchUserDetail();
-    }, [user, posts]);
+        if (userInfo) {
+            const userTags = userInfo?.tags;
+            const updated = posts.filter((post) =>
+                post.tagList?.some((tag: string) => userTags?.includes(tag))
+            );
+            setUserFeed(updated);
+        }
+    }, [userInfo, posts]);
 
     return (
         <FetchUserFeedPostContext.Provider value={{ userFeed, loading }}>

@@ -31,8 +31,8 @@ export default function Slug(): React.JSX.Element {
             const newViews = views + 1;
             console.log(newViews);
             console.log(views);
-            console.log(author[0].data.uid, id, views);
-            await updateArticle(author[0].data.uid, id, { views: views + 1 });
+            console.log(author?.uid, id, views);
+            await updateArticle(author?.uid, id, { views: views + 1 });
         }
     };
     useEffect(() => {
@@ -151,9 +151,7 @@ export default function Slug(): React.JSX.Element {
                             <div className=" flex items-center justify-center p-4 flex-wrap">
                                 <div className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] me-4 border border-gray-300 relative rounded-full object-cover">
                                     <img
-                                        src={
-                                            singlePost?.author[0].data.photoUrl
-                                        }
+                                        src={singlePost?.author?.photoUrl}
                                         alt="user"
                                         className=" rounded-full object-cover w-full h-full"
                                     />
@@ -163,7 +161,7 @@ export default function Slug(): React.JSX.Element {
                                         variant={1}
                                         className="font-bold text-xl mobileXL:text-lg text-center"
                                     >
-                                        {singlePost?.author[0].data.fullName}
+                                        {singlePost?.author?.fullName}
                                     </Typography>
                                 </div>
                             </div>
@@ -173,13 +171,13 @@ export default function Slug(): React.JSX.Element {
                                     variant={2}
                                     className="text-center text-xl font-bold"
                                 >
-                                    {singlePost?.author[0].data.occupation}
+                                    {singlePost?.author?.occupation}
                                 </Typography>
                             </div>
 
                             <div>
                                 <p className="p-2 text-center">
-                                    {singlePost?.author[0].data.bio}
+                                    {singlePost?.author?.bio}
                                 </p>
                             </div>
 

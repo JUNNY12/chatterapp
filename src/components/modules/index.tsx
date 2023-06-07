@@ -8,3 +8,4 @@ export * from './FeedNav';
 export * from './UserSideBar';
 export * from './ScrollToTop';
 export * from './PostCard';
+export * from './Comment';

@@ -19,7 +19,6 @@ const LazyHome = React.lazy(() => import('../../pages/home/Home'));
 const LazyFeed = React.lazy(() => import('../../pages/feed/Feed'));
 const LazyFeature = React.lazy(() => import('../../pages/featured/Feature'));
 const LazyExplore = React.lazy(() => import('../../pages/explore/Explore'));
-const LazySlug = React.lazy(() => import('../../pages/userpost/Slug'));
 const LazyProfile = React.lazy(
     () => import('../../pages/settings/profile/Profile')
 );
@@ -29,6 +28,8 @@ const LazyAccount = React.lazy(
 const LazyManagePost = React.lazy(
     () => import('../../pages/settings/posts/Post')
 );
+
+const LazySlug = React.lazy(() => import('../../pages/userpost/Slug'));
 
 const LazyPostPage = React.lazy(() => import('../../pages/write/EditPost'));
 const LazyDraftPage = React.lazy(() => import('../../pages/write/DraftPage'));
@@ -94,11 +95,6 @@ export function Routes() {
             children: [{ index: true, element: <LazySlug /> }],
         },
         {
-            path: '/user/:displayName',
-            element: <ProfileUserLayout />,
-            children: [{ index: true, element: <LazyUser /> }],
-        },
-        {
             path: '/settings',
             element: <UserLayout />,
             children: [
@@ -116,5 +112,10 @@ export function Routes() {
             ],
         },
         { path: '*', element: <LazyNotFound /> },
+        {
+            path: '/user/:displayName',
+            element: <ProfileUserLayout />,
+            children: [{ index: true, element: <LazyUser /> }],
+        },
     ]);
 }

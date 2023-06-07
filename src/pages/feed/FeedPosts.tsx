@@ -19,7 +19,11 @@ export const FeedPosts = (): React.JSX.Element => {
                 <div>
                     {userFeed.map((post: SinglePostInterface) => {
                         const { id } = post;
-                        return <PostCard key={id} post={post} />;
+                        return (
+                            <div key={id}>
+                                <PostCard key={id} post={post} />
+                            </div>
+                        );
                     })}
                 </div>
             )}

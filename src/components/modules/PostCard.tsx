@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography } from '../../components/element';
-import { FaShare, FaComment } from 'react-icons/fa';
+import { FaComment } from 'react-icons/fa';
 import { MdFavorite, MdInsights } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
@@ -8,12 +8,33 @@ import { calculateReadingTime } from '../../utils';
 import { SinglePostInterface } from '../../context/article/FetchAllPostContext';
 import { useAuthContext } from '../../hooks/auth/useAuthContext';
 import { updateArticle } from '../../firebase/article';
+import { useState } from 'react';
+import { Comment } from '.';
 
 interface PostProps {
     post: SinglePostInterface;
 }
 
+//destructuring the props
 export const PostCard = ({ post }: PostProps): React.JSX.Element => {
+    const navigate = useNavigate();
+    const { theme } = useThemeContext();
+    const { user } = useAuthContext();
+
+    const [comment, setComment] = useState('');
+    const [showComment, setShowComment] = useState(false);
+
+    const handleCommentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setComment(e.target.value);
+    };
+
+    const handleCommentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        // Add your comment submission logic here
+        console.log('Comment submitted:', comment);
+        setComment('');
+    };
+
     const {
         id,
         title,
@@ -29,16 +50,12 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
         likeCounts,
     } = post;
 
-    console.log(likeCounts);
+    // console.log(likeCounts);
 
-    const { displayName, photoUrl, fullName, occupation } = author[0].data;
-
-    const navigate = useNavigate();
-    const { theme } = useThemeContext();
-    const { user } = useAuthContext();
+    const { displayName, photoUrl, fullName, occupation } = author;
 
     const handleNavigate = () => {
-        // await updateArticle(author[0].data.uid, id, { views: views + 1 });
+        // await updateArticle(data.uid, id, { views: views + 1 });
         navigate(
             `/post/${fullName.split(' ').join('_')}/${slug
                 .split(' ')
@@ -49,18 +66,18 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
     let userUID = user?.uid as string;
     const handleLike = async () => {
         let uid = user?.uid;
-        console.log(uid);
+        // console.log(uid);
 
         const liked = likeCounts.includes(uid as string);
 
         if (liked) {
             const updatedLikeCounts = likeCounts.filter((id) => id !== uid);
-            await updateArticle(author[0].data.uid, id, {
+            await updateArticle(author?.uid, id, {
                 likeCounts: updatedLikeCounts,
             });
         } else {
             const updatedLikeCounts = [...likeCounts, uid as string];
-            await updateArticle(author[0].data.uid, id, {
+            await updateArticle(author?.uid, id, {
                 likeCounts: updatedLikeCounts,
             });
         }
@@ -157,7 +174,10 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
                 </div>
 
                 <div className=" flex items-center justify-center mt-12 text-xl">
-                    <div className=" flex items-center me-6">
+                    <div
+                        onClick={() => setShowComment(!showComment)}
+                        className=" flex items-center me-6"
+                    >
                         <FaComment className=" " />
                         <Typography variant={2} className="text-base">
                             {comments.length}
@@ -182,14 +202,15 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
                             {views}
                         </Typography>
                     </div>
-
-                    <div className=" flex items-center me-6">
-                        <FaShare className=" " />
-                        <Typography variant={2} className="text-base">
-                            {' '}
-                            10{' '}
-                        </Typography>
-                    </div>
+                </div>
+                <div className="mt-3">
+                    {showComment && (
+                        <Comment
+                            value={comment}
+                            onCommentChange={handleCommentChange}
+                            onCommentSubmit={handleCommentSubmit}
+                        />
+                    )}
                 </div>
             </article>
         </div>

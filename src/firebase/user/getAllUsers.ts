@@ -1,6 +1,6 @@
 import firebaseApp from '../config';
 import { getFirestore, collectionGroup, getDocs } from 'firebase/firestore';
-import { UserInterface } from '../../context/users/FetchUserContext';
+import { UserInterface } from '../../context/users/FetchAllUserContext';
 
 const db = getFirestore(firebaseApp);
 

@@ -4,7 +4,6 @@ import { BasicInfo, SocialInfo } from '.';
 import { Button } from '../../../components/element';
 import { useFormData } from '../../../hooks/form/useFormData';
 import { useEffect, useState, useRef, ChangeEvent } from 'react';
-import { getUser } from '../../../firebase/user';
 import { updateProfile } from '../../../firebase/user';
 import { BeatLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
@@ -12,6 +11,7 @@ import { MdOutlinePhotoCamera } from 'react-icons/md';
 import firebaseApp from '../../../firebase/config';
 import { ref, getStorage } from 'firebase/storage';
 import { handleCustomImageUpload } from '../../../firebase/upload/handleCustomImageUpload';
+import { useFetchUser } from '../../../hooks/user/useFetchUser';
 
 export default function Profile(): React.JSX.Element {
     const { theme } = useThemeContext();
@@ -19,6 +19,7 @@ export default function Profile(): React.JSX.Element {
     const [loading, setLoading] = useState<boolean>(false);
     const imageRef = useRef<any>(null);
     const [image, setImage] = useState<any>(null);
+    const { userInfo } = useFetchUser();
 
     const storage = getStorage(firebaseApp);
 
@@ -82,32 +83,25 @@ export default function Profile(): React.JSX.Element {
         website: '',
     });
 
-    //get user details
+    //update user info on mount
     useEffect(() => {
-        if (user) {
-            const getUserDetails = async () => {
-                const userData = await getUser(user.uid);
-                // console.log(userData[0]?.data?.socialInfo);
-
-                //if details are available, set form values else set empty string
-                setValues({
-                    displayName: userData[0]?.data?.displayName || '',
-                    fullName: userData[0]?.data?.fullName || '',
-                    email: userData[0]?.data?.email || '',
-                    photoUrl: userData[0]?.data?.photoUrl || '',
-                    occupation: userData[0]?.data?.occupation || '',
-                    bio: userData[0]?.data?.bio || '',
-                    location: userData[0]?.data?.location || '',
-                    availability: userData[0]?.data?.availability || '',
-                    twitter: userData[0]?.data?.socialInfo?.twitter || '',
-                    instagram: userData[0]?.data?.socialInfo?.instagram || '',
-                    facebook: userData[0]?.data?.socialInfo?.facebook || '',
-                    github: userData[0]?.data?.socialInfo?.github || '',
-                    linkedIn: userData[0]?.data?.socialInfo?.linkedIn || '',
-                    website: userData[0]?.data?.socialInfo?.website || '',
-                });
-            };
-            getUserDetails();
+        if (userInfo) {
+            setValues({
+                displayName: userInfo?.displayName || '',
+                fullName: userInfo?.fullName || '',
+                email: userInfo?.email || '',
+                photoUrl: userInfo?.photoUrl || '',
+                occupation: userInfo?.occupation || '',
+                bio: userInfo?.bio || '',
+                location: userInfo?.location || '',
+                availability: userInfo?.availability || '',
+                twitter: userInfo?.socialInfo?.twitter || '',
+                instagram: userInfo?.socialInfo?.instagram || '',
+                facebook: userInfo?.socialInfo?.facebook || '',
+                github: userInfo?.socialInfo?.github || '',
+                linkedIn: userInfo?.socialInfo?.linkedIn || '',
+                website: userInfo?.socialInfo?.website || '',
+            });
         }
     }, [user]);
 

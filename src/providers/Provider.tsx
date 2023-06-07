@@ -6,6 +6,7 @@ import { useAuthContext } from '../hooks/auth/useAuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getUser } from '../firebase/user';
+import { UserProvider } from '../context/users/GetUserContext';
 
 //interface for provider props
 interface ProviderProps {
@@ -89,15 +90,17 @@ export const Provider = ({ children }: ProviderProps) => {
         <ThemeProvider>
             <NavProvider>
                 <AuthProvider>
-                    <ArticleProvider>
-                        {protectedRoutes.includes(pathName) ? (
-                            <ProtectedRoutes>{children}</ProtectedRoutes>
-                        ) : protectProfilePage.includes(pathName) ? (
-                            <Protected>{children}</Protected>
-                        ) : (
-                            <>{children}</>
-                        )}
-                    </ArticleProvider>
+                    <UserProvider>
+                        <ArticleProvider>
+                            {protectedRoutes.includes(pathName) ? (
+                                <ProtectedRoutes>{children}</ProtectedRoutes>
+                            ) : protectProfilePage.includes(pathName) ? (
+                                <Protected>{children}</Protected>
+                            ) : (
+                                <>{children}</>
+                            )}
+                        </ArticleProvider>
+                    </UserProvider>
                 </AuthProvider>
             </NavProvider>
         </ThemeProvider>

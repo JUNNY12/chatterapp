@@ -5,7 +5,6 @@ import { getTimeDifferenceString } from '../../utils/getTimeDifference';
 import { getTopArticle } from '../../firebase/article';
 import { getUser } from '../../firebase/user';
 import { useNavigate } from 'react-router';
-
 export interface Author {
     id: string;
     data: {
@@ -40,8 +39,6 @@ export interface Comment {
     text: string;
     author: {
         authorId: string;
-        fullName: string;
-        photoUrl: string;
     };
     createdAt: string;
     replies: Comment[];

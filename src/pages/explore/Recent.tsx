@@ -54,14 +54,19 @@ export const Recent = (): React.JSX.Element => {
                                     key={id}
                                     className="border-b cursor-pointer border-gray-300 p-8 mobileXL:px-2"
                                 >
-                                    <div className=" flex items-center mb-3">
-                                        <div className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] me-4 border border-gray-300 relative rounded-full object-cover">
+                                    <div
+                                        onClick={() =>
+                                            navigate(
+                                                `/user/${author?.displayName}`
+                                            )
+                                        }
+                                        className=" flex items-center mb-3"
+                                    >
+                                        <div className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] me-4 relative rounded-full object-cover">
                                             <img
-                                                src={author[0].data.photoUrl}
-                                                title={
-                                                    author[0].data.displayName
-                                                }
-                                                alt={author[0].data.displayName}
+                                                src={author.photoUrl}
+                                                title={author.displayName}
+                                                alt={author.displayName}
                                                 className=" rounded-full object-cover w-full h-full"
                                             />
                                         </div>
@@ -70,7 +75,7 @@ export const Recent = (): React.JSX.Element => {
                                                 variant={1}
                                                 className="font-bold text-2xl mobileXL:text-lg"
                                             >
-                                                {author[0].data.fullName}
+                                                {author?.fullName}
                                             </Typography>
                                             <Typography
                                                 variant={2}
@@ -78,7 +83,7 @@ export const Recent = (): React.JSX.Element => {
                                             >
                                                 <span>
                                                     {' '}
-                                                    {author[0].data.occupation}
+                                                    {author?.occupation}
                                                 </span>
                                                 <span className=" ms-6 mobileXL:ms-3">
                                                     {createdAgo}
@@ -89,7 +94,7 @@ export const Recent = (): React.JSX.Element => {
                                     <div
                                         onClick={() => {
                                             navigate(
-                                                `/post/${author[0].data.fullName
+                                                `/post/${author?.fullName
                                                     .split(' ')
                                                     .join('_')}/${slug
                                                     .split(' ')

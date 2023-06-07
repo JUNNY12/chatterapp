@@ -11,10 +11,13 @@ export const getUser = async (uid: any) => {
         collection(db, 'users', uid, 'profile')
     );
 
-    const userData: any = [];
+    let userData: any = {};
 
     querySnapshot.forEach((doc) => {
-        userData.push({ id: doc.id, data: doc.data() });
+        userData = {
+            id: doc.id,
+            ...doc.data(),
+        };
     });
 
     return userData;
