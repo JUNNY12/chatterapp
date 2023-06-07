@@ -41,7 +41,7 @@ export default function Slug(): React.JSX.Element {
 
     //get the single post
     const singlePost: any = posts.find(({ slug }) => slug === formattedSlug);
-    console.log(singlePost)
+    console.log(singlePost);
 
     return (
         <section className={` bg-white-100 h-max`}>

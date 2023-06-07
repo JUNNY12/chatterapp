@@ -7,3 +7,4 @@ export * from './Loader';
 export * from './FeedNav';
 export * from './UserSideBar';
 export * from './ScrollToTop';
+export * from './PostCard';

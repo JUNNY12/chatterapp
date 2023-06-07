@@ -52,7 +52,7 @@ export interface SinglePostInterface {
     title: string;
     body: string;
     subtitle: string;
-    likeCounts:string[]
+    likeCounts: string[];
     coverImage: string;
     tagList: string[];
     author: Author;

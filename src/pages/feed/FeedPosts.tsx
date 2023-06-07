@@ -1,7 +1,7 @@
-import { Post } from './Post';
 import { PostLoader } from '../../components/modules/skeletonloader';
 import { SinglePostInterface } from '../../context/article/FetchAllPostContext';
 import { useFetchFeed } from '../../hooks/article/useFetchFeed';
+import { PostCard } from '../../components/modules';
 
 export const FeedPosts = (): React.JSX.Element => {
     const { userFeed, loading } = useFetchFeed();
@@ -19,7 +19,7 @@ export const FeedPosts = (): React.JSX.Element => {
                 <div>
                     {userFeed.map((post: SinglePostInterface) => {
                         const { id } = post;
-                        return <Post key={id} post={post} />;
+                        return <PostCard key={id} post={post} />;
                     })}
                 </div>
             )}

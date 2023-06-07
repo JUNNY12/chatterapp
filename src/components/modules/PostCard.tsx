@@ -13,7 +13,7 @@ interface PostProps {
     post: SinglePostInterface;
 }
 
-export const Post = ({ post }: PostProps): React.JSX.Element => {
+export const PostCard = ({ post }: PostProps): React.JSX.Element => {
     const {
         id,
         title,
@@ -29,7 +29,7 @@ export const Post = ({ post }: PostProps): React.JSX.Element => {
         likeCounts,
     } = post;
 
-    console.log(likeCounts)
+    console.log(likeCounts);
 
     const { displayName, photoUrl, fullName, occupation } = author[0].data;
 
@@ -53,16 +53,17 @@ export const Post = ({ post }: PostProps): React.JSX.Element => {
 
         const liked = likeCounts.includes(uid as string);
 
-        if(liked){
+        if (liked) {
             const updatedLikeCounts = likeCounts.filter((id) => id !== uid);
-            await updateArticle(author[0].data.uid, id, { likeCounts: updatedLikeCounts });
-
-        }
-        else{
+            await updateArticle(author[0].data.uid, id, {
+                likeCounts: updatedLikeCounts,
+            });
+        } else {
             const updatedLikeCounts = [...likeCounts, uid as string];
-            await updateArticle(author[0].data.uid, id, { likeCounts: updatedLikeCounts });
+            await updateArticle(author[0].data.uid, id, {
+                likeCounts: updatedLikeCounts,
+            });
         }
-
     };
 
     return (
@@ -76,7 +77,10 @@ export const Post = ({ post }: PostProps): React.JSX.Element => {
         `}
         >
             <article className="border-b border-gray-300 p-8 my-8 tabletXS:my-3 mobileXL:px-2 cursor-pointer">
-                <div className=" flex items-center mb-3">
+                <div
+                    onClick={() => navigate(`/user/${displayName}`)}
+                    className=" flex items-center mb-3"
+                >
                     <div className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] me-4 relative rounded-full object-cover">
                         <img
                             src={photoUrl}
@@ -160,7 +164,12 @@ export const Post = ({ post }: PostProps): React.JSX.Element => {
                         </Typography>
                     </div>
 
-                    <div className={`${likeCounts?.includes(userUID) && 'text-pink-600'} flex items-center me-6`} onClick={handleLike}>
+                    <div
+                        className={`${
+                            likeCounts?.includes(userUID) && 'text-pink-600'
+                        } flex items-center me-6`}
+                        onClick={handleLike}
+                    >
                         <MdFavorite className={` `} />
                         <Typography variant={2} className="text-base">
                             {likeCounts?.length}

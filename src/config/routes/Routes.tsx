@@ -39,7 +39,7 @@ const LazyPreviewSlug = React.lazy(
 const LazyAnalytics = React.lazy(
     () => import('../../pages/analytics/Analytics')
 );
-const LazyUser = React.lazy(() => import('../../pages/settings/profile/User'));
+const LazyUser = React.lazy(() => import('../../pages/user/User'));
 
 export function Routes() {
     return useRoutes([
@@ -94,6 +94,11 @@ export function Routes() {
             children: [{ index: true, element: <LazySlug /> }],
         },
         {
+            path: '/user/:displayName',
+            element: <ProfileUserLayout />,
+            children: [{ index: true, element: <LazyUser /> }],
+        },
+        {
             path: '/settings',
             element: <UserLayout />,
             children: [
@@ -111,8 +116,5 @@ export function Routes() {
             ],
         },
         { path: '*', element: <LazyNotFound /> },
-        { path: '/user/:displayName', element: <ProfileUserLayout />,
-         children: [{ index: true, element: <LazyUser /> }]
-        },
     ]);
 }
