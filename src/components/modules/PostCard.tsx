@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
 import { Typography } from '../../components/element';
 import { FaComment } from 'react-icons/fa';
-import { MdFavorite, MdInsights } from 'react-icons/md';
+import { MdInsights } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 import { calculateReadingTime } from '../../utils';
 import { SinglePostInterface } from '../../context/article/FetchAllPostContext';
 import { updateArticle } from '../../firebase/article';
 import { useState } from 'react';
-import { Comment } from '.';
+import { Comment,LikeButton } from '.';
 import { useFetchUser } from '../../hooks/user/useFetchUser';
+import { toast } from 'react-toastify';
 
 interface PostProps {
     post: SinglePostInterface;
@@ -19,26 +20,29 @@ interface PostProps {
 export const PostCard = ({ post }: PostProps): React.JSX.Element => {
     const navigate = useNavigate();
     const { theme } = useThemeContext();
+  
+    const { userInfo } = useFetchUser();
+
+    //comments state
     const [comment, setComment] = useState('');
     const [showComment, setShowComment] = useState(false);
-    const {userInfo} = useFetchUser();
     const [allComments, setAllComments] = useState(post.comments);
+    const [isLoading, setIsLoading] = useState(false);
+
+    //likes state
     const [allLikes, setAllLikes] = useState(post.likeCounts);
-    const [like, setLike] = useState(false);
-    // const [likeCount, setLikeCount] = useState(post.likeCounts.length);
+    const [likes, setLikes] = useState(post.likeCounts.length);
 
     console.log('allComments', post.comments);
-   
+
     useEffect(() => {
         setAllComments(post?.comments);
         setAllLikes(post?.likeCounts);
     }, [post]);
 
-    console.log('allComments', allComments.length);
-    console.log('allLikes', allLikes);
-    console.log(post.likeCounts)
+   
 
-    const handleCommentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setComment(e.target.value);
     };
 
@@ -61,6 +65,7 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
     const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
+            setIsLoading(true);
             const newComment = {
                 commentId: new Date().getTime().toString(),
                 createdAt: new Date().toISOString(),
@@ -71,15 +76,50 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
             await updateArticle(author?.uid, id, {
                 comments: [...allComments, newComment],
             });
-
+            toast.success('Comment submitted successfully',{
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 1000,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
             console.log('Comment submitted:', comment);
             setComment('');
             setShowComment(false);
+            setIsLoading(false);
         }
         catch (err) {
             console.log(err);
+            toast.error('something went wrong, try again', {
+                position: toast.POSITION.BOTTOM_RIGHT,
+                autoClose: 3000,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         }
     };
+
+    const handleLike = async () => {
+        const liked = likeCounts.includes(userInfo.uid as string);
+
+        if (liked) {
+            const updatedLikeCounts = likeCounts.filter((id) => id !== userInfo.uid);
+            await updateArticle(author?.uid, id, {
+                likeCounts: updatedLikeCounts,
+            });
+            setLikes(likes - 1)
+        } else {
+            const updatedLikeCounts = [...likeCounts, userInfo.uid as string];
+            await updateArticle(author?.uid, id, {
+                likeCounts: updatedLikeCounts,
+            });
+            setLikes(likes + 1)
+        }
+    };
+
 
     // console.log(likeCounts);
 
@@ -94,32 +134,15 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
         );
     };
 
-    const handleLike = async () => {
-        const liked = likeCounts.includes(userInfo.uid as string);
-
-        if (liked) {
-            const updatedLikeCounts = likeCounts.filter((id) => id !== userInfo.uid);
-            await updateArticle(author?.uid, id, {
-                likeCounts: updatedLikeCounts,
-            });
-            setLike(false); // Update the like state
-        } else {
-            const updatedLikeCounts = [...likeCounts, userInfo.uid as string];
-            await updateArticle(author?.uid, id, {
-                likeCounts: updatedLikeCounts,
-            });
-            setLike(true); // Update the like state
-        }
-    };
+ 
 
     return (
         <div
             className={`rounded-md m-8 tabletXS:m-3 h-full transition duration-500 ease-in-out 
-         ${
-             theme === 'lightMode'
-                 ? 'bg-white-50 text-black-950'
-                 : theme === 'darkMode' && 'bg-gray-800 text-white-100'
-         }
+         ${theme === 'lightMode'
+                    ? 'bg-white-50 text-black-950'
+                    : theme === 'darkMode' && 'bg-gray-800 text-white-100'
+                }
         `}
         >
             <article className="border-b border-gray-300 p-8 my-8 tabletXS:my-3 mobileXL:px-2 cursor-pointer">
@@ -213,16 +236,17 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
                         </Typography>
                     </div>
 
-                    <div
-                        className={`${like ? 'text-pink-600' : ''
-                            } flex items-center me-6`}
-                        onClick={handleLike}
-                    >
-                        <MdFavorite className={`me-1`} />
-                        <Typography variant={2} className="text-base">
-                            {allLikes?.length || likeCounts?.length}
-                        </Typography>
-                    </div>
+                   <div role='button'>
+                    <LikeButton
+                    likeCounts= {likeCounts}
+                    allLikes= {allLikes}
+                    author= {author}
+                    likes= {likes}
+                    setLikes= {setLikes}
+                    setAllLikes= {setAllLikes}
+                    id= {id}
+                    />
+                   </div>
 
                     <div className=" flex items-center me-6">
                         <MdInsights className="me-1 " />
@@ -234,6 +258,7 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
                 <div className="mt-3">
                     {showComment && (
                         <Comment
+                            isLoading={isLoading}
                             value={comment}
                             onCommentChange={handleCommentChange}
                             onCommentSubmit={handleCommentSubmit}

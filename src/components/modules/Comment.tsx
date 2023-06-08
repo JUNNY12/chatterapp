@@ -1,9 +1,11 @@
-import { Input } from '../element';
+import { Input, Button } from '../element';
 import { useFetchUser } from '../../hooks/user/useFetchUser';
+import { BeatLoader } from 'react-spinners';
 
 interface CommentProps {
     value: string | undefined;
-    onCommentChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    isLoading: boolean;
+    onCommentChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
     onCommentSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
@@ -11,6 +13,7 @@ export const Comment = ({
     value,
     onCommentChange,
     onCommentSubmit,
+    isLoading,
 }: CommentProps): React.JSX.Element => {
     const { userInfo, loading } = useFetchUser();
     console.log(loading)
@@ -27,15 +30,22 @@ export const Comment = ({
                 </div>
             </div>
             <div>
-                <form action="" onSubmit={onCommentSubmit}>
-                    <Input
-                        className="bg-gray-100 outline-pink-600 w-[350px]
+                <form action="" onSubmit={onCommentSubmit} className='flex flex-col'>
+                    <textarea
+                        className="bg-gray-100 outline-none focus:border focus:border-pink-600 w-[350px]
                         mobileXL:w-[300px] mobileL:w-[250px] mobileM:w-[230px] mobileS:w-full text-black-900
-                        h-[50px] rounded-sm p-2"
+                        h-[80px] rounded-[8px] p-2"
                         value={value}
+                        required
                         onChange={onCommentChange}
                         placeholder="Add a comment..."
                     />
+
+                    <Button className=' bg-pink-600 mt-4 w-[100px] text-white-50 p-2 rounded-[40px]'>
+                        {
+                            isLoading ? <BeatLoader color='#ffffff' size={8} /> : 'Post'
+                        }
+                    </Button>
                 </form>
             </div>
         </div>
