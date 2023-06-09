@@ -25,7 +25,7 @@ export const CommentSection = ({
             });
 
             const getAllcomments = await Promise.all(
-                sortedComments.map(async (comment) => {
+                sortedComments?.map(async (comment) => {
                     const user = await getUser(comment.commentorId);
                     return {
                         ...comment,
