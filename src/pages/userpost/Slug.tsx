@@ -5,8 +5,7 @@ import {
     FaFacebook,
     FaTwitter,
     FaLinkedin,
-    FaInstagram,
-    FaComment,
+    FaInstagram
 } from 'react-icons/fa';
 import { MdFavorite, MdInsights } from 'react-icons/md';
 import { MdLaoder } from './MdLoader';
@@ -15,6 +14,7 @@ import { useFetchPost } from '../../hooks/article/useFetchPost';
 import { useEffect } from 'react';
 import { updateArticle } from '../../firebase/article';
 import { CommentSection } from './CommentSection';
+import { BiComment } from "react-icons/bi"
 
 export default function Slug(): React.JSX.Element {
     const { slug } = useParams();
@@ -104,7 +104,7 @@ export default function Slug(): React.JSX.Element {
 
                                 <div className=" flex items-center justify-center mt-12 text-xl">
                                     <div className=" flex items-center me-3">
-                                        <FaComment className=" me-1" />
+                                        <BiComment className=" me-1" />
                                         <Typography
                                             variant={2}
                                             className="text-base"
@@ -156,7 +156,7 @@ export default function Slug(): React.JSX.Element {
                             </div>
 
                             <div className=" flex items-center justify-center p-4 flex-wrap">
-                                <div className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] me-4 border border-gray-300 relative rounded-full object-cover">
+                                <div className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] me-4  relative rounded-full object-cover">
                                     <img
                                         src={singlePost?.author?.photoUrl}
                                         alt="user"

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Typography } from '../../components/element';
-import { FaComment } from 'react-icons/fa';
 import { MdInsights } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
@@ -8,9 +7,11 @@ import { calculateReadingTime } from '../../utils';
 import { SinglePostInterface } from '../../context/article/FetchAllPostContext';
 import { updateArticle } from '../../firebase/article';
 import { useState } from 'react';
-import { Comment,LikeButton } from '.';
+import { CommentInput,LikeButton } from '.';
 import { useFetchUser } from '../../hooks/user/useFetchUser';
 import { toast } from 'react-toastify';
+import { useLocation } from 'react-router-dom';
+import { BiComment } from "react-icons/bi"
 
 interface PostProps {
     post: SinglePostInterface;
@@ -20,7 +21,9 @@ interface PostProps {
 export const PostCard = ({ post }: PostProps): React.JSX.Element => {
     const navigate = useNavigate();
     const { theme } = useThemeContext();
-  
+    const location= useLocation();
+    // const {pathname}=location;
+
     const { userInfo } = useFetchUser();
 
     //comments state
@@ -30,15 +33,15 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
     const [isLoading, setIsLoading] = useState(false);
 
     //likes state
-    const [allLikes, setAllLikes] = useState(post.likeCounts);
     const [likes, setLikes] = useState(post.likeCounts.length);
+    const [allLikes, setAllLikes] = useState(post.likeCounts);
 
-    console.log('allComments', post.comments);
+    // console.log('allComments', post.comments);
 
     useEffect(() => {
         setAllComments(post?.comments);
         setAllLikes(post?.likeCounts);
-    }, [post]);
+    }, [ location]);
 
    
 
@@ -101,25 +104,6 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
             });
         }
     };
-
-    const handleLike = async () => {
-        const liked = likeCounts.includes(userInfo.uid as string);
-
-        if (liked) {
-            const updatedLikeCounts = likeCounts.filter((id) => id !== userInfo.uid);
-            await updateArticle(author?.uid, id, {
-                likeCounts: updatedLikeCounts,
-            });
-            setLikes(likes - 1)
-        } else {
-            const updatedLikeCounts = [...likeCounts, userInfo.uid as string];
-            await updateArticle(author?.uid, id, {
-                likeCounts: updatedLikeCounts,
-            });
-            setLikes(likes + 1)
-        }
-    };
-
 
     // console.log(likeCounts);
 
@@ -230,23 +214,23 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
                         onClick={() => setShowComment(!showComment)}
                         className=" flex items-center me-6"
                     >
-                        <FaComment className=" me-1" />
+                        <BiComment className=" me-1" />
                         <Typography variant={2} className="text-base">
                             {allComments.length || comments.length}
                         </Typography>
                     </div>
 
-                   <div role='button'>
-                    <LikeButton
-                    likeCounts= {likeCounts}
-                    allLikes= {allLikes}
-                    author= {author}
-                    likes= {likes}
-                    setLikes= {setLikes}
-                    setAllLikes= {setAllLikes}
-                    id= {id}
-                    />
-                   </div>
+                    <div role="button">
+                        <LikeButton
+                            likeCounts={likeCounts}
+                            author={author}
+                            likes={likes}
+                            setLikes={setLikes}
+                            id={id}
+                            allLikes={allLikes}
+                            setAllLikes={setAllLikes}
+                        />
+                    </div>
 
                     <div className=" flex items-center me-6">
                         <MdInsights className="me-1 " />
@@ -257,7 +241,7 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
                 </div>
                 <div className="mt-3">
                     {showComment && (
-                        <Comment
+                        <CommentInput
                             isLoading={isLoading}
                             value={comment}
                             onCommentChange={handleCommentChange}

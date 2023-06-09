@@ -1,4 +1,4 @@
-import { Input, Button } from '../element';
+import { Button } from '../element';
 import { useFetchUser } from '../../hooks/user/useFetchUser';
 import { BeatLoader } from 'react-spinners';
 
@@ -9,7 +9,7 @@ interface CommentProps {
     onCommentSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-export const Comment = ({
+export const CommentInput = ({
     value,
     onCommentChange,
     onCommentSubmit,
@@ -19,21 +19,19 @@ export const Comment = ({
     console.log(loading)
 
     return (
-        <div className="flex items-center mobileM:justify-center">
-            <div>
-                <div className=" w-[40px] h-[40px] me-4 rounded-full object-cover">
-                    <img
-                        src={userInfo?.photoUrl}
-                        alt={userInfo?.displayName}
-                        className="rounded-full object-cover w-full h-full"
-                    />
-                </div>
+        <div className=" flex items-center mobileM:justify-center">
+            <div className=" w-[40px] h-[40px] mb-12 me-2 rounded-full object-cover">
+                <img
+                    src={userInfo?.photoUrl}
+                    alt={userInfo?.displayName}
+                    className="rounded-full object-cover w-full h-full"
+                />
             </div>
             <div>
                 <form action="" onSubmit={onCommentSubmit} className='flex flex-col'>
                     <textarea
                         className="bg-gray-100 outline-none focus:border focus:border-pink-600 w-[350px]
-                        mobileXL:w-[300px] mobileL:w-[250px] mobileM:w-[230px] mobileS:w-full text-black-900
+                        mobileXL:w-[300px] mobileL:w-[250px] mobileM:w-[230px] text-black-900
                         h-[80px] rounded-[8px] p-2"
                         value={value}
                         required

@@ -42,6 +42,7 @@ export const UserProvider = ({ children }: Children) => {
     const [userInfo, setUserInfo] = useState<UserInfo>({} as UserInfo);
     const [loading, setLoading] = useState<boolean>(true);
     const { user } = useAuthContext();
+    // const location = useLocation();
 
     const fetchUser = async () => {
         try {
