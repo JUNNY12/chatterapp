@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import { useFetchPost } from '../../hooks/article/useFetchPost';
 import { useFetchUser } from '../../hooks/user/useFetchUser';
+import { useNavigate } from 'react-router';
 
 export const FetchUserFeedPostContext = createContext<any>({});
 
@@ -12,6 +13,7 @@ export const FetchUserFeedPostContextProvider = ({ children }: ChildrenProps) =>
     const { posts } = useFetchPost();
     const { userInfo, loading } = useFetchUser();
     const [userFeed, setUserFeed] = useState<any[]>([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (userInfo) {
@@ -21,7 +23,7 @@ export const FetchUserFeedPostContextProvider = ({ children }: ChildrenProps) =>
             );
             setUserFeed(updated);
         }
-    }, [userInfo, posts]);
+    }, [userInfo, posts, navigate]);
 
     return (
         <FetchUserFeedPostContext.Provider value={{ userFeed, loading }}>

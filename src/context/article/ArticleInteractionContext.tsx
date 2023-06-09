@@ -2,9 +2,9 @@ import { createContext, useEffect, useState } from 'react';
 import { useFetchPost } from '../../hooks/article/useFetchPost';
 import { SinglePostInterface } from './FetchAllPostContext';
 
-interface initialStateInterface {
-    articles: SinglePostInterface[];
-}
+// interface initialStateInterface {
+//     articles: SinglePostInterface[];
+// }
 
 interface articleContextInterface {
     articles: SinglePostInterface[];
@@ -23,7 +23,7 @@ interface childrenProps {
 
 // Create the provider component
 export const ArticleInteractionProvider = ({ children }: childrenProps) => {
-    const [comment, setComment] = useState('');
+    // const [comment, setComment] = useState('');
     const { posts } = useFetchPost();
     const [allArticles, seAllArticles] = useState(posts);
 
@@ -31,7 +31,7 @@ export const ArticleInteractionProvider = ({ children }: childrenProps) => {
         seAllArticles(posts);
     }, [posts]);
 
-    console.log('allArticles', allArticles);
+    // console.log('allArticles', allArticles);
 
 
 

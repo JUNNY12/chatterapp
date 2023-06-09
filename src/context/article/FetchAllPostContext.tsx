@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { getTimeDifferenceString } from '../../utils/getTimeDifference';
 import { getTopArticle } from '../../firebase/article';
 import { getUser } from '../../firebase/user';
-import { useNavigate } from 'react-router';
+import { useLocation} from 'react-router';
+
 
 export interface Author {
     id: string;
@@ -79,13 +80,16 @@ export default function PostProvider({ children }: ProviderChildren) {
         []
     );
     const [loading, setLoading] = useState<boolean>(false);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
+    const location = useLocation();
+    const { pathname } = location;
 
     const fetchPosts = async () => {
         setLoading(true);
         try {
             const { articles } = await getAllArticle();
             // console.log('articles', articles);
+            // console.log('pathname', pathname)
 
             // Sort articles in descending order based on creation time
             const sortedArticles = articles.sort((a: any, b: any) => {
@@ -159,7 +163,7 @@ export default function PostProvider({ children }: ProviderChildren) {
     useEffect(() => {
         fetchPosts();
         fetchTopPosts();
-    }, [navigate]);
+    }, [pathname]);
 
     // console.log('posts', posts, loading);
 
