@@ -70,7 +70,7 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
                 commentId: new Date().getTime().toString(),
                 createdAt: new Date().toISOString(),
                 comment,
-                commentorId: userInfo.uid,
+                commentorId: userInfo.uid,  
             };
             setAllComments([...allComments, newComment]);
             await updateArticle(author?.uid, id, {
