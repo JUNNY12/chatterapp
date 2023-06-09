@@ -1,6 +1,6 @@
 import { useParams } from 'react-router';
 import { useThemeContext } from '../../../hooks/theme/useThemeContext';
-import { MdLaoder } from '../../userpost/MdLoader';
+import { MdLaoder } from '../../slug/MdLoader';
 import { Typography } from '../../../components/element';
 import { getUserArticles } from '../../../firebase/article';
 import { useState, useEffect } from 'react';

@@ -14,14 +14,26 @@ interface LikeButtonProps {
     id: any;
 }
 
-export const LikeButton = ({ likeCounts, likes, id, author, setLikes, allLikes, setAllLikes }: LikeButtonProps) => {
+export const LikeButton = ({
+    likeCounts,
+    likes,
+    id,
+    author,
+    setLikes,
+    allLikes,
+    setAllLikes,
+}: LikeButtonProps) => {
     const { userInfo } = useFetchUser();
-    const [liked, setLiked] = useState(allLikes.includes(userInfo.uid as string));
+    const [liked, setLiked] = useState(
+        allLikes.includes(userInfo.uid as string)
+    );
 
-    console.log(allLikes, setAllLikes)
+    console.log(allLikes, setAllLikes);
     const handleLike = async () => {
         if (liked) {
-            const updatedLikeCounts = allLikes.filter((id) => id !== userInfo.uid);
+            const updatedLikeCounts = allLikes.filter(
+                (id) => id !== userInfo.uid
+            );
             await updateArticle(author?.uid, id, {
                 likeCounts: updatedLikeCounts,
             });
@@ -38,7 +50,12 @@ export const LikeButton = ({ likeCounts, likes, id, author, setLikes, allLikes, 
     };
 
     return (
-        <div className={`flex items-center me-6 ${allLikes.includes(userInfo.uid)&&'text-pink-600 animate-pulse'}`} onClick={handleLike}>
+        <div
+            className={`flex items-center me-6 ${
+                allLikes.includes(userInfo.uid) && 'text-pink-600 animate-pulse'
+            }`}
+            onClick={handleLike}
+        >
             <MdFavorite className="me-1" />
             <Typography variant={2} className="text-base">
                 {likeCounts.length}

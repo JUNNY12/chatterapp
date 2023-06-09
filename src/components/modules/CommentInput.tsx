@@ -16,7 +16,7 @@ export const CommentInput = ({
     isLoading,
 }: CommentProps): React.JSX.Element => {
     const { userInfo, loading } = useFetchUser();
-    console.log(loading)
+    console.log(loading);
 
     return (
         <div className=" flex items-center mobileM:justify-center">
@@ -28,7 +28,11 @@ export const CommentInput = ({
                 />
             </div>
             <div>
-                <form action="" onSubmit={onCommentSubmit} className='flex flex-col'>
+                <form
+                    action=""
+                    onSubmit={onCommentSubmit}
+                    className="flex flex-col"
+                >
                     <textarea
                         className="bg-gray-100 outline-none focus:border focus:border-pink-600 w-[350px]
                         mobileXL:w-[300px] mobileL:w-[250px] mobileM:w-[230px] text-black-900
@@ -39,10 +43,12 @@ export const CommentInput = ({
                         placeholder="Add a comment..."
                     />
 
-                    <Button className=' bg-pink-600 mt-4 w-[100px] text-white-50 p-2 rounded-[40px]'>
-                        {
-                            isLoading ? <BeatLoader color='#ffffff' size={8} /> : 'Post'
-                        }
+                    <Button className=" bg-pink-600 mt-4 w-[100px] text-white-50 p-2 rounded-[40px]">
+                        {isLoading ? (
+                            <BeatLoader color="#ffffff" size={8} />
+                        ) : (
+                            'Post'
+                        )}
                     </Button>
                 </form>
             </div>

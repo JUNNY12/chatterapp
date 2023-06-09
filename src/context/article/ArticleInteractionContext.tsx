@@ -33,13 +33,11 @@ export const ArticleInteractionProvider = ({ children }: childrenProps) => {
 
     // console.log('allArticles', allArticles);
 
-
-
-
     return (
         <ArticleInteractionContext.Provider
             value={{
-                articles: allArticles}}
+                articles: allArticles,
+            }}
         >
             {children}
         </ArticleInteractionContext.Provider>

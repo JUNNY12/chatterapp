@@ -9,4 +9,4 @@ export * from './UserSideBar';
 export * from './ScrollToTop';
 export * from './PostCard';
 export * from './CommentInput';
-export * from './LikeButton'
+export * from './LikeButton';

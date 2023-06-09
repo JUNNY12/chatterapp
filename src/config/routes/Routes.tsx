@@ -14,6 +14,7 @@ import {
     InterestedTagTemplate,
     FinishTemplate,
 } from '../../pages/onboard';
+import Slug from '../../pages/slug/Slug';
 
 const LazyHome = React.lazy(() => import('../../pages/home/Home'));
 const LazyFeed = React.lazy(() => import('../../pages/feed/Feed'));
@@ -29,7 +30,7 @@ const LazyManagePost = React.lazy(
     () => import('../../pages/settings/posts/Post')
 );
 
-const LazySlug = React.lazy(() => import('../../pages/userpost/Slug'));
+// const LazySlug = React.lazy(() => import('../../pages/slug/Slug'));
 
 const LazyPostPage = React.lazy(() => import('../../pages/write/EditPost'));
 const LazyDraftPage = React.lazy(() => import('../../pages/write/DraftPage'));
@@ -92,7 +93,7 @@ export function Routes() {
         {
             path: '/post/:fullName/:slug',
             element: <FeedLayout />,
-            children: [{ index: true, element: <LazySlug /> }],
+            children: [{ index: true, element: <Slug /> }],
         },
         {
             path: '/settings',
