@@ -11,8 +11,6 @@ export const Recent = (): React.JSX.Element => {
 
     const navigate = useNavigate();
 
-    console.log(posts, loading);
-
     return (
         <section
             className={`rounded-md m-8 tabletXS:m-3 h-full transition duration-500 ease-in-out 

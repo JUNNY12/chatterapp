@@ -91,7 +91,7 @@ export const Navbar = (): React.JSX.Element => {
                     </Link>
                 </div>
 
-                <Link to="/feed">
+                <Link to={`${user ? '/feed' : '/explore'}`}>
                     <Typography
                         title="feed"
                         variant={2}

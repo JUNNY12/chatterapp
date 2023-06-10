@@ -21,7 +21,7 @@ export const Content = ({
     handleCommentSubmit,
     allComments,
 }: ContentProps): React.JSX.Element => {
-    console.log(allComments)
+    console.log(allComments);
     return (
         <div>
             <article className="me-8 laptopS:me-0">

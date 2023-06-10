@@ -16,7 +16,3 @@ export default function formatTime(timestamp: string) {
 
     return formattedTime;
 }
-
-const timestamp = '2023-06-07T21:24:14.126Z';
-const formattedTime = formatTime(timestamp);
-console.log(formattedTime); // Output: "9:24 pm"

@@ -35,21 +35,25 @@ export const SharedSideBar = () => {
                         </span>
                     </Button>
                 </li>
-                <NavLink
-                    to={`/feed`}
-                    className={({ isActive }: any) =>
-                        isActive ? 'text-pink-600' : ''
-                    }
-                    end
-                >
-                    <li
-                        title="My Feed"
-                        className="mb-6 cursor-pointer hover:text-pink-600"
-                    >
-                        <MdFeed className="inline-block me-2" />
-                        <span>My Feed</span>
-                    </li>
-                </NavLink>
+                {
+                    user && (
+                        <NavLink
+                            to={`/feed`}
+                            className={({ isActive }: any) =>
+                                isActive ? 'text-pink-600' : ''
+                            }
+                            end
+                        >
+                            <li
+                                title="My Feed"
+                                className="mb-6 cursor-pointer hover:text-pink-600"
+                            >
+                                <MdFeed className="inline-block me-2" />
+                                <span>My Feed</span>
+                            </li>
+                        </NavLink>
+                    )
+                }
 
                 <NavLink
                     to={'/explore'}

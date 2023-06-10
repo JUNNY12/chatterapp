@@ -236,6 +236,26 @@ export default function User(): React.JSX.Element {
 
                     <div>
                         <div>
+                            <div
+                                className={` transition duration-500 ease-in-out ${
+                                    theme === 'lightMode'
+                                        ? 'bg-white-50 text-black-950'
+                                        : theme === 'darkMode' &&
+                                          'bg-gray-800 text-white-100'
+                                }
+                                    px-4 py-4 my-3 rounded-md`}
+                            >
+                                {userArticles?.length === 0 && (
+                                    <div className="flex items-center justify-center">
+                                        <Typography
+                                            variant={2}
+                                            className="my-2 text-xl font-semibold tabletS:text-center"
+                                        >
+                                            No Post Yet
+                                        </Typography>
+                                    </div>
+                                )}
+                            </div>
                             {userArticles?.map((post: SinglePostInterface) => {
                                 const { id } = post;
                                 return (

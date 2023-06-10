@@ -28,7 +28,7 @@ export const LikeButton = ({
         allLikes.includes(userInfo.uid as string)
     );
 
-    console.log(allLikes, setAllLikes);
+    console.log(setAllLikes);
     const handleLike = async () => {
         if (liked) {
             const updatedLikeCounts = allLikes.filter(

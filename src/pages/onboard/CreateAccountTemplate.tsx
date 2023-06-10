@@ -33,8 +33,8 @@ export const CreateAccountTemplate = () => {
                 }
                 try {
                     const userData = await getUser(uid);
-                    // console.log(userData[0].data);
-                    const { fullName, email } = userData[0].data;
+                    console.log(userData);
+                    const { fullName, email } = userData;
                     setValues({
                         ...values,
                         fullName: fullName,

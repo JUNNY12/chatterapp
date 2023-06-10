@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import { getUser } from '../../firebase/user';
 import { useAuthContext } from '../../hooks/auth/useAuthContext';
+import { useLocation } from 'react-router';
 
 export interface UserInfo {
     id: string;
@@ -42,7 +43,7 @@ export const UserProvider = ({ children }: Children) => {
     const [userInfo, setUserInfo] = useState<UserInfo>({} as UserInfo);
     const [loading, setLoading] = useState<boolean>(true);
     const { user } = useAuthContext();
-    // const location = useLocation();
+    const location = useLocation();
 
     const fetchUser = async () => {
         try {
@@ -59,7 +60,7 @@ export const UserProvider = ({ children }: Children) => {
 
     useEffect(() => {
         fetchUser();
-    }, [user]);
+    }, [user, location]);
 
     // console.log(userInfo);
     return (

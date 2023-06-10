@@ -26,9 +26,10 @@ const ProtectedRoutes = ({ children }: ProviderProps) => {
         const fetchUserDetails = async () => {
             if (user) {
                 const userData = await getUser(user.uid);
+                console.log(userData);
                 setUserDetails((prevUserDetails) => ({
                     ...prevUserDetails,
-                    status: userData[0].data.status,
+                    status: userData.status,
                 }));
             }
         };

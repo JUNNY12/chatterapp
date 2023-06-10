@@ -19,7 +19,7 @@ export const Onboard = () => {
                 const userData = await getUser(uid);
 
                 //check if user already onboarded
-                if (userData[0]?.data?.status === 'onboarded') {
+                if (userData.status === 'onboarded') {
                     navigate('/feed');
                 }
                 //if user is not onboarded yet then redirect to create account
