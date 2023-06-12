@@ -132,13 +132,17 @@ export const ArticleCard = ({
                         </Typography>
                     </div>
 
-                    <div className=" relative object-cover max-w-[600px] h-[300px] my-3">
-                        <img
-                            src={post?.data?.coverImage}
-                            alt={post?.data?.title}
-                            className=" object-cover h-full w-full"
-                        />
-                    </div>
+                  {
+                        post?.data?.coverImage && (
+                            <div className=" relative object-cover max-w-[600px] h-[300px] my-3">
+                                <img
+                                    src={post?.data?.coverImage}
+                                    alt={post?.data?.title}
+                                    className=" object-cover h-full w-full"
+                                />
+                            </div>
+                        )
+                  }
                 </div>
 
                 <div className=" flex items-center justify-center mt-12 text-xl">
