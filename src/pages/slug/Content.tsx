@@ -1,5 +1,5 @@
 import { Typography } from '../../components/element';
-import { MdFavorite, MdInsights } from 'react-icons/md';
+import { MdInsights } from 'react-icons/md';
 import { BiComment } from 'react-icons/bi';
 import { MdLaoder } from './MdLoader';
 import { CommentInput } from '../../components/modules';
@@ -69,7 +69,7 @@ export const Content = ({
                     <div className=" flex items-center me-3">
                         <BiComment className=" me-1" />
                         <Typography variant={2} className="text-base">
-                            {singlePost?.comments.length}
+                            {allComments?.length ||singlePost?.comments.length}
                         </Typography>
                     </div>
 
