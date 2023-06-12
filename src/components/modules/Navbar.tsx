@@ -97,7 +97,7 @@ export const Navbar = (): React.JSX.Element => {
                         variant={2}
                         className=" text-2xl mobileM:text-xl font-semibold"
                     >
-                        Feed
+                        {user ? 'Feed' : 'Explore'}
                     </Typography>
                 </Link>
 

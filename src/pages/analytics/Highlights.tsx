@@ -3,60 +3,27 @@ import { Typography } from '../../components/element';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 import { MdInsights, MdFavorite } from 'react-icons/md';
 import { FaComment } from 'react-icons/fa';
-import { Post } from './Analytics';
 import { calculateReadingTime } from '../../utils';
 import { formatDate } from '../../utils/formatDate';
 import { getTimeDifferenceString } from '../../utils/getTimeDifference';
 import { AnalyticsLoader } from '../../components/modules/skeletonloader';
+import { useAnalytics } from '../../hooks/analytics/useAnalytics';
 
-interface HighlightsProps {
-    highestPost: Post | any;
-    postSummaries: any;
-}
-
-export const Highlights = ({
-    highestPost,
-    postSummaries,
-}: HighlightsProps): React.JSX.Element => {
+export const Highlights = (): React.JSX.Element => {
     const { theme } = useThemeContext();
+    const { loading, highestViewedLikedAndCommentedPost, postSummary } =
+        useAnalytics();
 
-    if (!highestPost) {
-        return (
-            <div>
-                <AnalyticsLoader />
-            </div>
-        );
-    }
+    const { filteredPosts } = postSummary;
+    if (
+        (!filteredPosts && !loading) ||
+        (!filteredPosts && loading) ||
+        (loading && highestViewedLikedAndCommentedPost === null)
+    )
+        return <AnalyticsLoader />;
 
-    console.log(highestPost);
+    const createdDate = new Date(filteredPosts[0]?.data?.createdAt);
 
-    const {
-        data: {
-            title,
-            subtitle,
-            views,
-            likeCount,
-            comments,
-            coverImage,
-            tagList,
-            body,
-            createdAt,
-        },
-    } = highestPost;
-
-    const {
-        month,
-        year,
-        totalPosts,
-        totalViews,
-        totalLikes,
-        totalComments,
-        filteredPosts,
-    } = postSummaries;
-
-    console.log(postSummaries);
-
-    const createdDate = new Date(createdAt);
     const currentDate = new Date();
     const timeDifference = currentDate.getTime() - createdDate.getTime();
     return (
@@ -75,7 +42,10 @@ export const Highlights = ({
                 </Typography>
 
                 <Typography variant={2} className={`text-base font-normal`}>
-                    <span> {formatDate(createdAt)}, </span>
+                    <span>
+                        {' '}
+                        {formatDate(filteredPosts[0]?.data?.createdAt)},{' '}
+                    </span>
                     <span> {getTimeDifferenceString(timeDifference)} </span>
                 </Typography>
             </div>
@@ -89,7 +59,7 @@ export const Highlights = ({
                 </Typography>
 
                 <Typography variant={2} className={`ms-12 text-lg font-normal`}>
-                    earned {views} views
+                    earned {filteredPosts[0]?.data?.views} views
                 </Typography>
             </div>
 
@@ -100,34 +70,38 @@ export const Highlights = ({
                             variant={1}
                             className=" text-3xl mobileXL:text-xl font-bold mb-2"
                         >
-                            {title}
+                            {filteredPosts[0]?.data?.title}
                         </Typography>
 
                         <Typography
                             variant={2}
                             className=" text-2xl mobileXL:text-lg font-normal mb-2"
                         >
-                            {subtitle.substring(0, 75) + ' ... '}
+                            {filteredPosts[0]?.data?.subtitle.substring(0, 75) +
+                                ' ... '}
                         </Typography>
 
                         <Typography variant={2} className="font-semibold mb-1">
-                            {calculateReadingTime(body)} mins read
+                            {calculateReadingTime(filteredPosts[0]?.data?.body)}{' '}
+                            mins read
                         </Typography>
 
                         <div className="flex flex-wrap items-center my-3">
-                            {tagList.map((tag: string, index: number) => (
-                                <div key={index} className="me-2">
-                                    <span>#</span>
-                                    <span className=" text-sm font-semibold text-pink-600">
-                                        {tag}
-                                    </span>
-                                </div>
-                            ))}
+                            {filteredPosts[0]?.data?.tagList.map(
+                                (tag: string, index: number) => (
+                                    <div key={index} className="me-2">
+                                        <span>#</span>
+                                        <span className=" text-sm font-semibold text-pink-600">
+                                            {tag}
+                                        </span>
+                                    </div>
+                                )
+                            )}
                         </div>
                         <div className=" relative object-cover max-w-[600px] h-[300px] my-3">
                             <img
-                                src={coverImage}
-                                alt={title}
+                                src={filteredPosts[0]?.data?.coverImage}
+                                alt={filteredPosts[0]?.data?.title}
                                 className=" object-cover h-full w-full"
                             />
                         </div>
@@ -137,21 +111,21 @@ export const Highlights = ({
                         <div className=" flex items-center me-6">
                             <FaComment className=" " />
                             <Typography variant={2} className="text-base">
-                                {comments.length}
+                                {filteredPosts[0]?.data?.comments.length}
                             </Typography>
                         </div>
 
                         <div className=" flex items-center me-6">
                             <MdFavorite className=" " />
                             <Typography variant={2} className="text-base">
-                                {likeCount}
+                                {filteredPosts[0]?.data?.likeCount}
                             </Typography>
                         </div>
 
                         <div className=" flex items-center me-6">
                             <MdInsights className=" " />
                             <Typography variant={2} className="text-base">
-                                {views}
+                                {filteredPosts[0]?.data?.views}
                             </Typography>
                         </div>
                     </div>
@@ -171,8 +145,8 @@ export const Highlights = ({
                 <div>
                     <div className="mt-4">
                         <Typography variant={3} className={`font-normal mb-3`}>
-                            <span> {month} </span>
-                            <span> {year} </span>
+                            <span> {postSummary?.month} </span>
+                            <span> {postSummary?.year} </span>
                             <span> Summary </span>
                         </Typography>
                     </div>
@@ -182,9 +156,11 @@ export const Highlights = ({
                             variant={2}
                             className={`text-base  font-semibold mb-3`}
                         >
-                            <span> {totalPosts} </span>
+                            <span> {postSummary?.totalPosts} </span>
                             <span>
-                                {totalPosts > 1 ? 'Total Posts' : 'Total Post'}
+                                {postSummary?.totalPosts > 1
+                                    ? 'Total Posts'
+                                    : 'Total Post'}
                             </span>
                         </Typography>
 
@@ -192,9 +168,11 @@ export const Highlights = ({
                             variant={2}
                             className={`text-base  font-semibold  mb-3`}
                         >
-                            <span> {totalViews} </span>
+                            <span> {postSummary?.totalViews} </span>
                             <span>
-                                {totalViews > 1 ? 'Impressions' : 'Impression'}{' '}
+                                {postSummary?.totalViews > 1
+                                    ? 'Impressions'
+                                    : 'Impression'}{' '}
                             </span>
                         </Typography>
                     </div>
@@ -203,10 +181,10 @@ export const Highlights = ({
                             variant={2}
                             className={`text-base  font-semibold mb-3`}
                         >
-                            <span> {totalLikes} </span>
+                            <span> {postSummary?.totalLikes} </span>
                             <span>
                                 {' '}
-                                {totalLikes > 1
+                                {postSummary?.totalLikes > 1
                                     ? 'Total Likes'
                                     : 'Total Like'}{' '}
                             </span>
@@ -216,9 +194,9 @@ export const Highlights = ({
                             variant={2}
                             className={`text-base  font-semibold  mb-3`}
                         >
-                            <span> {totalComments} </span>
+                            <span> {postSummary?.totalComments} </span>
                             <span>
-                                {totalComments > 1
+                                {postSummary?.totalComments > 1
                                     ? 'Total Comments'
                                     : 'Total Comment'}
                             </span>

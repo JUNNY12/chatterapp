@@ -4,7 +4,6 @@ import { MdInsights } from 'react-icons/md';
 import { calculateReadingTime } from '../../utils';
 import { SinglePostInterface } from '../../context/article/FetchAllPostContext';
 import { CommentInput, LikeButton } from '.';
-
 import { BiComment } from 'react-icons/bi';
 import usePostCard from '../../hooks/article/usePostCard';
 interface PostProps {
@@ -17,28 +16,21 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
         theme,
         comment,
         showComment,
-        setShowComment,
         allComments,
         isLoading,
-        likes,
-        setLikes,
-        setAllLikes,
-        allLikes,
         handleCommentChange,
         handleCommentSubmit,
         handleNavigate,
         navigate,
-        id,
+        handleShowComment,
         title,
         subtitle,
         tagList,
         coverImage,
         createdAgo,
-        author,
         body,
         views,
         comments,
-        likeCounts,
         displayName,
         photoUrl,
         fullName,
@@ -137,7 +129,7 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
 
                 <div className=" flex items-center justify-center mt-12 text-xl">
                     <div
-                        onClick={() => setShowComment(!showComment)}
+                        onClick={handleShowComment}
                         className=" flex items-center me-6"
                     >
                         <BiComment className=" me-1" />
@@ -147,15 +139,7 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
                     </div>
 
                     <div role="button">
-                        <LikeButton
-                            likeCounts={likeCounts}
-                            author={author}
-                            likes={likes}
-                            setLikes={setLikes}
-                            id={id}
-                            allLikes={allLikes}
-                            setAllLikes={setAllLikes}
-                        />
+                        <LikeButton post={post} />
                     </div>
 
                     <div className=" flex items-center me-6">

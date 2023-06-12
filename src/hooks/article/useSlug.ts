@@ -7,10 +7,14 @@ import { Author } from '../../context/article/FetchAllPostContext';
 import { useNavigate } from 'react-router';
 import { useFetchUser } from '../user/useFetchUser';
 import { toast } from 'react-toastify';
+import { useLocation } from 'react-router';
+
+
 export const useSlug = (slug: any) => {
     const [loading, setLoading] = useState(false);
     const [posts, setPosts] = useState<SinglePostInterface[]>([]);
     const formattedSlug = slug?.split('_').join(' ');
+    const location = useLocation();
 
     const singlePost: any = posts.find(
         ({ slug }: any) => slug === formattedSlug
@@ -114,9 +118,12 @@ export const useSlug = (slug: any) => {
     };
 
     useEffect(() => {
-        handlePageView();
         fetchPosts();
     }, [slug, commentSubmitted]);
+
+    useEffect(() => {
+        handlePageView();
+    }, [location, slug]);
 
     useEffect(() => {
         setAllComments(singlePost?.comments || []);
@@ -133,5 +140,6 @@ export const useSlug = (slug: any) => {
         handleCommentSubmit,
         handleCommentChange,
         isLoading,
+        handlePageView
     };
 };

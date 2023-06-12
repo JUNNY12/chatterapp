@@ -2,6 +2,7 @@ import { Trending, Recent } from '.';
 import { PostCard } from '../../components/modules';
 import { useFetchPost } from '../../hooks/article/useFetchPost';
 import { PostLoader } from '../../components/modules/skeletonloader';
+import { Typography } from '../../components/element';
 
 export const ExplorePosts = (): React.JSX.Element => {
     const { posts, loading } = useFetchPost();
@@ -16,7 +17,12 @@ export const ExplorePosts = (): React.JSX.Element => {
                 (!loading && posts.length === 0) ? (
                     [...Array(10)].map((_, index) => <PostLoader key={index} />)
                 ) : (
-                    <div>
+                        <div> <Typography
+                            variant={1}
+                            className="text-3xl font-bold mb-3 px-8 pt-8 mobileXL:px-2 "
+                        >
+                            Explore
+                        </Typography>
                         {posts.map((post: any) => {
                             const { id } = post;
                             return <PostCard key={id} post={post} />;

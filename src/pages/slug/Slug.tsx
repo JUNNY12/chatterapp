@@ -1,3 +1,4 @@
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 import { SinglePageLoader } from '../../components/modules/skeletonloader';
@@ -6,8 +7,12 @@ import { useSlug } from '../../hooks/article/useSlug';
 import { AuthorProfile } from './AuthorProfile';
 import { Content } from './Content';
 
+
+
 export default function Slug(): React.JSX.Element {
     const { slug } = useParams();
+    const { theme } = useThemeContext();
+  
     const {
         singlePost,
         posts,
@@ -18,8 +23,14 @@ export default function Slug(): React.JSX.Element {
         handleCommentSubmit,
         handleCommentChange,
         isLoading,
+        handlePageView
     } = useSlug(slug);
-    const { theme } = useThemeContext();
+
+       // function to handle page view
+        handlePageView();
+
+
+    
 
     return (
         <section className={` bg-white-100 h-max`}>
@@ -48,7 +59,7 @@ export default function Slug(): React.JSX.Element {
                                 handleCommentSubmit={handleCommentSubmit}
                                 handleCommentChange={handleCommentChange}
                             />
-                            <div className="mt-8"></div>
+                          
                             <div>
                                 <CommentSection
                                     comments={singlePost?.comments}

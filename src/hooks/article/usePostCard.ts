@@ -21,13 +21,49 @@ const usePostCard = (post: SinglePostInterface) => {
     const [isLoading, setIsLoading] = useState(false);
 
     // state for likes
-    const [likes, setLikes] = useState(post?.likeCounts?.length);
     const [allLikes, setAllLikes] = useState(post?.likeCounts);
+    const [liked, setLiked] = useState(false);
 
     useEffect(() => {
         setAllComments(post?.comments);
         setAllLikes(post?.likeCounts);
+        setLiked(post?.likeCounts?.includes(userInfo?.uid as string));
     }, [location]);
+
+    const handleLike = async () => {
+        if (!userInfo?.uid) {
+            toast.error('You need to login to like', {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 1000,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            setTimeout(() => {
+                navigate('/onboard');
+            }, 2000);
+        }
+        const liked = allLikes?.includes(userInfo?.uid as string);
+
+        if (liked) {
+            const updatedLikeCounts = allLikes.filter(
+                (id) => id !== userInfo.uid
+            );
+            await updateArticle(author?.uid, id, {
+                likeCounts: updatedLikeCounts,
+            });
+            setAllLikes(updatedLikeCounts);
+            setLiked(!liked);
+        } else {
+            const updatedLikeCounts = [...allLikes, userInfo.uid as string];
+            await updateArticle(author?.uid, id, {
+                likeCounts: updatedLikeCounts,
+            });
+            setAllLikes(updatedLikeCounts);
+            setLiked(!liked);
+        }
+    };
 
     // handle comment input change
     const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -73,6 +109,24 @@ const usePostCard = (post: SinglePostInterface) => {
         }
     };
 
+    const handleShowComment = () => {
+        if (userInfo?.uid) {
+            setShowComment(!showComment);
+        } else {
+            toast.error('You need to login to comment', {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 1000,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            setTimeout(() => {
+                navigate('/onboard');
+            }, 3000);
+        }
+    };
+
     // handle navigate to single post
     const handleNavigate = () => {
         navigate(
@@ -109,12 +163,13 @@ const usePostCard = (post: SinglePostInterface) => {
         setShowComment,
         allComments,
         isLoading,
-        likes,
-        setLikes,
+        liked,
+        handleLike,
         setAllLikes,
         allLikes,
         handleCommentChange,
         handleCommentSubmit,
+        handleShowComment,
         handleNavigate,
         navigate,
         id,

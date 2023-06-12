@@ -1,136 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import { useAuthContext } from '../../hooks/auth/useAuthContext';
-import { getUserArticles } from '../../firebase/article';
 import { Highlights } from './Highlights';
-
-export interface Post {
-    id: string;
-    data: {
-        updatedAt: string;
-        views: number;
-        body: string;
-        comments: any[];
-        likeCount: number;
-        createdAt: string;
-        subtitle: string;
-        title: string;
-        commentCount: number;
-        slug: string;
-        coverImage: string;
-        author: {
-            authorId: string;
-        };
-        tagList: string[];
-    };
-}
+import { useAnalytics } from '../../hooks/analytics/useAnalytics';
+import { Typography } from '../../components/element';
+import { useThemeContext } from '../../hooks/theme/useThemeContext';
 
 export default function Analytics(): React.JSX.Element {
-    const [posts, setPosts] = useState<Post[]>([] as any);
-    const [postSummaries, setPostSummaries] = useState({} as any);
-    const [loading, setLoading] = useState(false);
-    const { user } = useAuthContext();
-
-    console.log(loading);
-
-    //calculate the total summaries for each month
-    const calcualtePostSummaries = () => {
-        const currentDate = new Date();
-        const currentMonth = currentDate.getMonth() + 1;
-
-        const filteredPosts = posts.filter((post) => {
-            const postDate = new Date(post.data.createdAt);
-            const postMonth = postDate.getMonth() + 1;
-            return postMonth === currentMonth;
-        });
-
-        const totalPosts = filteredPosts.length;
-        const totalViews = filteredPosts.reduce(
-            (sum: number, post: any) => sum + post.data.views,
-            0
-        );
-        const totalLikes = filteredPosts.reduce(
-            (sum: number, post: any) => sum + post.data.likeCount,
-            0
-        );
-        const totalComments = filteredPosts.reduce(
-            (sum: number, post: any) => sum + post.data.comments.length,
-            0
-        );
-        const monthName = currentDate.toLocaleString('default', {
-            month: 'long',
-        });
-        const currentYear = currentDate.getFullYear();
-
-        const summary = {
-            month: monthName,
-            year: currentYear,
-            totalPosts,
-            totalViews,
-            totalLikes,
-            totalComments,
-            filteredPosts,
-        };
-        setPostSummaries(summary);
-    };
-
-    useEffect(() => {
-        const fetchUserArticles = async () => {
-            try {
-                if (user) {
-                    setLoading(true);
-                    const userArticles = await getUserArticles(user?.uid);
-                    setPosts(userArticles);
-                    setLoading(false);
-                }
-            } catch (e) {
-                console.log(e);
-            }
-        };
-
-        fetchUserArticles();
-    }, [user]);
-
-    useEffect(() => {
-        calcualtePostSummaries();
-    }, [posts]);
-
-    let highestViewedLikedAndCommentedPost = null;
-    if (posts.length > 0) {
-        highestViewedLikedAndCommentedPost = posts.reduce(
-            (prevPost, currentPost) => {
-                if (
-                    currentPost.data.views > prevPost.data.views ||
-                    (currentPost.data.views === prevPost.data.views &&
-                        currentPost.data.likeCount > prevPost.data.likeCount)
-                ) {
-                    return currentPost;
-                }
-                return prevPost;
-            }
-        );
-    }
-
-    console.log(highestViewedLikedAndCommentedPost);
-    console.log(postSummaries);
+    const { highestViewedLikedAndCommentedPost, loading } = useAnalytics();
+    const { theme } = useThemeContext();
 
     return (
         <section className={`bg-white-100`}>
             <div className={`ms-[250px] tabletS:ms-0 pt-24`}>
-                <Highlights
-                    highestPost={highestViewedLikedAndCommentedPost}
-                    postSummaries={postSummaries}
-                />
-            </div>
-            <div>
-                {!loading && posts.length === 0 && (
-                    <div className={`ms-[250px] tabletS:ms-0`}>
+                <div>
+                    {!loading && highestViewedLikedAndCommentedPost === null ? (
                         <div
-                            className={`flex justify-center items-center h-[80vh]`}
+                            className={`flex justify-center items-center h-[75vh]`}
                         >
-                            <p className={`text-2xl font-bold`}>No posts yet</p>
+                            <div
+                                className={`rounded-md w-[500px] tabletS:w-[300px] mobileL:[280px] h-[200px] transition duration-500 ease-in-out
+                                flex justify-center items-center  shadow-md shadow-black-700
+                                      ${
+                                          theme === 'lightMode'
+                                              ? 'bg-white-50 text-black-950'
+                                              : theme === 'darkMode' &&
+                                                'bg-gray-800 text-white-100'
+                                      }
+        `}
+                            >
+                                <Typography
+                                    variant={1}
+                                    className={`text-2xl font-bold`}
+                                >
+                                    No Posts Yet
+                                </Typography>
+                            </div>
                         </div>
-                    </div>
-                )}
+                    ) : (
+                        <Highlights />
+                    )}
+                </div>
             </div>
         </section>
     );

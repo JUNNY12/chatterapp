@@ -12,15 +12,7 @@ export const Recent = (): React.JSX.Element => {
     const navigate = useNavigate();
 
     return (
-        <section
-            className={`rounded-md m-8 tabletXS:m-3 h-full transition duration-500 ease-in-out 
-         ${
-             theme === 'lightMode'
-                 ? 'bg-white-50 text-black-950'
-                 : theme === 'darkMode' && 'bg-gray-800 text-white-100'
-         }
-        `}
-        >
+        <section>
             <Typography
                 variant={1}
                 className="text-3xl font-bold mb-3 px-8 pt-8 mobileXL:px-2 "
@@ -50,7 +42,14 @@ export const Recent = (): React.JSX.Element => {
                             return (
                                 <article
                                     key={id}
-                                    className="border-b cursor-pointer border-gray-300 p-8 mobileXL:px-2"
+                                    className={`
+                                    border-b border-gray-300 p-8 my-8 tabletXS:my-3 mobileXL:px-2
+                                    rounded-md  cursor-pointer m-8 tabletXS:m-3 h-full transition duration-500 ease-in-out 
+                                     ${theme === 'lightMode'
+                                            ? 'bg-white-50 text-black-950'
+                                            : theme === 'darkMode' && 'bg-gray-800 text-white-100'
+                                        }
+                                    `}
                                 >
                                     <div
                                         onClick={() =>
@@ -58,7 +57,7 @@ export const Recent = (): React.JSX.Element => {
                                                 `/user/${author?.displayName}`
                                             )
                                         }
-                                        className=" flex items-center mb-3"
+                                        className=" flex items-center mb-3 cursor-pointer"
                                     >
                                         <div className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] me-4 relative rounded-full object-cover">
                                             <img

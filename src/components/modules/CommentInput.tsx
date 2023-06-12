@@ -19,8 +19,8 @@ export const CommentInput = ({
     console.log(loading);
 
     return (
-        <div className=" flex items-center mobileM:justify-center">
-            <div className=" w-[40px] h-[40px] mb-12 me-2 rounded-full object-cover">
+        <div className=" flex items-center mobileM:justify-center relative">
+            <div className=" w-[40px] h-[40px] mb-12 me-2 rounded-full object-cover ">
                 <img
                     src={userInfo?.photoUrl}
                     alt={userInfo?.displayName}
@@ -43,13 +43,15 @@ export const CommentInput = ({
                         placeholder="Add a comment..."
                     />
 
-                    <Button className=" bg-pink-600 mt-4 w-[100px] text-white-50 p-2 rounded-[40px]">
-                        {isLoading ? (
-                            <BeatLoader color="#ffffff" size={8} />
-                        ) : (
-                            'Post'
-                        )}
-                    </Button>
+                    {value && (
+                        <Button className=" bg-pink-600 mt-4 w-[100px] text-white-50 p-2 rounded-[40px]">
+                            {isLoading ? (
+                                <BeatLoader color="#ffffff" size={8} />
+                            ) : (
+                                'Post'
+                            )}
+                        </Button>
+                    )}
                 </form>
             </div>
         </div>

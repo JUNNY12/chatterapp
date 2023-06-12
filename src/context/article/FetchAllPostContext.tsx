@@ -79,17 +79,14 @@ export default function PostProvider({ children }: ProviderChildren) {
         []
     );
     const [loading, setLoading] = useState<boolean>(false);
-    // const navigate = useNavigate();
-    const location = useLocation();
-    const { pathname } = location;
 
+    const location = useLocation();
+  
     const fetchPosts = async () => {
         setLoading(true);
         try {
             const { articles } = await getAllArticle();
-            // console.log('articles', articles);
-            // console.log('pathname', pathname)
-
+          
             // Sort articles in descending order based on creation time
             const sortedArticles = articles.sort((a: any, b: any) => {
                 const dateA = new Date(a.createdAt);
@@ -105,8 +102,6 @@ export default function PostProvider({ children }: ProviderChildren) {
                     const currentDate = new Date();
                     const timeDifference =
                         currentDate.getTime() - createdDate.getTime();
-
-                    // console.log(post.author.authorId)
 
                     // Fetch author details using authorId
                     const author = await getUser(post.author.authorId);
@@ -132,7 +127,6 @@ export default function PostProvider({ children }: ProviderChildren) {
         setLoading(true);
         const { articles } = await getTopArticle();
 
-        // console.log('artcles fectced');
         // Sort articles in descending order based on creation time
         const sortedArticles = articles.sort((a: any, b: any) => {
             const dateA = new Date(a.createdAt);
@@ -162,9 +156,7 @@ export default function PostProvider({ children }: ProviderChildren) {
     useEffect(() => {
         fetchPosts();
         fetchTopPosts();
-    }, [pathname]);
-
-    // console.log('posts', posts, loading);
+    }, [location]);
 
     return (
         <PostContext.Provider value={{ posts, loading, trendingPosts }}>

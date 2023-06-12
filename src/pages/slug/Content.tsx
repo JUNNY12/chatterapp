@@ -3,6 +3,8 @@ import { MdFavorite, MdInsights } from 'react-icons/md';
 import { BiComment } from 'react-icons/bi';
 import { MdLaoder } from './MdLoader';
 import { CommentInput } from '../../components/modules';
+import { useFetchUser } from '../../hooks/user/useFetchUser';
+import { LikeButton } from '../../components/modules';
 
 interface ContentProps {
     singlePost: any;
@@ -21,7 +23,9 @@ export const Content = ({
     handleCommentSubmit,
     allComments,
 }: ContentProps): React.JSX.Element => {
-    console.log(allComments);
+
+    const { userInfo} = useFetchUser();
+
     return (
         <div>
             <article className="me-8 laptopS:me-0">
@@ -69,12 +73,7 @@ export const Content = ({
                         </Typography>
                     </div>
 
-                    <div className=" flex items-center me-3">
-                        <MdFavorite className=" me-1" />
-                        <Typography variant={2} className="text-base">
-                            {singlePost?.likeCount}
-                        </Typography>
-                    </div>
+                   <LikeButton post={singlePost} />
 
                     <div className=" flex items-center me-1">
                         <MdInsights className=" me-2" />
@@ -86,12 +85,20 @@ export const Content = ({
             </article>
 
             <div className=" mt-8">
-                <CommentInput
-                    isLoading={isLoading}
-                    value={comment}
-                    onCommentChange={handleCommentChange}
-                    onCommentSubmit={handleCommentSubmit}
-                />
+               {
+                userInfo?.uid ? (
+                        <CommentInput
+                            isLoading={isLoading}
+                            value={comment}
+                            onCommentChange={handleCommentChange}
+                            onCommentSubmit={handleCommentSubmit}
+                        />
+                ) : (
+                    <Typography variant={1} className="text-2xl mobileXL:text-xl  text-center font-semibold text-pink-600">
+                        Please login to comment
+                    </Typography>
+                )
+               }
             </div>
         </div>
     );
