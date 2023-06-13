@@ -80,7 +80,15 @@ const Protected = ({ children }: ProviderProps) => {
     return <>{user ? children : null}</>;
 };
 
-const protectProfilePage = ['/settings', '/settings/post', '/settings/account'];
+const protectProfilePage = [
+    '/settings',
+    '/settings/post',
+    '/settings/account',
+    '/preview',
+    '/feed',
+    '/write',
+    '/analytics',
+];
 
 // Provider component
 export const Provider = ({ children }: ProviderProps) => {

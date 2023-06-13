@@ -1,22 +1,19 @@
-import { Typography } from "../../components/element"
-import { useThemeContext } from "../../hooks/theme/useThemeContext"
+import { Typography } from '../../components/element';
+import { useThemeContext } from '../../hooks/theme/useThemeContext';
 
 export const BioInfo = ({ user }: any) => {
-    const { theme } = useThemeContext()
-    return(
+    const { theme } = useThemeContext();
+    return (
         <div
-            className={` transition duration-500 ease-in-out ${theme === 'lightMode'
+            className={` transition duration-500 ease-in-out ${
+                theme === 'lightMode'
                     ? 'bg-white-50 text-black-950'
-                    : theme === 'darkMode' &&
-                    'bg-gray-800 text-white-100'
-                }
+                    : theme === 'darkMode' && 'bg-gray-800 text-white-100'
+            }
                           pt-16 px-4 py-3 rounded-bl-md rounded-br-md`}
         >
             <div>
-                <Typography
-                    variant={1}
-                    className=" text-2xl font-bold"
-                >
+                <Typography variant={1} className=" text-2xl font-bold">
                     {user?.fullName}
                 </Typography>
 
@@ -40,5 +37,5 @@ export const BioInfo = ({ user }: any) => {
                 </div>
             </div>
         </div>
-    )
-            }
+    );
+};

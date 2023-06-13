@@ -23,23 +23,20 @@ export const Content = ({
     handleCommentSubmit,
     allComments,
 }: ContentProps): React.JSX.Element => {
-
-    const { userInfo} = useFetchUser();
+    const { userInfo } = useFetchUser();
 
     return (
         <div>
             <article className="me-8 laptopS:me-0">
-             {
-                singlePost?.coverImage && (
-                        <div className=" max-w-[600px] mb-4 h-[400px] tabletS:h-[300px] object-cover relative">
-                            <img
-                                src={singlePost?.coverImage}
-                                className=" object-cover h-full w-full"
-                                alt=""
-                            />
-                        </div>
-                    )
-             }
+                {singlePost?.coverImage && (
+                    <div className=" max-w-[600px] mb-4 h-[400px] tabletS:h-[300px] object-cover relative">
+                        <img
+                            src={singlePost?.coverImage}
+                            className=" object-cover h-full w-full"
+                            alt=""
+                        />
+                    </div>
+                )}
                 <Typography
                     variant={1}
                     className=" font-semibold text-3xl tabletXS:text-xl mb-3 max-w-[600px]"
@@ -73,11 +70,11 @@ export const Content = ({
                     <div className=" flex items-center me-3">
                         <BiComment className=" me-1" />
                         <Typography variant={2} className="text-base">
-                            {allComments?.length ||singlePost?.comments.length}
+                            {allComments?.length || singlePost?.comments.length}
                         </Typography>
                     </div>
 
-                   <LikeButton post={singlePost} />
+                    <LikeButton post={singlePost} />
 
                     <div className=" flex items-center me-1">
                         <MdInsights className=" me-2" />
@@ -89,20 +86,21 @@ export const Content = ({
             </article>
 
             <div className=" mt-8">
-               {
-                userInfo?.uid ? (
-                        <CommentInput
-                            isLoading={isLoading}
-                            value={comment}
-                            onCommentChange={handleCommentChange}
-                            onCommentSubmit={handleCommentSubmit}
-                        />
+                {userInfo?.uid ? (
+                    <CommentInput
+                        isLoading={isLoading}
+                        value={comment}
+                        onCommentChange={handleCommentChange}
+                        onCommentSubmit={handleCommentSubmit}
+                    />
                 ) : (
-                    <Typography variant={1} className="text-2xl mobileXL:text-xl  text-center font-semibold text-pink-600">
+                    <Typography
+                        variant={1}
+                        className="text-2xl mobileXL:text-xl  text-center font-semibold text-pink-600"
+                    >
                         Please login to comment
                     </Typography>
-                )
-               }
+                )}
             </div>
         </div>
     );

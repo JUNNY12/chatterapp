@@ -17,7 +17,9 @@ export const ExplorePosts = (): React.JSX.Element => {
                 (!loading && posts.length === 0) ? (
                     [...Array(10)].map((_, index) => <PostLoader key={index} />)
                 ) : (
-                        <div> <Typography
+                    <div>
+                        {' '}
+                        <Typography
                             variant={1}
                             className="text-3xl font-bold mb-3 px-8 pt-8 mobileXL:px-2 "
                         >

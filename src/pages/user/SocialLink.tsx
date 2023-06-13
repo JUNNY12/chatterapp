@@ -9,16 +9,16 @@ import { TbWorldWww } from 'react-icons/tb';
 import { Typography } from '../../components/element';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 
-export const SocialLink = ({user}:any) => {
+export const SocialLink = ({ user }: any) => {
     const { theme } = useThemeContext();
 
-    return(
+    return (
         <div
-            className={` transition duration-500 ease-in-out ${theme === 'lightMode'
+            className={` transition duration-500 ease-in-out ${
+                theme === 'lightMode'
                     ? 'bg-white-50 text-black-950'
-                    : theme === 'darkMode' &&
-                    'bg-gray-800 text-white-100'
-                }
+                    : theme === 'darkMode' && 'bg-gray-800 text-white-100'
+            }
                                   px-4 py-4 my-3 rounded-md`}
         >
             <Typography
@@ -70,6 +70,5 @@ export const SocialLink = ({user}:any) => {
                 </a>
             </div>
         </div>
-    )
-
-}
+    );
+};

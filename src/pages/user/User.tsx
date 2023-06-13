@@ -8,8 +8,8 @@ import { useFetchProfile } from '../../hooks/user/useFetchProfile';
 export default function User(): React.JSX.Element {
     const { theme } = useThemeContext();
     const { displayName } = useParams();
-    const { user, loading, isLoading, userArticles } = useFetchProfile(displayName);
-
+    const { user, loading, isLoading, userArticles } =
+        useFetchProfile(displayName);
 
     if (!user && !loading) {
         // User not found,
@@ -28,11 +28,11 @@ export default function User(): React.JSX.Element {
                             : theme === 'darkMode' && ''
                     } `}
                 >
-                   <Header user={user} isLoading={isLoading} />
+                    <Header user={user} isLoading={isLoading} />
                     <BioInfo user={user} />
                     <SocialLink user={user} />
                     <Interest user={user} />
-                   <ArticleList article={userArticles} user ={user} />
+                    <ArticleList article={userArticles} user={user} />
                 </section>
             )}
         </>

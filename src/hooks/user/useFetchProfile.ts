@@ -1,13 +1,13 @@
-import { useState , useEffect} from "react";
-import { useFetchUsers } from "./useFetchUsers";
-import { getUserArticles } from "../../firebase/article";
-import { getTimeDifferenceString } from "../../utils/getTimeDifference";
+import { useState, useEffect } from 'react';
+import { useFetchUsers } from './useFetchUsers';
+import { getUserArticles } from '../../firebase/article';
+import { getTimeDifferenceString } from '../../utils/getTimeDifference';
 
-export const useFetchProfile = (displayName:any) => {
-  const { allUsers, loading } = useFetchUsers();
+export const useFetchProfile = (displayName: any) => {
+    const { allUsers, loading } = useFetchUsers();
     const [userArticles, setUserArticles] = useState([]) as any;
     const [isLoading, setIsLoading] = useState(false) as any;
-      console.log(isLoading);
+    console.log(isLoading);
     const user = allUsers?.find(
         (user: any) => user.displayName === displayName
     );

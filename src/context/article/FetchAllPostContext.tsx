@@ -59,6 +59,7 @@ export interface SinglePostInterface {
     commentCount: number;
     views: number;
     comments: Comment[];
+    featured: boolean;
 }
 
 export interface PostInterface {
@@ -81,12 +82,12 @@ export default function PostProvider({ children }: ProviderChildren) {
     const [loading, setLoading] = useState<boolean>(false);
 
     const location = useLocation();
-  
+
     const fetchPosts = async () => {
         setLoading(true);
         try {
             const { articles } = await getAllArticle();
-          
+
             // Sort articles in descending order based on creation time
             const sortedArticles = articles.sort((a: any, b: any) => {
                 const dateA = new Date(a.createdAt);

@@ -44,7 +44,8 @@ const usePostCard = (post: SinglePostInterface) => {
                 navigate('/onboard');
             }, 2000);
         }
-        const liked = allLikes?.includes(userInfo?.uid as string);
+       else{
+         const liked = allLikes?.includes(userInfo?.uid as string);
 
         if (liked) {
             const updatedLikeCounts = allLikes.filter(
@@ -63,6 +64,7 @@ const usePostCard = (post: SinglePostInterface) => {
             setAllLikes(updatedLikeCounts);
             setLiked(!liked);
         }
+       }
     };
 
     // handle comment input change

@@ -9,7 +9,6 @@ import { useFetchUser } from '../user/useFetchUser';
 import { toast } from 'react-toastify';
 import { useLocation } from 'react-router';
 
-
 export const useSlug = (slug: any) => {
     const [loading, setLoading] = useState(false);
     const [posts, setPosts] = useState<SinglePostInterface[]>([]);
@@ -140,6 +139,6 @@ export const useSlug = (slug: any) => {
         handleCommentSubmit,
         handleCommentChange,
         isLoading,
-        handlePageView
+        handlePageView,
     };
 };

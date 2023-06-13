@@ -1,15 +1,16 @@
 import { MdFavorite } from 'react-icons/md';
 import { Typography } from '../element';
 import usePostCard from '../../hooks/article/usePostCard';
-
+import { useFetchUser } from '../../hooks/user/useFetchUser';
 export const LikeButton = ({ post }: any) => {
     const { allLikes, handleLike, liked, likeCounts } = usePostCard(post);
+    const {userInfo} = useFetchUser()
 
     return (
         <div
-            role='button'
+            role="button"
             className={`flex items-center me-6 cursor-pointer ${
-                liked && 'text-pink-600 animate-pulse'
+                (liked && userInfo.uid ) && 'text-pink-600 animate-pulse'
             }`}
             onClick={handleLike}
         >

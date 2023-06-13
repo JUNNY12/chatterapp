@@ -45,10 +45,12 @@ export const Recent = (): React.JSX.Element => {
                                     className={`
                                     border-b border-gray-300 p-8 my-8 tabletXS:my-3 mobileXL:px-2
                                     rounded-md  cursor-pointer m-8 tabletXS:m-3 h-full transition duration-500 ease-in-out 
-                                     ${theme === 'lightMode'
-                                            ? 'bg-white-50 text-black-950'
-                                            : theme === 'darkMode' && 'bg-gray-800 text-white-100'
-                                        }
+                                     ${
+                                         theme === 'lightMode'
+                                             ? 'bg-white-50 text-black-950'
+                                             : theme === 'darkMode' &&
+                                               'bg-gray-800 text-white-100'
+                                     }
                                     `}
                                 >
                                     <div

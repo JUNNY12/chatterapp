@@ -118,17 +118,15 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
                         </Typography>
                     </div>
 
-                   {
-                    coverImage && (
-                            <div className=" relative object-cover max-w-[600px] h-[300px] my-3">
-                                <img
-                                    src={coverImage}
-                                    alt={title}
-                                    className=" object-cover h-full w-full"
-                                />
-                            </div>
-                        )
-                   }
+                    {coverImage && (
+                        <div className=" relative object-cover max-w-[600px] h-[300px] my-3">
+                            <img
+                                src={coverImage}
+                                alt={title}
+                                className=" object-cover h-full w-full"
+                            />
+                        </div>
+                    )}
                 </div>
 
                 <div className=" flex items-center justify-center mt-12 text-xl">
