@@ -4,7 +4,8 @@ import { MdInsights } from 'react-icons/md';
 import { calculateReadingTime } from '../../utils';
 import { SinglePostInterface } from '../../context/article/FetchAllPostContext';
 import { CommentInput, LikeButton } from '.';
-import { BiComment } from 'react-icons/bi';
+import { BiComment} from 'react-icons/bi';
+import { FaBookmark } from 'react-icons/fa';
 import usePostCard from '../../hooks/article/usePostCard';
 interface PostProps {
    post: SinglePostInterface;
@@ -47,7 +48,12 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
          }
         `}
       >
-         <article className="border-b border-gray-300 p-8 my-8 tabletXS:my-3 mobileXL:px-2 cursor-pointer">
+         <article className="border-b relative border-gray-300 p-8 my-8 tabletXS:my-3 mobileXL:px-2 cursor-pointer">
+           <div
+           title='Bookmark'
+           className=' absolute right-2 top-2 p-2 bg-pink-600 rounded-full'>
+            <FaBookmark />
+           </div>
             <div
                onClick={() => navigate(`/user/${displayName}`)}
                className=" flex items-center mb-3"

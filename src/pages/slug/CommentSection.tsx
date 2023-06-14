@@ -44,7 +44,7 @@ export const CommentSection = ({
             <Typography
                onClick={handleShowComment}
                role="button"
-               className=" inline-flex items-center text-2xl"
+               className=" inline-flex items-center text-2xl mobileXL:text-xl"
                variant={2}
             >
                <span>Show Comments</span>
