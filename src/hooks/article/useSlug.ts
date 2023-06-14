@@ -40,7 +40,8 @@ export const useSlug = (slug: any) => {
 
    const handleCommentSelected = (comment: any) => {
       setSelectedComment(comment);
-      setShowReplyInput((prevState) => {
+     if(userInfo?.uid){
+         setShowReplyInput((prevState) => {
          if (prevState.includes(comment.commentId)) {
             // Comment ID already exists, remove it to hide the reply input
             return prevState.filter((id) => id !== comment.commentId);
@@ -49,6 +50,20 @@ export const useSlug = (slug: any) => {
             return [...prevState, comment.commentId];
          }
       });
+     }
+     else{
+        toast.error('You need to login to comment', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 1000,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+         });
+         setTimeout(() => {
+            navigate('/onboard');
+         }, 2000);
+     }
    };
 
    const handleReplySelected = (comment: any) => {
