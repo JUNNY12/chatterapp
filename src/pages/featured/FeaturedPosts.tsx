@@ -5,38 +5,34 @@ import { Typography } from '../../components/element';
 import { PostLoader } from '../../components/modules/skeletonloader';
 
 export const FeaturedPosts = (): React.JSX.Element => {
-    const { featuredPosts, loading } = useFetchFeaturedPost();
+   const { featuredPosts, loading } = useFetchFeaturedPost();
 
-    return (
-        <div>
-            <Typography
-                variant={1}
-                className="text-3xl font-bold mb-3 px-8 pt-8 mobileXL:px-2 "
-            >
-                Featured
-            </Typography>
+   return (
+      <div>
+         <Typography variant={1} className="text-3xl ms-6 font-bold mb-3 px-8 pt-8 mobileXL:px-2 ">
+            Featured Posts
+         </Typography>
 
-            <div>
-                {(loading && featuredPosts.length === 0) ||
-                (!loading && featuredPosts.length === 0) ? (
-                    <div>
-                        {[...Array(5)].map((_, index) => (
-                            <PostLoader key={index} />
-                        ))}
-                    </div>
-                ) : (
-                    <div>
-                        {featuredPosts.map((post: SinglePostInterface) => {
-                            const { id } = post;
-                            return (
-                                <div key={id}>
-                                    <PostCard key={id} post={post} />
-                                </div>
-                            );
-                        })}
-                    </div>
-                )}
-            </div>
-        </div>
-    );
+         <div>
+            {(loading && featuredPosts.length === 0) || (!loading && featuredPosts.length === 0) ? (
+               <div>
+                  {[...Array(5)].map((_, index) => (
+                     <PostLoader key={index} />
+                  ))}
+               </div>
+            ) : (
+               <div>
+                  {featuredPosts.map((post: SinglePostInterface) => {
+                     const { id } = post;
+                     return (
+                        <div key={id}>
+                           <PostCard key={id} post={post} />
+                        </div>
+                     );
+                  })}
+               </div>
+            )}
+         </div>
+      </div>
+   );
 };

@@ -3,30 +3,27 @@ import { useThemeContext } from '../../hooks/theme/useThemeContext';
 // import { useFetchPost } from '../../hooks/article/useFetchPost';
 
 export const Trending = (): React.JSX.Element => {
-    const { theme } = useThemeContext();
+   const { theme } = useThemeContext();
 
-    // const {loading, trendingPosts } = useFetchPost();
+   // const {loading, trendingPosts } = useFetchPost();
 
-    // console.log(trendingPosts, loading)
+   // console.log(trendingPosts, loading)
 
-    return (
-        <section
-            className={`rounded-md m-8 tabletXS:m-3 h-full transition duration-500 ease-in-out 
+   return (
+      <section
+         className={`rounded-md m-8 tabletXS:m-3 h-full transition duration-500 ease-in-out 
          ${
-             theme === 'lightMode'
-                 ? 'bg-white-50 text-black-950'
-                 : theme === 'darkMode' && 'bg-gray-800 text-white-100'
+            theme === 'lightMode'
+               ? 'bg-white-50 text-black-950'
+               : theme === 'darkMode' && 'bg-gray-800 text-white-100'
          }
         `}
-        >
-            <Typography
-                variant={1}
-                className="text-3xl font-bold mb-3 px-8 pt-8 mobileXL:px-2"
-            >
-                Trending
-            </Typography>
-            <div>
-                {/* <div>
+      >
+         <Typography variant={1} className="text-3xl font-bold mb-3 px-8 pt-8 mobileXL:px-2">
+            Trending
+         </Typography>
+         <div>
+            {/* <div>
                     {posts.slice(0, 5).map((post) => {
                         const { id, title, description, datePosted } = post;
                         return (
@@ -78,7 +75,7 @@ export const Trending = (): React.JSX.Element => {
                         );
                     })}
                 </div> */}
-            </div>
-        </section>
-    );
+         </div>
+      </section>
+   );
 };

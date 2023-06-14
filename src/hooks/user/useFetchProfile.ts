@@ -4,48 +4,45 @@ import { getUserArticles } from '../../firebase/article';
 import { getTimeDifferenceString } from '../../utils/getTimeDifference';
 
 export const useFetchProfile = (displayName: any) => {
-    const { allUsers, loading } = useFetchUsers();
-    const [userArticles, setUserArticles] = useState([]) as any;
-    const [isLoading, setIsLoading] = useState(false) as any;
-    console.log(isLoading);
-    const user = allUsers?.find(
-        (user: any) => user.displayName === displayName
-    );
-    console.log(user);
+   const { allUsers, loading } = useFetchUsers();
+   const [userArticles, setUserArticles] = useState([]) as any;
+   const [isLoading, setIsLoading] = useState(false) as any;
 
-    let uid = user?.uid;
+   const user = allUsers?.find((user: any) => user.displayName === displayName);
 
-    const fetchUserArticles = async () => {
-        setIsLoading(true);
-        if (uid) {
-            const userArticles = await getUserArticles(uid);
+   let uid = user?.uid;
 
-            const updatedPost = userArticles.map((post: any) => {
-                console.log(post?.data?.createdAt);
-                const createdDate = new Date(post?.data?.createdAt);
-                const currentDate = new Date();
-                const diff = currentDate.getTime() - createdDate.getTime();
+   const fetchUserArticles = async () => {
+      setIsLoading(true);
+      if (uid) {
+         const userArticles = await getUserArticles(uid);
 
-                return {
-                    ...post,
-                    createdAgo: getTimeDifferenceString(diff),
-                };
-            });
-            setUserArticles(updatedPost);
-            setIsLoading(false);
-        }
-    };
+         const updatedPost = userArticles.map((post: any) => {
+            console.log(post?.data?.createdAt);
+            const createdDate = new Date(post?.data?.createdAt);
+            const currentDate = new Date();
+            const diff = currentDate.getTime() - createdDate.getTime();
 
-    console.log(userArticles);
+            return {
+               ...post,
+               createdAgo: getTimeDifferenceString(diff),
+            };
+         });
+         setUserArticles(updatedPost);
+         setIsLoading(false);
+      }
+   };
 
-    useEffect(() => {
-        fetchUserArticles();
-    }, [uid]);
+   console.log(userArticles);
 
-    return {
-        user,
-        userArticles,
-        isLoading,
-        loading,
-    };
+   useEffect(() => {
+      fetchUserArticles();
+   }, [uid]);
+
+   return {
+      user,
+      userArticles,
+      isLoading,
+      loading,
+   };
 };

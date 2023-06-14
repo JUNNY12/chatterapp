@@ -4,25 +4,21 @@ import { PostSideBar } from './PostSideBar';
 import { SharedSideBar } from './SharedSideBar';
 
 export const SideBar = (): React.JSX.Element => {
-    const { theme } = useThemeContext();
-    const { pathname } = useLocation();
+   const { theme } = useThemeContext();
+   const { pathname } = useLocation();
 
-    return (
-        <aside
-            className={`h-full fixed z-10 top-0 pt-36 left-0 w-[250px]
+   return (
+      <aside
+         className={`h-full fixed z-10 top-0 pt-36 left-0 w-[250px]
             border-r border-gray-300 p-8 transition duration-500 ease-in-out 
         ${
-            theme === 'lightMode'
-                ? 'bg-white-50 text-black-950'
-                : theme === 'darkMode' && 'bg-gray-800 text-white-100'
+           theme === 'lightMode'
+              ? 'bg-white-50 text-black-950'
+              : theme === 'darkMode' && 'bg-gray-800 text-white-100'
         }
         `}
-        >
-            {pathname.includes('/write' || '/write/edit') ? (
-                <PostSideBar />
-            ) : (
-                <SharedSideBar />
-            )}
-        </aside>
-    );
+      >
+         {pathname.includes('/write' || '/write/edit') ? <PostSideBar /> : <SharedSideBar />}
+      </aside>
+   );
 };

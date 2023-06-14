@@ -7,39 +7,37 @@ import { SinglePostInterface } from './FetchAllPostContext';
 // }
 
 interface articleContextInterface {
-    articles: SinglePostInterface[];
+   articles: SinglePostInterface[];
 }
 
 // Create the context
-export const ArticleInteractionContext = createContext<articleContextInterface>(
-    {
-        articles: [],
-    }
-);
+export const ArticleInteractionContext = createContext<articleContextInterface>({
+   articles: [],
+});
 
 interface childrenProps {
-    children: React.ReactNode;
+   children: React.ReactNode;
 }
 
 // Create the provider component
 export const ArticleInteractionProvider = ({ children }: childrenProps) => {
-    // const [comment, setComment] = useState('');
-    const { posts } = useFetchPost();
-    const [allArticles, seAllArticles] = useState(posts);
+   // const [comment, setComment] = useState('');
+   const { posts } = useFetchPost();
+   const [allArticles, seAllArticles] = useState(posts);
 
-    useEffect(() => {
-        seAllArticles(posts);
-    }, [posts]);
+   useEffect(() => {
+      seAllArticles(posts);
+   }, [posts]);
 
-    // console.log('allArticles', allArticles);
+   // console.log('allArticles', allArticles);
 
-    return (
-        <ArticleInteractionContext.Provider
-            value={{
-                articles: allArticles,
-            }}
-        >
-            {children}
-        </ArticleInteractionContext.Provider>
-    );
+   return (
+      <ArticleInteractionContext.Provider
+         value={{
+            articles: allArticles,
+         }}
+      >
+         {children}
+      </ArticleInteractionContext.Provider>
+   );
 };

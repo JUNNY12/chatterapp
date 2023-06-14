@@ -1,22 +1,20 @@
 import { useState, ChangeEvent } from 'react';
 
 interface FormValues {
-    [key: string]: any;
+   [key: string]: any;
 }
 
 export const useFormData = (initialValues: FormValues) => {
-    const [values, setValues] = useState<FormValues>(initialValues);
+   const [values, setValues] = useState<FormValues>(initialValues);
 
-    const handleChange = (
-        e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
-        const { name, value } = e.target;
-        setValues((prevValues) => ({ ...prevValues, [name]: value }));
-    };
+   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { name, value } = e.target;
+      setValues((prevValues) => ({ ...prevValues, [name]: value }));
+   };
 
-    return {
-        values,
-        handleChange,
-        setValues,
-    };
+   return {
+      values,
+      handleChange,
+      setValues,
+   };
 };

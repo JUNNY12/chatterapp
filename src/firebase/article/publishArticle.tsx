@@ -5,16 +5,16 @@ import { toast } from 'react-toastify';
 const db = getFirestore(firebaseApp);
 
 export const publishArticle = async (uid: any, article: any) => {
-    let articleRefId: any;
-    try {
-        const articleRef = collection(db, 'users', uid, 'article');
-        await setDoc(doc(articleRef), article);
-        articleRefId = articleRef.id;
-        toast.success('Yout Post has been Published');
-    } catch (e) {
-        console.log(e);
-        toast.error('something went wrong');
-    }
+   let articleRefId: any;
+   try {
+      const articleRef = collection(db, 'users', uid, 'article');
+      await setDoc(doc(articleRef), article);
+      articleRefId = articleRef.id;
+      toast.success('Yout Post has been Published');
+   } catch (e) {
+      console.log(e);
+      toast.error('something went wrong');
+   }
 
-    return articleRefId;
+   return articleRefId;
 };

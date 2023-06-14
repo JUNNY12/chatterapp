@@ -7,15 +7,15 @@ import { Loader } from './components/modules';
 import { ScrollToTop } from './components/modules';
 
 function App() {
-    return (
-        <Suspense fallback={<Loader />}>
-            <Provider>
-                <Routes />
-                <ToastContainer />
-                <ScrollToTop />
-            </Provider>
-        </Suspense>
-    );
+   return (
+      <Suspense fallback={<Loader />}>
+         <Provider>
+            <Routes />
+            <ToastContainer />
+            <ScrollToTop />
+         </Provider>
+      </Suspense>
+   );
 }
 
 export default App;
