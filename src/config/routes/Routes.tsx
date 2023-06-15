@@ -32,6 +32,7 @@ const LazyNotFound = React.lazy(() => import('../../pages/notfound/NotFound'));
 const LazyPreviewSlug = React.lazy(() => import('../../pages/settings/posts/PreviewSlug'));
 const LazyAnalytics = React.lazy(() => import('../../pages/analytics/Analytics'));
 const LazyUser = React.lazy(() => import('../../pages/user/User'));
+const LazyBookmarks = React.lazy(() => import('../../pages/bookmark/Bookmark'));
 
 export function Routes() {
    return useRoutes([
@@ -66,6 +67,11 @@ export function Routes() {
          path: '/featured',
          element: <FeedLayout />,
          children: [{ index: true, element: <LazyFeature /> }],
+      },
+      {
+         path: '/bookmarks',
+         element: <FeedLayout />,
+         children: [{ index: true, element: <LazyBookmarks /> }],
       },
       {
          path: '/analytics',

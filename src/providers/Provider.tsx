@@ -88,6 +88,7 @@ const protectProfilePage = [
    '/feed',
    '/write',
    '/analytics',
+   '/bookmarks',
 ];
 
 // Provider component

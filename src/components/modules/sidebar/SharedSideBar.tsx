@@ -58,10 +58,21 @@ export const SharedSideBar = () => {
                </li>
             </NavLink>
 
-            <li title="bookmarks" className="mb-6 cursor-pointer hover:text-pink-600">
-               <FaBookmark className="inline-block me-2" />
-               <span>Bookmarks</span>
-            </li>
+            {
+               user && (
+                  <NavLink
+                     to={`/bookmarks`}
+                     className={({ isActive }: any) => (isActive ? 'text-pink-600' : '')}
+                     end
+                  >
+                     <li title="bookmarks" className="mb-6 cursor-pointer hover:text-pink-600">
+                        <FaBookmark className="inline-block me-2" />
+                        <span>Bookmarks</span>
+                     </li>
+                  </NavLink>
+               )
+            }
+
             <NavLink
                to={`/featured`}
                className={({ isActive }: any) => (isActive ? 'text-pink-600' : '')}
