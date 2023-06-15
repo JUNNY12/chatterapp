@@ -65,7 +65,7 @@ export const useSlug = (slug: any) => {
          }, 2000);
      }
    };
-
+   // toggle reply input
    const handleReplySelected = (comment: any) => {
       setSelectedComment(comment);
       setShowReplyField((prevState) => {
@@ -270,7 +270,7 @@ export const useSlug = (slug: any) => {
          console.log(err);
       }
    };
-
+   // function to toggle comments 
    const handleShowComment = () => {
       setShowComment(!showComment);
    };

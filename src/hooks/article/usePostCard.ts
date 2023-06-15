@@ -20,6 +20,10 @@ const usePostCard = (post: SinglePostInterface) => {
    const [allComments, setAllComments] = useState(post?.comments);
    const [isLoading, setIsLoading] = useState(false);
 
+   //state for bookmark
+   const [bookmarks, setBookmarks] = useState<string[] | any >(post?.bookmarks);
+   const [bookmarked, setBookmarked] = useState(false);
+
    // state for likes
    const [allLikes, setAllLikes] = useState(post?.likeCounts);
    const [liked, setLiked] = useState(false);
@@ -27,9 +31,48 @@ const usePostCard = (post: SinglePostInterface) => {
    useEffect(() => {
       setAllComments(post?.comments);
       setAllLikes(post?.likeCounts);
+      setBookmarked(post?.bookmarks?.includes(userInfo?.uid as string));
       setLiked(post?.likeCounts?.includes(userInfo?.uid as string));
+      setBookmarks(post?.bookmarks);
    }, [location]);
 
+
+   // handle bookmark
+   const handleBookmark = async () => {
+      if (!userInfo?.uid) {
+         toast.error('You need to login to bookmark', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 1000,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+         });
+         setTimeout(() => {
+            navigate('/onboard');
+         }, 2000);
+      } else {
+         const bookmarked = bookmarks?.includes(userInfo?.uid );
+         if (bookmarked) {
+            const updatedBookmarks = bookmarks.filter((id:any) => id !== userInfo.uid);
+            await updateArticle(author?.uid, id, {
+               bookmarks: updatedBookmarks,  
+            });
+            setBookmarks(updatedBookmarks);
+            setBookmarked(!bookmarked);
+         } else {
+            const updatedBookmarks = [...bookmarks, userInfo.uid];
+            await updateArticle(author?.uid, id, {
+               bookmarks: updatedBookmarks,
+            });
+            setBookmarks(updatedBookmarks);
+            setBookmarked(!bookmarked);
+         }
+      }
+   };
+
+
+   // handle like
    const handleLike = async () => {
       if (!userInfo?.uid) {
          toast.error('You need to login to like', {
@@ -64,6 +107,7 @@ const usePostCard = (post: SinglePostInterface) => {
       }
    };
 
+                
    // handle comment input change
    const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setComment(e.target.value);
@@ -169,6 +213,8 @@ const usePostCard = (post: SinglePostInterface) => {
       handleShowComment,
       handleNavigate,
       navigate,
+      handleBookmark,
+      bookmarked,
       id,
       title,
       subtitle,

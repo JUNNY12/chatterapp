@@ -60,6 +60,7 @@ export interface SinglePostInterface {
    views: number;
    comments: Comment[];
    featured: boolean;
+   bookmarks: string[];
 }
 
 export interface PostInterface {

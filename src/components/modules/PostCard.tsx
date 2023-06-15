@@ -24,6 +24,8 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
       handleNavigate,
       navigate,
       handleShowComment,
+      bookmarked,
+      handleBookmark,
       title,
       subtitle,
       tagList,
@@ -50,8 +52,11 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
       >
          <article className="border-b relative border-gray-300 p-8 my-8 tabletXS:my-3 mobileXL:px-2 cursor-pointer">
            <div
+            onClick={handleBookmark}
            title='Bookmark'
-           className=' absolute right-2 top-2 p-2 bg-pink-600 rounded-full'>
+               className={`absolute right-2 top-2 p-2 rounded-full 
+               ${bookmarked ? 'bg-pink-600 text-white-100' : 'bg-gray-300 text-black-950'}
+               `}>
             <FaBookmark />
            </div>
             <div

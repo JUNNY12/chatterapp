@@ -14,6 +14,8 @@ export default function User(): React.JSX.Element {
       return <UserNotFound />;
    }
 
+   console.log(user?.socialInfo)
+
    return (
       <>
          {isLoading ? (
@@ -26,7 +28,9 @@ export default function User(): React.JSX.Element {
             >
                <Header user={user} isLoading={isLoading} />
                <BioInfo user={user} />
-               <SocialLink user={user} />
+              {
+               user?.socialInfo && <SocialLink user={user} />
+              }
                <Interest user={user} />
                <ArticleList article={userArticles} user={user} />
             </section>

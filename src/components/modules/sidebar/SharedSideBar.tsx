@@ -1,11 +1,10 @@
 import { useAuthContext } from '../../../hooks/auth/useAuthContext';
 import { useNavigate } from 'react-router-dom';
 import { MdFeed, MdOutlineFeaturedPlayList, MdExplore } from 'react-icons/md';
-import { RiDraftLine } from 'react-icons/ri';
 import { DiGoogleAnalytics } from 'react-icons/di';
 import { NavLink } from 'react-router-dom';
 import { Button } from '../../element';
-import { FaPen } from 'react-icons/fa';
+import { FaPen, FaBookmark } from 'react-icons/fa';
 
 export const SharedSideBar = () => {
    const { user } = useAuthContext();
@@ -22,7 +21,7 @@ export const SharedSideBar = () => {
 
    return (
       <div>
-         <ul className="font-semibold text-xl">
+         <ul className="font-semibold text-lg">
             <li className="mb-6">
                <Button
                   onClick={handleViewWrite}
@@ -59,9 +58,9 @@ export const SharedSideBar = () => {
                </li>
             </NavLink>
 
-            <li title="Drafts" className="mb-6 cursor-pointer hover:text-pink-600">
-               <RiDraftLine className="inline-block me-2" />
-               <span>Drafts</span>
+            <li title="bookmarks" className="mb-6 cursor-pointer hover:text-pink-600">
+               <FaBookmark className="inline-block me-2" />
+               <span>Bookmarks</span>
             </li>
             <NavLink
                to={`/featured`}
