@@ -19,13 +19,10 @@ export const RecentPosts = (): React.JSX.Element => {
                [...Array(6)].map((_, index) => <PostLoader key={index} />)
             ) : (
                <div>
-                 {
-                     posts.slice(0,6).map((post: any) => {
-                        const { id } = post;
-                        return <PostCard key={id} post={post} />;
-                     }
-                     )
-                 }
+                  {posts.slice(0, 6).map((post: any) => {
+                     const { id } = post;
+                     return <PostCard key={id} post={post} />;
+                  })}
                </div>
             )}
          </div>

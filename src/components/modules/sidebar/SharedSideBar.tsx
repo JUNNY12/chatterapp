@@ -20,8 +20,11 @@ export const SharedSideBar = () => {
    };
 
    return (
-      <div className=''>
-         <Typography variant={1} className="text-3xl absolute top-4  mobileXL:text-xl font-bold text-pink-600">
+      <div className="">
+         <Typography
+            variant={1}
+            className="text-3xl absolute top-4  mobileXL:text-xl font-bold text-pink-600"
+         >
             <Link to={`/`}> Chatter</Link>
          </Typography>
 
@@ -62,20 +65,18 @@ export const SharedSideBar = () => {
                </li>
             </NavLink>
 
-            {
-               user && (
-                  <NavLink
-                     to={`/bookmarks`}
-                     className={({ isActive }: any) => (isActive ? 'text-pink-600' : '')}
-                     end
-                  >
-                     <li title="bookmarks" className="mb-6 cursor-pointer hover:text-pink-600">
-                        <FaBookmark className="inline-block me-2" />
-                        <span>Bookmarks</span>
-                     </li>
-                  </NavLink>
-               )
-            }
+            {user && (
+               <NavLink
+                  to={`/bookmarks`}
+                  className={({ isActive }: any) => (isActive ? 'text-pink-600' : '')}
+                  end
+               >
+                  <li title="bookmarks" className="mb-6 cursor-pointer hover:text-pink-600">
+                     <FaBookmark className="inline-block me-2" />
+                     <span>Bookmarks</span>
+                  </li>
+               </NavLink>
+            )}
 
             <NavLink
                to={`/featured`}

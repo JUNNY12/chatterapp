@@ -7,7 +7,10 @@ export const Hero = (): React.JSX.Element => {
       <div className="flex justify-between items-center h-max tabletM:flex-col-reverse">
          <div className="w-1/2 tabletM:w-full">
             <Fade direction="left" duration={3000} triggerOnce>
-               <Typography variant={1} className=" text-7xl mb-6 tabletS:text-5xl mobileXL:text-3xl ">
+               <Typography
+                  variant={1}
+                  className=" text-7xl mb-6 tabletS:text-5xl mobileXL:text-3xl "
+               >
                   <span className="text-pink-600 animate-pulse"> Unleash </span>{' '}
                   <span>the Power of Words</span>
                </Typography>

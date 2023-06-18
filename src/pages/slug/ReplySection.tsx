@@ -2,19 +2,24 @@ import { Typography } from '../../components/element';
 import { formatDate } from '../../utils/formatDate';
 import formatTime from '../../utils/formatTime';
 import { MdFavorite } from 'react-icons/md';
-import { useFetchUser} from '../../hooks/user/useFetchUser';
-
+import { useFetchUser } from '../../hooks/user/useFetchUser';
 
 interface ReplySectionProps {
    reply: any;
    isLastReply: boolean;
-   handleReplyLiked: (commentId:any, replyId:any) => void;
+   handleReplyLiked: (commentId: any, replyId: any) => void;
    commentId: any;
    replyId: any;
 }
 
-export const ReplySection = ({ reply, isLastReply, commentId, handleReplyLiked, replyId}: ReplySectionProps) => {
-   const {userInfo} = useFetchUser();
+export const ReplySection = ({
+   reply,
+   isLastReply,
+   commentId,
+   handleReplyLiked,
+   replyId,
+}: ReplySectionProps) => {
+   const { userInfo } = useFetchUser();
 
    return (
       <div>
@@ -46,16 +51,20 @@ export const ReplySection = ({ reply, isLastReply, commentId, handleReplyLiked, 
                <p>{reply.reply}</p>
             </div>
             <div
-            onClick={() => handleReplyLiked(commentId, replyId)}
-            className="ps-4 cursor-pointer"
-            role='button'
+               onClick={() => handleReplyLiked(commentId, replyId)}
+               className="ps-4 cursor-pointer"
+               role="button"
             >
-               <MdFavorite className={
-                  `
+               <MdFavorite
+                  className={`
                    text-[20px] inline-block me-1
-                  ${reply?.replyLikes?.includes(userInfo?.uid) ? 'text-pink-600 animate-pulse' : ' text-white-50'}
-                  `
-               } />
+                  ${
+                     reply?.replyLikes?.includes(userInfo?.uid) && userInfo?.uid
+                        ? 'text-pink-600 animate-pulse'
+                        : ' text-white-50'
+                  }
+                  `}
+               />
                <Typography className="text-base inline-block" variant={2}>
                   {reply?.replyLikes?.length}
                </Typography>

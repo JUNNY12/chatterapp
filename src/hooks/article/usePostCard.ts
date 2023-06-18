@@ -21,7 +21,7 @@ const usePostCard = (post: SinglePostInterface) => {
    const [isLoading, setIsLoading] = useState(false);
 
    //state for bookmark
-   const [bookmarks, setBookmarks] = useState<string[] | any >(post?.bookmarks);
+   const [bookmarks, setBookmarks] = useState<string[] | any>(post?.bookmarks);
    const [bookmarked, setBookmarked] = useState(false);
 
    // state for likes
@@ -35,7 +35,6 @@ const usePostCard = (post: SinglePostInterface) => {
       setLiked(post?.likeCounts?.includes(userInfo?.uid as string));
       setBookmarks(post?.bookmarks);
    }, [location]);
-
 
    // handle bookmark
    const handleBookmark = async () => {
@@ -52,11 +51,11 @@ const usePostCard = (post: SinglePostInterface) => {
             navigate('/onboard');
          }, 2000);
       } else {
-         const bookmarked = bookmarks?.includes(userInfo?.uid );
+         const bookmarked = bookmarks?.includes(userInfo?.uid);
          if (bookmarked) {
-            const updatedBookmarks = bookmarks.filter((id:any) => id !== userInfo.uid);
+            const updatedBookmarks = bookmarks.filter((id: any) => id !== userInfo.uid);
             await updateArticle(author?.uid, id, {
-               bookmarks: updatedBookmarks,  
+               bookmarks: updatedBookmarks,
             });
             setBookmarks(updatedBookmarks);
             setBookmarked(!bookmarked);
@@ -70,7 +69,6 @@ const usePostCard = (post: SinglePostInterface) => {
          }
       }
    };
-
 
    // handle like
    const handleLike = async () => {
@@ -107,7 +105,6 @@ const usePostCard = (post: SinglePostInterface) => {
       }
    };
 
-                
    // handle comment input change
    const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setComment(e.target.value);

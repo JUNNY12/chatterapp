@@ -29,7 +29,7 @@ export const WhyCard = ({ title, description, icon }: Props) => {
             <Typography variant={3} className="text-2xl mobileXL:text-xl  mb-6">
                {title}
             </Typography>
-            <p className='text-base'>{description}</p>
+            <p className="text-base">{description}</p>
          </Card>
       </Slide>
    );

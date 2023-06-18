@@ -15,9 +15,9 @@ export default function Home() {
         }
         `}
       >
-            <Hero />
-            <Why />
-            <Connect />
+         <Hero />
+         <Why />
+         <Connect />
       </Container>
    );
 }

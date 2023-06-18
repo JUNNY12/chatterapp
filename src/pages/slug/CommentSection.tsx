@@ -11,7 +11,7 @@ import { useFetchUser } from '../../hooks/user/useFetchUser';
 
 interface CommentProps {
    comments: Comment[];
-   handleReplyLiked: (commentId:any, replyId: any) => void;
+   handleReplyLiked: (commentId: any, replyId: any) => void;
    handleCommentLiked: (commentId: any) => void;
    showComment: boolean;
    handleCommentSelected: (comment: any) => void;
@@ -43,8 +43,7 @@ export const CommentSection = ({
    handleCommentLiked,
    handleReplyLiked,
 }: CommentProps): React.JSX.Element => {
-
-   const {userInfo} = useFetchUser()
+   const { userInfo } = useFetchUser();
 
    return (
       <section>
@@ -117,15 +116,18 @@ export const CommentSection = ({
                                  <p>{comment.comment}</p>
 
                                  <div className="mt-4 flex ">
-                                    <div
-                                    onClick={() => handleCommentLiked(comment?.commentId)}
-                                    >
-                                       <MdFavorite className={
-                                          `
+                                    <div onClick={() => handleCommentLiked(comment?.commentId)}>
+                                       <MdFavorite
+                                          className={`
                                           text-[20px] inline-block me-1 cursor-pointer 
-                                          ${comment?.commentLikes?.includes(userInfo?.uid)? 'text-pink-600 animate-pulse' : 'text-white-50'}
-                                          `
-                                       } />
+                                          ${
+                                             comment?.commentLikes?.includes(userInfo?.uid) &&
+                                             userInfo?.uid
+                                                ? 'text-pink-600 animate-pulse'
+                                                : 'text-white-50'
+                                          }
+                                          `}
+                                       />
                                        <span className="text-base">
                                           {comment?.commentLikes?.length}
                                        </span>
@@ -199,7 +201,9 @@ export const CommentSection = ({
                                                                <ReplySection
                                                                   key={reply.replyId}
                                                                   reply={reply}
-                                                                  handleReplyLiked={handleReplyLiked}
+                                                                  handleReplyLiked={
+                                                                     handleReplyLiked
+                                                                  }
                                                                   commentId={comment?.commentId}
                                                                   replyId={reply?.replyId}
                                                                   isLastReply={isLastReply}

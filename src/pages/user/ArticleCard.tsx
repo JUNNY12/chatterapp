@@ -15,7 +15,6 @@ export const ArticleCard = ({
    fullName,
    occupation,
 }: any): React.JSX.Element => {
-
    const navigate = useNavigate();
    const { theme } = useThemeContext();
    // const { user } = useAuthContext();
