@@ -10,36 +10,54 @@ import { toast } from 'react-toastify';
 import { useLocation } from 'react-router';
 
 export const useSlug = (slug: any) => {
+   const navigate = useNavigate();
    const [loading, setLoading] = useState(false);
    const [posts, setPosts] = useState<SinglePostInterface[]>([]);
    const formattedSlug = slug?.split('_').join(' ');
    const location = useLocation();
 
+   // getting single post
    const singlePost: any = posts.find(({ slug }: any) => slug === formattedSlug);
+
+   const { userInfo } = useFetchUser();
 
    const [allComments, setAllComments] = useState<any>([]);
    const [comment, setComment] = useState('');
+   const [updatedComments, setUpdatedComments] = useState<any>([]);
+   const [showComment, setShowComment] = useState<boolean>(false);
+   const [selectedComment, setSelectedComment] = useState<any>();
+   const [commentSubmitted, setCommentSubmitted] = useState(false);
+
+   //reply state
    const [reply, setReply] = useState('');
    const [showReplyInput, setShowReplyInput] = useState<string[]>([]);
    const [showReplyField, setShowReplyField] = useState<string[]>([]);
-   const [selectedComment, setSelectedComment] = useState<any>();
    const [isLoading, setIsLoading] = useState(false);
-   const [commentSubmitted, setCommentSubmitted] = useState(false);
-   const { userInfo } = useFetchUser();
-   const [updatedComments, setUpdatedComments] = useState<any>([]);
-   const [showComment, setShowComment] = useState<boolean>(false);
    const [updatedRepliesWithComment, setUpdatedRepliesWithComment] = useState<any>([]);
 
+   // state for likes
+   const [commentLikes, setCommentLikes] = useState([]) as any;
+
+   // state for reply likes
+   const [replyLikes, setAllReplyLikes] = useState([]) as any;
+
+   // console.log(allComments)
+
+   // handle comment change
    const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setComment(e.target.value);
    };
 
+   // handle reply change
    const handleReplyChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setReply(e.target.value);
    };
 
+   // handle comment selected
    const handleCommentSelected = (comment: any) => {
       setSelectedComment(comment);
+      // console.log(comment)
+      // if user is logged in
      if(userInfo?.uid){
          setShowReplyInput((prevState) => {
          if (prevState.includes(comment.commentId)) {
@@ -51,6 +69,7 @@ export const useSlug = (slug: any) => {
          }
       });
      }
+     // if user is not logged in
      else{
         toast.error('You need to login to comment', {
             position: toast.POSITION.TOP_RIGHT,
@@ -65,6 +84,7 @@ export const useSlug = (slug: any) => {
          }, 2000);
      }
    };
+
    // toggle reply input
    const handleReplySelected = (comment: any) => {
       setSelectedComment(comment);
@@ -89,6 +109,7 @@ export const useSlug = (slug: any) => {
             createdAt: new Date().toISOString(),
             reply,
             replierId: userInfo.uid,
+            replyLikes:[]
          };
          const updatedSelectedComment = {
             ...selectedComment,
@@ -138,6 +159,7 @@ export const useSlug = (slug: any) => {
             comment,
             commentorId: userInfo.uid,
             replies: [],
+            commentLikes:[],
          };
          setAllComments([...allComments, newComment]);
          await updateArticle(singlePost?.author?.uid, singlePost?.id, {
@@ -166,8 +188,6 @@ export const useSlug = (slug: any) => {
          });
       }
    };
-
-   const navigate = useNavigate();
 
    //handle navigate to author profile
    const handleNavigate = () => {
@@ -270,10 +290,112 @@ export const useSlug = (slug: any) => {
          console.log(err);
       }
    };
+
    // function to toggle comments 
    const handleShowComment = () => {
       setShowComment(!showComment);
    };
+
+   //handle comment like
+   const handleCommentLiked = async (commentId: string) => {
+      try {
+         const updatedComments = await Promise.all(
+            //map through all comments and check if commentId matches with the commentId of the comment that is liked
+            allComments.map(async (comment: any) => {
+               //if commentId matches then check if the user has already liked the comment
+               if (comment.commentId === commentId) {
+                  const allLikes = comment?.commentLikes;
+                  setCommentLikes(comment?.commentLikes);
+                  const isLiked = allLikes?.includes(userInfo?.uid);
+                  // if user has already liked the comment then remove the like
+                  if (isLiked) {
+                     const updatedCommentLikes = allLikes?.filter(
+                        (like: string) => like !== userInfo.uid
+                     );
+                     setCommentLikes(updatedCommentLikes);
+                     return {
+                        ...comment,
+                        commentLikes: updatedCommentLikes,
+                     };
+                  } 
+                  // if user has not liked the comment then add the like by adding the user id to the commentLikes array
+                  else {
+                     return {
+                        ...comment,
+                        commentLikes: [...allLikes, userInfo.uid],
+                     };
+                  }
+               } else {
+                  return comment;
+               }
+            })
+         )
+         setAllComments(updatedComments);
+         //update the article with the updated comments
+         await updateArticle(singlePost?.author?.uid, singlePost?.id, {
+            comments: updatedComments,
+         });
+      } catch (err) {
+         console.log(err);
+      }
+   };
+
+   // handle reply liked
+   const handleReplyLiked = async (commentId: string, replyId: string) => {
+      try {
+         //map through all comments and check if commentId matches with the commentId of the comment that is liked
+         const updatedComments = await Promise.all(
+            allComments.map(async (comment: any) => {
+               if (comment.commentId === commentId) {
+                  const updatedReplies = await Promise.all(
+                     //map through all replies and check if replyId matches with the replyId of the reply that is liked
+                     comment.replies.map(async (reply: any) => {
+                        if (reply.replyId === replyId) {
+                           const replyLikes = reply?.replyLikes;
+                           setAllReplyLikes(reply?.replyLikes);
+                           const isLiked = replyLikes?.includes(userInfo?.uid);
+                           // if user has already liked the reply then remove the like
+                           if (isLiked) {
+                              const updatedReplyLikes = replyLikes?.filter(
+                                 (like: string) => like !== userInfo.uid
+                              );
+                              return {
+                                 ...reply,
+                                 replyLikes: updatedReplyLikes,
+                              };
+                           } 
+                           // if user has not liked the reply then add the like by adding the user id to the replyLikes array
+                           else {
+                              return {
+                                 ...reply,
+                                 replyLikes: [...replyLikes, userInfo.uid],
+                              };
+                           }
+                        } else {
+                           return reply;
+                        }
+                     })
+                  );
+                  return {
+                     ...comment,
+                     replies: updatedReplies,
+                  };
+               } else {
+                  return comment;
+               }
+            })
+         );
+         //update the article with the updated comments
+         setAllComments(updatedComments);
+         //update the article with the updated comments
+         await updateArticle(singlePost?.author?.uid, singlePost?.id, {
+            comments: updatedComments,
+         });
+      } catch (err) {
+         console.log(err);
+      }
+   };
+
 
    useEffect(() => {
       fetchPosts();
@@ -293,8 +415,10 @@ export const useSlug = (slug: any) => {
       setCommentSubmitted(false);
    }, [singlePost, commentSubmitted]);
 
-   // console.log(allComments, 'allComments')
+ 
 
+
+   // return values
    return {
       singlePost,
       posts,
@@ -304,17 +428,21 @@ export const useSlug = (slug: any) => {
       comment,
       handleCommentSubmit,
       handleCommentChange,
-      isLoading,
-      handlePageView,
+      handleCommentLiked,
+      commentLikes,
       updatedComments,
       showComment,
       handleShowComment,
       setSelectedComment,
+      handleCommentSelected,
       selectedComment,
+      isLoading,
+      handlePageView,
       handleReplyChange,
       handleReplySubmit,
+      handleReplyLiked,
       reply,
-      handleCommentSelected,
+      replyLikes,
       showReplyInput,
       updatedRepliesWithComment,
       handleReplySelected,

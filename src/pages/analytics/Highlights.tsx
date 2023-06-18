@@ -1,8 +1,6 @@
 import React from 'react';
 import { Typography } from '../../components/element';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
-import { MdInsights, MdFavorite } from 'react-icons/md';
-import { FaComment } from 'react-icons/fa';
 import { calculateReadingTime } from '../../utils';
 import { formatDate } from '../../utils/formatDate';
 import { getTimeDifferenceString } from '../../utils/getTimeDifference';
@@ -85,29 +83,6 @@ export const Highlights = (): React.JSX.Element => {
                         alt={filteredPosts[0]?.data?.title}
                         className=" object-cover h-full w-full"
                      />
-                  </div>
-               </div>
-
-               <div className=" flex items-center justify-center mt-12 text-xl">
-                  <div className=" flex items-center me-6">
-                     <FaComment className=" " />
-                     <Typography variant={2} className="text-base">
-                        {filteredPosts[0]?.data?.comments.length}
-                     </Typography>
-                  </div>
-
-                  <div className=" flex items-center me-6">
-                     <MdFavorite className=" " />
-                     <Typography variant={2} className="text-base">
-                        {filteredPosts[0]?.data?.likeCount}
-                     </Typography>
-                  </div>
-
-                  <div className=" flex items-center me-6">
-                     <MdInsights className=" " />
-                     <Typography variant={2} className="text-base">
-                        {filteredPosts[0]?.data?.views}
-                     </Typography>
                   </div>
                </div>
             </article>

@@ -7,9 +7,12 @@ import formatTime from '../../utils/formatTime';
 import { ReplyInput } from '../../components/modules/ReplyInput';
 import { MdFavorite } from 'react-icons/md';
 import { ReplySection } from './ReplySection';
+import { useFetchUser } from '../../hooks/user/useFetchUser';
 
 interface CommentProps {
    comments: Comment[];
+   handleReplyLiked: (commentId:any, replyId: any) => void;
+   handleCommentLiked: (commentId: any) => void;
    showComment: boolean;
    handleCommentSelected: (comment: any) => void;
    handleShowComment: () => void;
@@ -37,7 +40,12 @@ export const CommentSection = ({
    updatedRepliesWithComment,
    handleReplySelected,
    showReplyField,
+   handleCommentLiked,
+   handleReplyLiked,
 }: CommentProps): React.JSX.Element => {
+
+   const {userInfo} = useFetchUser()
+
    return (
       <section>
          <div className=" mt-12">
@@ -71,7 +79,7 @@ export const CommentSection = ({
                   <div>
                      {/* mapping through comments */}
                      {updatedRepliesWithComment?.map((comment: any) => {
-                        console.log(comment);
+                        // console.log(comment);
                         return (
                            <div
                               key={comment.commentId}
@@ -109,8 +117,18 @@ export const CommentSection = ({
                                  <p>{comment.comment}</p>
 
                                  <div className="mt-4 flex ">
-                                    <div>
-                                       <MdFavorite className="text-white-50 text-[20px] inline-block me-2" />
+                                    <div
+                                    onClick={() => handleCommentLiked(comment?.commentId)}
+                                    >
+                                       <MdFavorite className={
+                                          `
+                                          text-[20px] inline-block me-1 cursor-pointer 
+                                          ${comment?.commentLikes?.includes(userInfo?.uid)? 'text-pink-600 animate-pulse' : 'text-white-50'}
+                                          `
+                                       } />
+                                       <span className="text-base">
+                                          {comment?.commentLikes?.length}
+                                       </span>
                                     </div>
 
                                     <div className="ms-4">
@@ -181,6 +199,9 @@ export const CommentSection = ({
                                                                <ReplySection
                                                                   key={reply.replyId}
                                                                   reply={reply}
+                                                                  handleReplyLiked={handleReplyLiked}
+                                                                  commentId={comment?.commentId}
+                                                                  replyId={reply?.replyId}
                                                                   isLastReply={isLastReply}
                                                                />
                                                             );

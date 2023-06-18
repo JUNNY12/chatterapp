@@ -3,6 +3,7 @@ import { Typography } from '../../components/element';
 import { SinglePostInterface } from '../../context/article/FetchAllPostContext';
 import { ArticleCard } from '.';
 
+
 export const ArticleList = ({ article, user }: any) => {
    const { theme } = useThemeContext();
 

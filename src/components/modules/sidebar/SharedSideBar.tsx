@@ -2,8 +2,8 @@ import { useAuthContext } from '../../../hooks/auth/useAuthContext';
 import { useNavigate } from 'react-router-dom';
 import { MdFeed, MdOutlineFeaturedPlayList, MdExplore } from 'react-icons/md';
 import { DiGoogleAnalytics } from 'react-icons/di';
-import { NavLink } from 'react-router-dom';
-import { Button } from '../../element';
+import { NavLink, Link } from 'react-router-dom';
+import { Button, Typography } from '../../element';
 import { FaPen, FaBookmark } from 'react-icons/fa';
 
 export const SharedSideBar = () => {
@@ -20,7 +20,11 @@ export const SharedSideBar = () => {
    };
 
    return (
-      <div>
+      <div className=''>
+         <Typography variant={1} className="text-3xl absolute top-4  mobileXL:text-xl font-bold text-pink-600">
+            <Link to={`/`}> Chatter</Link>
+         </Typography>
+
          <ul className="font-semibold text-lg">
             <li className="mb-6">
                <Button

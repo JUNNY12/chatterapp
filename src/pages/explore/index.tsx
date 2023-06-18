@@ -1,3 +1,3 @@
 export * from './ExplorePosts';
-export * from './Recent';
+export * from './RecentPosts';
 export * from './Trending';

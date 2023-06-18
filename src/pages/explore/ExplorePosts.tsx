@@ -1,4 +1,4 @@
-import { Recent } from '.';
+import { RecentPosts } from '.';
 import { PostCard } from '../../components/modules';
 import { useFetchPost } from '../../hooks/article/useFetchPost';
 import { PostLoader } from '../../components/modules/skeletonloader';
@@ -10,7 +10,7 @@ export const ExplorePosts = (): React.JSX.Element => {
    return (
       <div>
          {/* <Trending /> */}
-         <Recent />
+         <RecentPosts />
 
          <div>
             {(loading && posts.length === 0) || (!loading && posts.length === 0) ? (

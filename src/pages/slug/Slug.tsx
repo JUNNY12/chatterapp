@@ -23,6 +23,7 @@ export default function Slug(): React.JSX.Element {
       handleReplyChange,
       handleReplySubmit,
       handleCommentSelected,
+      handleCommentLiked,
       selectedComment,
       showReplyInput,
       reply,
@@ -34,6 +35,7 @@ export default function Slug(): React.JSX.Element {
       updatedRepliesWithComment,
       handleReplySelected,
       showReplyField,
+      handleReplyLiked,
    } = useSlug(slug);
 
    useEffect(() => {
@@ -74,6 +76,7 @@ export default function Slug(): React.JSX.Element {
                            handleShowComment={handleShowComment}
                            handleReplyChange={handleReplyChange}
                            handleReplySubmit={handleReplySubmit}
+                           handleCommentLiked={handleCommentLiked}
                            reply={reply}
                            showReplyInput={showReplyInput}
                            isLoading={isLoading}
@@ -82,6 +85,7 @@ export default function Slug(): React.JSX.Element {
                            updatedRepliesWithComment={updatedRepliesWithComment}
                            handleReplySelected={handleReplySelected}
                            showReplyField={showReplyField}
+                           handleReplyLiked={handleReplyLiked}
                         />
                      </div>
                   </div>

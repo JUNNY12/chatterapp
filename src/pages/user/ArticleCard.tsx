@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from '../../components/element';
-import { FaComment } from 'react-icons/fa';
-import { MdInsights } from 'react-icons/md';
+// import { FaComment } from 'react-icons/fa';
+// import { MdInsights } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 import { calculateReadingTime } from '../../utils';
@@ -15,7 +15,6 @@ export const ArticleCard = ({
    fullName,
    occupation,
 }: any): React.JSX.Element => {
-   console.log(post);
 
    const navigate = useNavigate();
    const { theme } = useThemeContext();
@@ -25,25 +24,6 @@ export const ArticleCard = ({
       // await updateArticle(author[0].data.uid, id, { views: views + 1 });
       navigate(`/post/${fullName.split(' ').join('_')}/${post?.data?.slug.split(' ').join('_')}`);
    };
-
-   // let userUID = user?.uid as string;
-   // const handleLike = async () => {
-   //     let uid = user?.uid;
-   //     console.log(uid);
-
-   //     const liked = likeCounts.includes(uid as string);
-
-   //     if (liked) {
-   //         const updatedLikeCounts = likeCounts.filter((id) => id !== uid);
-   //         await updateArticle(author[0].data.uid, id, { likeCounts: updatedLikeCounts });
-
-   //     }
-   //     else {
-   //         const updatedLikeCounts = [...likeCounts, uid as string];
-   //         await updateArticle(author[0].data.uid, id, { likeCounts: updatedLikeCounts });
-   //     }
-
-   // };
 
    return (
       <div
@@ -121,7 +101,7 @@ export const ArticleCard = ({
                )}
             </div>
 
-            <div className=" flex items-center justify-center mt-12 text-xl">
+            {/* <div className=" flex items-center justify-center mt-12 text-xl">
                <div className=" flex items-center me-6">
                   <FaComment className=" " />
                   <Typography variant={2} className="text-base">
@@ -129,12 +109,12 @@ export const ArticleCard = ({
                   </Typography>
                </div>
 
-               {/* <div className={`${likeCounts?.includes(userUID) && 'text-pink-600'} flex items-center me-6`} onClick={handleLike}>
+               <div className={`${likeCounts?.includes(userUID) && 'text-pink-600'} flex items-center me-6`} onClick={handleLike}>
                         <MdFavorite className={` `} />
                         <Typography variant={2} className="text-base">
                             {likeCounts?.length}
                         </Typography>
-                    </div> */}
+                    </div>
 
                <div className=" flex items-center me-6">
                   <MdInsights className=" " />
@@ -142,7 +122,7 @@ export const ArticleCard = ({
                      {post?.data?.views}
                   </Typography>
                </div>
-            </div>
+            </div> */}
          </article>
       </div>
    );
