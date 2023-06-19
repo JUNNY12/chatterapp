@@ -1,4 +1,4 @@
-import { createContext, useState, ChangeEvent } from 'react';
+import { createContext, useState, ChangeEvent, useEffect } from 'react';
 
 //interface for comment
 interface Comment {
@@ -112,6 +112,15 @@ export const ArticleProvider = ({ children }: ArticleProviderProps) => {
       comments: [],
    });
 
+   //set the slug of the article to the title
+   useEffect(() => {
+      const { title } = article;
+      setArticle((prev) => ({
+         ...prev,
+         slug: title,
+      }));
+   }, [article.title]);
+
    // Handle onChange event of input elements
    const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = event.target;
@@ -135,11 +144,13 @@ export const ArticleProvider = ({ children }: ArticleProviderProps) => {
             ...prevState,
             tagList: prevState.tagList?.filter((item) => item !== tag),
          }));
+         setTagQuery('');
       } else {
          setArticle((prevState) => ({
             ...prevState,
             tagList: [...prevState.tagList, tag],
          }));
+         setTagQuery('');
       }
    };
 

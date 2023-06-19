@@ -55,12 +55,12 @@ export const Preview = (): React.JSX.Element => {
                      <div>
                         <Typography
                            variant={1}
-                           className=" font-semibold text-3xl tabletXS:text-2xl mb-3 max-w-[600px]"
+                           className=" font-semibold text-3xl tabletXS:text-2xl mb-3 break-words"
                         >
                            {title}
                         </Typography>
 
-                        <Typography variant={2} className="text-xl mb-3">
+                        <Typography variant={2} className="text-xl mb-3 break-words">
                            {subtitle}
                         </Typography>
                         <div className="flex flex-wrap items-center my-3">

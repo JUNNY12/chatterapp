@@ -83,7 +83,7 @@ export function Routes() {
          element: <FeedLayout />,
          children: [
             { index: true, element: <LazyDraftPage /> },
-            { path: 'edit', element: <LazyPostPage /> },
+            { path: 'edit/:id', element: <LazyPostPage /> },
          ],
       },
       {

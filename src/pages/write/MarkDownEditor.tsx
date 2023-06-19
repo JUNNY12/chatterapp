@@ -9,28 +9,52 @@ import { BeatLoader } from 'react-spinners';
 
 const mdParser = new MarkdownIt();
 
-export const MarkdownEditor = ({ onSave, mode }: any): React.JSX.Element => {
+export const MarkdownEditor = ({
+   onPublish,
+   onSaveDraft,
+   mode,
+   onUpdate,
+}: any): React.JSX.Element => {
    const { setArticle, article } = useArticleContext();
    const [isLoading, setIsLoading] = useState(false);
+   const [isDraft, setIsDraft] = useState(false);
+   const [isUpdate, setIsUpdate] = useState(false);
 
-   const { body, title, tagList } = article;
+   const { body, title, tagList, subtitle } = article;
 
-   const isDisabled = body === '' || title === '' || tagList.length === 0;
+   const isDisabled = body === '' || title === '' || tagList.length === 0 || subtitle === '';
 
+   // handle editor change
    const handleEditorChange = ({ text }: any) => {
       setArticle((prevState) => ({
          ...prevState,
          createdAt: new Date().toISOString(),
          body: text,
-         slug: title,
       }));
    };
 
-   const handleSubmit = async (e: any) => {
+   // handle submit
+   const handlePublish = async (e: any) => {
       e.preventDefault();
       setIsLoading(true);
-      await onSave();
+      await onPublish();
       setIsLoading(false);
+   };
+
+   // handle draft
+   const handleDraft = async (e: any) => {
+      e.preventDefault();
+      setIsDraft(true);
+      await onSaveDraft();
+      setIsDraft(false);
+   };
+
+   // handle update
+   const handleUpdate = async (e: any) => {
+      e.preventDefault();
+      setIsUpdate(true);
+      await onUpdate();
+      setIsUpdate(false);
    };
 
    return (
@@ -39,30 +63,42 @@ export const MarkdownEditor = ({ onSave, mode }: any): React.JSX.Element => {
             <Header />
             <div className="ms-[250px] tabletS:ms-0  flex flex-wrap justify-end my-3 items-center">
                {mode === 'update' ? (
-                  <button
-                     className="bg-pink-600 text-white-50 p-2 rounded-[40px] w-[200px] mobileXL:w-[100px] me-8"
-                     onClick={handleSubmit}
-                  >
-                     Update
-                  </button>
+                  <div>
+                     <button
+                        title="update draft"
+                        className="bg-pink-600 text-white-50 p-2 rounded-[40px] w-[200px] mobileXL:w-[100px] me-8"
+                        onClick={handleUpdate}
+                     >
+                        {isUpdate ? <BeatLoader color="#ffffff" size={10} /> : 'Update'}
+                     </button>
+                     <button
+                        title="publish draft"
+                        className="bg-pink-600 text-white-50 p-2 rounded-[40px] w-[200px] mobileXL:w-[100px] me-8"
+                        onClick={handlePublish}
+                     >
+                        Publish
+                     </button>
+                  </div>
                ) : (
                   <div>
                      <button
+                        title="publish post"
                         className={`bg-pink-600 text-white-50 p-2 
                                 rounded-[40px] w-[200px] mobileXL:w-[100px] me-8 
                                 ${isDisabled && 'opacity-40'}
                                 `}
-                        onClick={handleSubmit}
+                        onClick={handlePublish}
                         disabled={isDisabled}
                      >
                         {isLoading ? <BeatLoader color="#ffffff" size={10} /> : 'Publish'}
                      </button>
 
                      <button
+                        title="save draft"
                         className="bg-pink-600 text-white-50 p-2 rounded-[40px] w-[200px] mobileXL:w-[100px] me-8"
-                        onClick={handleSubmit}
+                        onClick={handleDraft}
                      >
-                        Draft
+                        {isDraft ? <BeatLoader color="#ffffff" size={10} /> : 'Draft'}
                      </button>
                   </div>
                )}

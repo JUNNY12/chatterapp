@@ -49,7 +49,7 @@ export const AuthenticatedDropNav = (): React.JSX.Element => {
                         My Feed
                      </li>
                   </NavLink>
-                  <NavLink to={`/`}>
+                  <NavLink to={`/write`}>
                      <li className="mb-3 hover:text-pink-600 transition duration-500 ease-in-out">
                         My Drafts
                      </li>

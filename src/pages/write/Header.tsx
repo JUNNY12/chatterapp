@@ -16,7 +16,7 @@ export const Header = (): React.JSX.Element => {
       tagQuery,
       handleTagQuery,
       addTag,
-      article: { title, subtitle, tagList },
+      article: { title, subtitle, tagList, coverImage },
    } = useArticleContext();
    const { user } = useAuthContext();
    const imageRef = useRef<any>(null);
@@ -33,6 +33,7 @@ export const Header = (): React.JSX.Element => {
 
    //initilaize storage
    const storage = getStorage(firebaseApp);
+
    //handle cover image upload
    const handleImageUpload = async (e: any) => {
       e.preventDefault();
@@ -62,7 +63,17 @@ export const Header = (): React.JSX.Element => {
                   <span>
                      <MdPhoto />
                   </span>
-                  <span className="ms-2">Add cover</span>
+                  <span className="ms-2">
+                     {coverImage ? (
+                        <Typography variant={3} className="text-green-600 font-bold">
+                           Uploaded Successfully
+                        </Typography>
+                     ) : (
+                        <Typography variant={3} className="text-black-600">
+                           Upload Cover Image
+                        </Typography>
+                     )}
+                  </span>
                </label>
                <input
                   type="file"
