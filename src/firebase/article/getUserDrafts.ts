@@ -8,9 +8,11 @@ export const getUserDrafts = async (uid: any) => {
 
    const userDrafts: any = [];
 
-   articleSnapshot.forEach((doc) => {
-      userDrafts.push({ id: doc.id, data: doc.data() });
-   });
+   if (articleSnapshot) {
+      articleSnapshot.forEach((doc) => {
+         userDrafts.push({ id: doc.id, data: doc.data() });
+      });
+   }
 
    return userDrafts;
 };

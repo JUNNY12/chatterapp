@@ -51,7 +51,7 @@ export interface ArticleContextProps {
          comments: Comment[];
       }>
    >;
-   handleOnChange: (event: ChangeEvent<HTMLInputElement>) => void;
+   handleOnChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
 
    tagQuery: string;
    handleTagQuery: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -118,11 +118,12 @@ export const ArticleProvider = ({ children }: ArticleProviderProps) => {
       setArticle((prev) => ({
          ...prev,
          slug: title,
+         createdAt: new Date().toISOString(),
       }));
    }, [article.title]);
 
    // Handle onChange event of input elements
-   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+   const handleOnChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
       const { name, value } = event.target;
       setArticle((prevArticle) => ({
          ...prevArticle,

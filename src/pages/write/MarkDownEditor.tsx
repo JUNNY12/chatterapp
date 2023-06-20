@@ -23,12 +23,12 @@ export const MarkdownEditor = ({
    const { body, title, tagList, subtitle } = article;
 
    const isDisabled = body === '' || title === '' || tagList.length === 0 || subtitle === '';
+   const isDraftDisabled = body === '' || title === '';
 
    // handle editor change
    const handleEditorChange = ({ text }: any) => {
       setArticle((prevState) => ({
          ...prevState,
-         createdAt: new Date().toISOString(),
          body: text,
       }));
    };
@@ -76,7 +76,7 @@ export const MarkdownEditor = ({
                         className="bg-pink-600 text-white-50 p-2 rounded-[40px] w-[200px] mobileXL:w-[100px] me-8"
                         onClick={handlePublish}
                      >
-                        Publish
+                        {isLoading ? <BeatLoader color="#ffffff" size={10} /> : 'Publish'}
                      </button>
                   </div>
                ) : (
@@ -94,8 +94,11 @@ export const MarkdownEditor = ({
                      </button>
 
                      <button
+                        disabled={isDraftDisabled}
                         title="save draft"
-                        className="bg-pink-600 text-white-50 p-2 rounded-[40px] w-[200px] mobileXL:w-[100px] me-8"
+                        className={`
+                        ${isDraftDisabled && 'opacity-40'}
+                        bg-pink-600 text-white-50 p-2 rounded-[40px] w-[200px] mobileXL:w-[100px] me-8`}
                         onClick={handleDraft}
                      >
                         {isDraft ? <BeatLoader color="#ffffff" size={10} /> : 'Draft'}

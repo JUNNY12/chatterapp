@@ -10,7 +10,13 @@ export const saveDraft = async (uid: any, draft: any) => {
       const articleRef = collection(db, 'users', uid, 'drafts');
       await setDoc(doc(articleRef), draft);
       articleRefId = articleRef.id;
-      toast.success('Yout Post has been saved as draft');
+      toast.success('Your draft has been saved', {
+         position: 'top-right',
+         autoClose: 1000,
+         hideProgressBar: true,
+         closeOnClick: true,
+         draggable: true,
+      });
    } catch (e) {
       console.log(e);
       toast.error('something went wrong');

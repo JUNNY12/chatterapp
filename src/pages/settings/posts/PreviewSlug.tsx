@@ -56,7 +56,7 @@ export default function PreviewSlug(): React.JSX.Element {
          tagList = [] as any,
          coverImage,
          comments = [] as any,
-         likeCount,
+         likeCounts = [] as any,
          views,
       },
    } = singlePost;
@@ -74,9 +74,11 @@ export default function PreviewSlug(): React.JSX.Element {
                <PreviewPostLoader />
             ) : (
                <article className="me-8 laptopS:me-0">
-                  <div className=" max-w-[600px] mb-4 h-[400px] tabletS:h-[300px] object-cover relative">
-                     <img src={coverImage} className=" object-cover h-full w-full" alt="" />
-                  </div>
+                  {coverImage && (
+                     <div className=" max-w-[600px] mb-4 h-[400px] tabletS:h-[300px] object-cover relative">
+                        <img src={coverImage} className=" object-cover h-full w-full" alt="" />
+                     </div>
+                  )}
                   <Typography
                      variant={1}
                      className=" font-semibold text-3xl tabletXS:text-xl mb-3 max-w-[600px]"
@@ -108,21 +110,21 @@ export default function PreviewSlug(): React.JSX.Element {
 
                   <div className=" flex items-center justify-center mt-12 text-xl">
                      <div className=" flex items-center me-3">
-                        <FaComment className=" " />
+                        <FaComment className=" me-1" />
                         <Typography variant={2} className="text-base">
                            {comments.length}
                         </Typography>
                      </div>
 
                      <div className=" flex items-center me-3">
-                        <MdFavorite className=" " />
+                        <MdFavorite className="me-1 " />
                         <Typography variant={2} className="text-base">
-                           {likeCount}
+                           {likeCounts.length}
                         </Typography>
                      </div>
 
                      <div className=" flex items-center me-3">
-                        <MdInsights className=" " />
+                        <MdInsights className="me-1 " />
                         <Typography variant={2} className="text-base">
                            {views}
                         </Typography>

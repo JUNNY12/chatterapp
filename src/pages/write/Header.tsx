@@ -85,8 +85,7 @@ export const Header = (): React.JSX.Element => {
             </div>
 
             <div className="">
-               <input
-                  type="text"
+               <textarea
                   value={subtitle}
                   onChange={handleOnChange}
                   name="subtitle"
@@ -97,8 +96,7 @@ export const Header = (): React.JSX.Element => {
          </div>
 
          <div className="my-3">
-            <input
-               type="text"
+            <textarea
                value={title}
                onChange={handleOnChange}
                name="title"

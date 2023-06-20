@@ -5,7 +5,6 @@ import { publishArticle, saveDraft } from '../../firebase/article';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 
-
 export default function DraftPage() {
    const { article, clearArticle, setArticle } = useArticleContext();
    const { user } = useAuthContext();
@@ -29,8 +28,8 @@ export default function DraftPage() {
       navigate('/settings/post');
    };
 
+   // publish article
    const handlePublish = async () => {
-      console.log('handle publish');
       try {
          await publishArticle(user?.uid, article);
          await redirect();
@@ -40,6 +39,7 @@ export default function DraftPage() {
       }
    };
 
+   // save draft
    const handleDraft = async () => {
       console.log('handle draft');
       try {
@@ -51,7 +51,6 @@ export default function DraftPage() {
 
    return (
       <section className="pt-32  bg-white-100 relative">
-
          <div>
             <MarkdownEditor content={article} onPublish={handlePublish} onSaveDraft={handleDraft} />
          </div>

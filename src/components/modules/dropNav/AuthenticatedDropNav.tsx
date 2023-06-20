@@ -55,6 +55,12 @@ export const AuthenticatedDropNav = (): React.JSX.Element => {
                      </li>
                   </NavLink>
 
+                  <NavLink to={`/bookmarks`}>
+                     <li className="mb-3 hover:text-pink-600 transition duration-500 ease-in-out">
+                        Bookmarks
+                     </li>
+                  </NavLink>
+
                   <NavLink to={`/settings`}>
                      <li className="mb-3 hover:text-pink-600 transition duration-500 ease-in-out">
                         Account settings

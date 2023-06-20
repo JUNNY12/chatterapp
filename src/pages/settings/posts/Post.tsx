@@ -6,16 +6,34 @@ import { useAuthContext } from '../../../hooks/auth/useAuthContext';
 import { useState, useEffect } from 'react';
 import { formatDate } from '../../../utils/formatDate';
 import { useNavigate } from 'react-router';
+import { deleteArticle } from '../../../firebase/article';
+import { Modal } from '../../../components/modal';
 
 export default function Post(): React.JSX.Element {
    const { theme } = useThemeContext();
    const { user } = useAuthContext();
    const [posts, setPosts] = useState([]);
    const [loading, setLoading] = useState(false);
-   console.log(posts)
+   const [isOpen, setIsOpen] = useState(false);
+   const [ID, setID] = useState('') as any;
+   
 
    const navigate = useNavigate();
 
+   // open modal
+   const onClose = () => {
+      setIsOpen(false);
+   };
+
+   const handleToggle = (ID: any) => {
+      setIsOpen(!isOpen);
+      //get id of the draft
+      setID(ID);
+   };
+
+
+
+   // fetch user articles
    const fetchUserArticles = async () => {
       try {
          setLoading(true);
@@ -27,11 +45,19 @@ export default function Post(): React.JSX.Element {
       }
    };
 
+   // handle delete article
+   const handleDelete = async (id: string) => {
+      try {
+         await deleteArticle(user?.uid, id);
+         fetchUserArticles();
+      } catch (e) {
+         console.log(e);
+      }
+   };
+
    useEffect(() => {
       fetchUserArticles();
    }, []);
-
-   console.log(posts);
 
    return (
       <div
@@ -41,6 +67,17 @@ export default function Post(): React.JSX.Element {
                : theme === 'darkMode' && 'bg-gray-800 text-white-100'
          } `}
       >
+         <div>
+            <Modal
+               isOpen={isOpen}
+               onClose={onClose}
+               onYes={() => handleDelete(ID)}
+               onNo={() => setIsOpen(false)}
+            >
+               <p>Do you want to delete this Post?</p>
+            </Modal>
+
+         </div>
          <div>
             <div className=" border-b border-gray-300 mb-4 ">
                <Typography variant={1} className="font-bold text-2xl mobileXL:text-lg p-4">
@@ -73,6 +110,7 @@ export default function Post(): React.JSX.Element {
                         );
                      })
                   ) : (
+                     // display user posts
                      <div>
                         {posts.map(
                            (post: {
@@ -92,9 +130,10 @@ export default function Post(): React.JSX.Element {
                                     <div className="me-3 w-[30%]">{formatDate(createdAt)}</div>
                                     <div className="me-3 w-[20%] inline-flex items-center">
                                        <Button
+                                          onClick={() => handleToggle(id)}
                                           title="delete post"
                                           role="button"
-                                          className="text-red-600 cursor-pointer"
+                                          className="text-red-600 cursor-pointer toggle-button"
                                        >
                                           <FaTrash />
                                        </Button>

@@ -5,3 +5,5 @@ export * from './getTopArticle';
 export * from './updateArticle';
 export * from './saveDraft';
 export * from './updateDraft';
+export * from './deleteArticle';
+export * from './deleteDraft';
