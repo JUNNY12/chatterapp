@@ -12,6 +12,7 @@ export default function Post(): React.JSX.Element {
    const { user } = useAuthContext();
    const [posts, setPosts] = useState([]);
    const [loading, setLoading] = useState(false);
+   console.log(posts)
 
    const navigate = useNavigate();
 
