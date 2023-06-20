@@ -22,7 +22,7 @@ export const useFetchbookmarkPosts = () => {
          const { articles } = await getAllArticle();
          let posts;
          const bookmarkedPost: any = articles.filter((article: SinglePostInterface | any) =>
-            article?.bookmarks.includes(userInfo?.uid)
+            article?.bookmarks?.includes(userInfo?.uid)
          );
          posts = bookmarkedPost;
 
