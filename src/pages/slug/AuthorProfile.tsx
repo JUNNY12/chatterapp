@@ -1,15 +1,29 @@
 import { Typography } from '../../components/element';
-import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
+// import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
+import {
+   FacebookShareButton,
+   FacebookIcon,
+   TwitterShareButton,
+   TwitterIcon,
+   LinkedinShareButton,
+   LinkedinIcon,
+} from 'react-share';
+import { SinglePostInterface } from '../../context/article/FetchAllPostContext';
 
 interface AuthorProfileProps {
    author: any;
    handleNavigate: () => void;
+   singlePost: SinglePostInterface;
 }
 
 export const AuthorProfile = ({
    author,
    handleNavigate,
+   singlePost,
 }: AuthorProfileProps): React.JSX.Element => {
+
+   const shareURL = window.location.href;
+   console.log(shareURL);
    return (
       <aside
          className=" border border-gray-300 w-[250px] laptopS:w-full laptopS:mt-8 
@@ -63,10 +77,26 @@ export const AuthorProfile = ({
 
             <div className=" mb-4">
                <div className="flex justify-center items-center">
-                  <FaFacebook className="text-3xl me-4 cursor-pointer hover:text-pink-600" />
-                  <FaTwitter className="text-3xl me-4 cursor-pointer hover:text-pink-600 " />
-                  <FaLinkedin className="text-3xl me-4 cursor-pointer hover:text-pink-600" />
-                  <FaInstagram className="text-3xl me-4 cursor-pointer hover:text-pink-600" />
+                  <FacebookShareButton
+                  title={singlePost?.title}
+                  quote={singlePost?.subtitle}
+                  url={shareURL} className='me-2' >
+                     <FacebookIcon size={32} round={true}  />
+                  </FacebookShareButton>
+
+                  <TwitterShareButton 
+                  title={singlePost?.title}
+                  hashtags={singlePost?.tagList}
+                  url={shareURL} className='me-2' >
+                     <TwitterIcon size={32}  round={true} />
+                  </TwitterShareButton>
+
+                  <LinkedinShareButton
+                  title={singlePost?.title}
+                  summary={singlePost?.subtitle}
+                  url={shareURL} className='me-2' >
+                     <LinkedinIcon size={32} round={true} />
+                  </LinkedinShareButton>
                </div>
             </div>
          </div>
