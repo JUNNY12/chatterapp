@@ -21,7 +21,6 @@ export const AuthorProfile = ({
    handleNavigate,
    singlePost,
 }: AuthorProfileProps): React.JSX.Element => {
-
    const shareURL = window.location.href;
    console.log(shareURL);
    return (
@@ -78,23 +77,29 @@ export const AuthorProfile = ({
             <div className=" mb-4">
                <div className="flex justify-center items-center">
                   <FacebookShareButton
-                  title={singlePost?.title}
-                  quote={singlePost?.subtitle}
-                  url={shareURL} className='me-2' >
-                     <FacebookIcon size={32} round={true}  />
+                     title={singlePost?.title}
+                     quote={singlePost?.subtitle}
+                     url={shareURL}
+                     className="me-2"
+                  >
+                     <FacebookIcon size={32} round={true} />
                   </FacebookShareButton>
 
-                  <TwitterShareButton 
-                  title={singlePost?.title}
-                  hashtags={singlePost?.tagList}
-                  url={shareURL} className='me-2' >
-                     <TwitterIcon size={32}  round={true} />
+                  <TwitterShareButton
+                     title={singlePost?.title}
+                     hashtags={singlePost?.tagList}
+                     url={shareURL}
+                     className="me-2"
+                  >
+                     <TwitterIcon size={32} round={true} />
                   </TwitterShareButton>
 
                   <LinkedinShareButton
-                  title={singlePost?.title}
-                  summary={singlePost?.subtitle}
-                  url={shareURL} className='me-2' >
+                     title={singlePost?.title}
+                     summary={singlePost?.subtitle}
+                     url={shareURL}
+                     className="me-2"
+                  >
                      <LinkedinIcon size={32} round={true} />
                   </LinkedinShareButton>
                </div>

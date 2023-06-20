@@ -90,7 +90,11 @@ export default function Slug(): React.JSX.Element {
                      </div>
                   </div>
                   <div>
-                     <AuthorProfile author={singlePost?.author}   singlePost={singlePost}  handleNavigate={handleNavigate} />
+                     <AuthorProfile
+                        author={singlePost?.author}
+                        singlePost={singlePost}
+                        handleNavigate={handleNavigate}
+                     />
                   </div>
                </div>
             </div>

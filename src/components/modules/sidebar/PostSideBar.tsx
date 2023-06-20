@@ -19,7 +19,6 @@ export const PostSideBar = () => {
    const [ID, setID] = useState('') as any;
    const { pathname } = useLocation();
 
-
    const navigate = useNavigate();
 
    // fetch user drafts
@@ -164,7 +163,9 @@ export const PostSideBar = () => {
                   disabled={pathname === '/write'}
                   title="New post"
                   onClick={handleNewPost}
-                  className={`bg-pink-600 rounded-[40px] w-[120px] text-white-50 p-2 ${pathname === '/write' && 'cursor-not-allowed'}`}
+                  className={`bg-pink-600 rounded-[40px] w-[120px] text-white-50 p-2 ${
+                     pathname === '/write' && 'cursor-not-allowed'
+                  }`}
                >
                   New post
                </Button>

@@ -16,7 +16,6 @@ export default function Post(): React.JSX.Element {
    const [loading, setLoading] = useState(false);
    const [isOpen, setIsOpen] = useState(false);
    const [ID, setID] = useState('') as any;
-   
 
    const navigate = useNavigate();
 
@@ -30,8 +29,6 @@ export default function Post(): React.JSX.Element {
       //get id of the draft
       setID(ID);
    };
-
-
 
    // fetch user articles
    const fetchUserArticles = async () => {
@@ -76,7 +73,6 @@ export default function Post(): React.JSX.Element {
             >
                <p>Do you want to delete this Post?</p>
             </Modal>
-
          </div>
          <div>
             <div className=" border-b border-gray-300 mb-4 ">

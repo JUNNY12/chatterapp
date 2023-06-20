@@ -4,7 +4,8 @@ import { FaMoon, FaSun } from 'react-icons/fa';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { useNav } from '../../hooks/nav/useNav';
 import { DropNav } from '.';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../../hooks/auth/useAuthContext';
 import { FaUserCircle } from 'react-icons/fa';
@@ -16,6 +17,48 @@ export const FeedNav = (): React.JSX.Element => {
    const [showDrop, setShowDrop] = useState(false);
    const { userInfo, loading } = useFetchUser();
    const { user } = useAuthContext();
+   const [scrolled, setScrolled] = useState(false);
+   const { pathname } = useLocation();
+
+   const dropdownRef = useRef<HTMLDivElement>(null);
+
+   //close dropdown when path changes
+   useEffect(() => {
+      setShowDrop(false);
+   }, [pathname]);
+
+   // Close dropdown when clicked outside
+   useEffect(() => {
+      const handleOutsideClick = (event: MouseEvent) => {
+         if (
+            dropdownRef.current &&
+            !dropdownRef.current.contains(event.target as Node) &&
+            !(event.target as HTMLElement).closest('.toggle-button')
+         ) {
+            setShowDrop(false);
+         }
+      };
+
+      document.addEventListener('mousedown', handleOutsideClick);
+
+      return () => {
+         document.removeEventListener('mousedown', handleOutsideClick);
+      };
+   }, []);
+
+   // Track scroll position
+   useEffect(() => {
+      const handleScroll = () => {
+         const offset = window.scrollY;
+         if (offset > 70) {
+            setScrolled(true);
+         } else {
+            setScrolled(false);
+         }
+      };
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+   }, []);
 
    //show side bar
    const handleShow = () => {
@@ -32,14 +75,17 @@ export const FeedNav = (): React.JSX.Element => {
          className={`
         ${
            theme === 'lightMode'
-              ? 'bg-white-50 text-black-950'
-              : theme === 'darkMode' && 'bg-gray-800 text-white-100'
+              ? `bg-white-50 text-black-950 ${scrolled ? 'shadow-md shadow-black-500' : ''}`
+              : theme === 'darkMode' &&
+                `bg-gray-800 text-white-100  ${scrolled ? 'shadow-md shadow-gray-900' : ''}`
         }
                 fixed w-full items-center flex justify-between z-40 p-6 mobileL:px-2 transition duration-500 ease-in-out`}
       >
-         <div className={`absolute right-2 shadow-sm shadow-black-600  bg-white-50 z-10 top-24`}>
-            {showDrop && <DropNav handleClick={handleClick} />}
-         </div>
+         {showDrop && (
+            <div ref={dropdownRef} className={`absolute right-2  bg-white-50 z-10 top-24`}>
+               <DropNav handleClick={handleClick} />
+            </div>
+         )}
 
          <div className=" hidden tabletS:flex">
             <Button onClick={handleShow} title="open" className="text-2xl font-bold">
@@ -76,7 +122,7 @@ export const FeedNav = (): React.JSX.Element => {
                      ) : (
                         <div
                            onClick={handleClick}
-                           className=" relative w-12 h-12 mobileXL:w-8 mobileXL:h-8 cursor-pointer object-cover rounded-full me-3"
+                           className=" relative w-12 h-12 mobileXL:w-8 mobileXL:h-8 cursor-pointer object-cover rounded-full me-3 toggle-button"
                         >
                            <img
                               title="profile picture"

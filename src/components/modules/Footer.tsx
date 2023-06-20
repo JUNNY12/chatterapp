@@ -1,5 +1,6 @@
 import { Button, Input, Typography } from '../element';
 import { FaLinkedin, FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
+import { FiSend } from 'react-icons/fi';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 
 export const Footer = (): React.JSX.Element => {
@@ -18,23 +19,32 @@ export const Footer = (): React.JSX.Element => {
         `}
       >
          <div>
-            <Typography variant={4} className="mb-3 text-2xl">
+            <Typography
+               variant={4}
+               className="mb-8 mobileXL:mb-4 text-5xl font-bold tabletS:text-3xl mobileXL:text-2xl text-center"
+            >
                Subsribe to our newsletter
             </Typography>
-            <form action="" className="flex flex-col">
+            <form action="" className="flex items-center justify-center">
                <Input
-                  className=" w-[300px] bg-white-50 placeholder:text-black-900 rounded-sm mb-4 focus:border focus:border-pink-600"
+                  className=" bg-white-50 w-[300px] mobileXL:w-[280px] mobileL:w-[250px]
+                   placeholder:text-black-900 rounded-tl-sm rounded-bl-sm 
+                   focus:border-l-[4px] focus:border-pink-600 transition duration-500 ease-in-out"
                   placeholder="Enter your email"
                   type="email"
+                  required
                />
-               <Button className="w-[300px] bg-pink-600 p-2  text-white-50 font-semibold rounded-sm">
-                  Subscribe
+               <Button className=" bg-pink-600 p-2  text-white-50 font-semibold rounded-tr-sm rounded-br-sm ">
+                  <FiSend className="text-2xl" />
                </Button>
             </form>
          </div>
 
          <div className="mt-6">
-            <Typography variant={4} className="mb-3 text-2xl text-center">
+            <Typography
+               variant={4}
+               className="mb-3 text-2xl font-bold mobileXL:text-xl text-center"
+            >
                Follow us
             </Typography>
             <div className="flex justify-center items-center">
@@ -44,10 +54,10 @@ export const Footer = (): React.JSX.Element => {
                   rel="noreferrer"
                   className="me-6"
                >
-                  <FaLinkedin className="text-3xl  hover:text-pink-600" />
+                  <FaLinkedin className="text-3xl mobileXL:text-2xl  hover:text-pink-600" />
                </a>
                <a href="https://www.twitter.com/" target="_blank" rel="noreferrer" className="me-6">
-                  <FaTwitter className="text-3xl  hover:text-pink-600" />
+                  <FaTwitter className="text-3xl mobileXL:text-2xl  hover:text-pink-600" />
                </a>
                <a
                   href="https://www.facebook.com/"
@@ -55,7 +65,7 @@ export const Footer = (): React.JSX.Element => {
                   rel="noreferrer"
                   className="me-6"
                >
-                  <FaFacebook className="text-3xl  hover:text-pink-600" />
+                  <FaFacebook className="text-3xl mobileXL:text-2xl  hover:text-pink-600" />
                </a>
                <a
                   href="https://www.instagram.com/"
@@ -68,9 +78,7 @@ export const Footer = (): React.JSX.Element => {
             </div>
          </div>
 
-         <div className="mt-6 text-xl ">&copy; Chatter {year}</div>
-
-         <div className="text-4xl mt-6 font-semibold text-pink-600">Chatter</div>
+         <div className="mt-6 text-xl text-pink-600 font-bold">&copy; Chatter {year}</div>
       </footer>
    );
 };

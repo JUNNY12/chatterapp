@@ -11,6 +11,7 @@ import { useFetchUser } from '../../hooks/user/useFetchUser';
 
 export const Navbar = (): React.JSX.Element => {
    const [show, setShow] = useState(false);
+   const [scrolled, setScrolled] = useState(false); // Track scroll position
    const width = useWidth();
    const { theme, toggleTheme } = useThemeContext();
    const { user } = useAuthContext();
@@ -23,7 +24,7 @@ export const Navbar = (): React.JSX.Element => {
       setShow(false);
    }, [user, pathname]);
 
-   //handle view write
+   // Handle view write
    const handleViewWrite = () => {
       if (user) {
          navigate('/write');
@@ -34,21 +35,19 @@ export const Navbar = (): React.JSX.Element => {
 
    const dropdownRef = useRef<HTMLDivElement>(null);
 
-   //close menu
-   // const handleCloseMenu = () => {
-   //     setShow(false);
-   // };
-
-   //function to handle dropdown
+   // Function to handle dropdown
    const handleClick = () => {
       setShow((prev) => !prev);
    };
-   //close dropdown when path changes
 
    // Close dropdown when clicked outside
    useEffect(() => {
       const handleOutsideClick = (event: MouseEvent) => {
-         if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+         if (
+            dropdownRef.current &&
+            !dropdownRef.current.contains(event.target as Node) &&
+            !(event.target as HTMLElement).closest('.toggle-button')
+         ) {
             setShow(false);
          }
       };
@@ -60,21 +59,33 @@ export const Navbar = (): React.JSX.Element => {
       };
    }, []);
 
+   // Track scroll position
+   useEffect(() => {
+      const handleScroll = () => {
+         const offset = window.scrollY;
+         if (offset > 70) {
+            setScrolled(true);
+         } else {
+            setScrolled(false);
+         }
+      };
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+   }, []);
+
    return (
       <header className=" fixed w-full top-0  z-40">
-         <div
-            className={`absolute right-2 shadow-sm shadow-black-600  bg-white-50 z-10 top-28`}
-            ref={dropdownRef}
-         >
+         <div className={`absolute right-2 bg-white-50 z-10 top-28`} ref={dropdownRef}>
             {show && <DropNav handleClick={handleClick} />}
          </div>
          <nav
             className={`px-12 tabletM:px-8 tabletS:px-4 py-6 flex justify-between items-center 
-            transition duration-500 ease-in-out
+            transition duration-500 ease-in-out 
             ${
                theme === 'lightMode'
-                  ? ' bg-white-50 text-black-950'
-                  : theme === 'darkMode' && 'bg-gray-800 text-white-100'
+                  ? ` bg-white-50 text-black-950  ${scrolled ? 'shadow-md shadow-black-500' : ''}`
+                  : theme === 'darkMode' &&
+                    `bg-gray-800 text-white-100  ${scrolled ? 'shadow-md shadow-gray-900' : ''}`
             }`}
          >
             <div>
@@ -132,7 +143,7 @@ export const Navbar = (): React.JSX.Element => {
                         ) : (
                            <div
                               onClick={handleClick}
-                              className=" relative w-12 h-12 mobileXL:w-8 mobileXL:h-8  cursor-pointer object-cover rounded-full me-3"
+                              className=" relative w-12 h-12 mobileXL:w-8 mobileXL:h-8  cursor-pointer object-cover rounded-full me-3 toggle-button"
                            >
                               <img
                                  title="profile picture"
