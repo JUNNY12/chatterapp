@@ -61,8 +61,8 @@ To clone and run this application, you'll need <a href='https://git-scm.com/'>Gi
 <h1 id='installation'>Installation</h1>
 
 ```
-## Clone this repository:
-$ git clone https://github.com/JUNNY12/chatterapp.git
+## Clone the repository:
+$ git clone https://github.com/your-username/chatterapp.git
 
 Navigate to the project directory:
 $ cd chatterapp
