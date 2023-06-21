@@ -9,7 +9,7 @@ export const FeaturedPosts = (): React.JSX.Element => {
 
    return (
       <div>
-         <Typography variant={1} className="text-3xl ms-6 font-bold mb-3 px-8 pt-8 mobileXL:px-2 ">
+         <Typography variant={1} className="text-3xl mobileXL:text-xl ms-1 font-bold mb-3 px-8 pt-8 mobileXL:px-2 ">
             Featured Posts
          </Typography>
 
