@@ -87,10 +87,10 @@ $ npm install
         </li>
         <li>
         Create a .env file in the project root directory and add your Firebase configuration details using the format specified in .env.example
-        <li>
+        </li>
     </ul>
     <li>
-         Start the development server: npm start
+         Start the development server: npm run dev
     </li>
     <li>
         Open your browser and visit http://localhost:5173 to access Chatter.
