@@ -13,7 +13,7 @@ export const useFetchbookmarkPosts = () => {
    const location = useLocation();
    const { userInfo } = useFetchUser();
 
-   console.log(bookmarkedPosts);
+   // console.log(bookmarkedPosts);
 
    const fetchbookmarkedPost = async () => {
       setLoading(true);

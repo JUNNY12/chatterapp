@@ -88,7 +88,7 @@ export const FeedNav = (): React.JSX.Element => {
          )}
 
          <div className=" hidden tabletS:flex">
-            <Button onClick={handleShow} title="open" className="text-2xl font-bold">
+            <Button onClick={handleShow} title="open" className="text-2xl font-bold toggle-button">
                <AiOutlineMenu />
             </Button>
          </div>

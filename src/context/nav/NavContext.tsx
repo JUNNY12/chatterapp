@@ -13,5 +13,6 @@ interface NavProviderProps {
 
 export const NavProvider = ({ children }: NavProviderProps) => {
    const [show, setShow] = useState(false);
+   console.log(show)
    return <NavContext.Provider value={{ show, setShow }}>{children}</NavContext.Provider>;
 };
