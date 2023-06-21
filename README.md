@@ -10,7 +10,7 @@ Chatter is a multi-functional platform designed for text-based content, catering
 
 <h2 style="border-bottom: 1px solid gray;">Table of Contents</h2>
 <ul>
-    <li><a href="#Overview">Overview</a></li>
+    <li><a href="#overview">Overview</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href='#technologies'>Technologies Used</a></li>
     <li><a href ='#gettingStarted'>Getting Started</a></li>
@@ -21,7 +21,11 @@ Chatter is a multi-functional platform designed for text-based content, catering
 </ul>
 
 <h1 id='overview'>Overview</h1>
-<img src='./public/preview.png' /> <br/>
+<img src='public/images/darkmode.png' /> <br/> <br />
+<img src='public/images/lightmode.png' /> <br/> <br />
+<img src='public/images/dark2.png' /> <br/> <br />
+<img src='public/images/light2.png' /> <br/> <br />
+<img src='public/images/write.png' /> <br/> <br />
 
 <h1 id='features'>Features</h1>
 <ol>
@@ -40,7 +44,7 @@ Chatter is a multi-functional platform designed for text-based content, catering
 </ol>
 
 <h1 id='technologies'>Technologies Used</h1>
-<li>React</li>
+<li>Vite + React</li>
 <li>Tailwind CSS</li> 
 <li>Firebase (Backend)</li>  <br />
 
@@ -120,4 +124,4 @@ Submit a pull request detailing your changes.
 ```
 <h1 id='license'>License</h1>
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT LICENSE](LICENSE).
