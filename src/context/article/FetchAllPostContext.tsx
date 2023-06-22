@@ -5,7 +5,7 @@ import { getTimeDifferenceString } from '../../utils/getTimeDifference';
 import { getTopArticle } from '../../firebase/article';
 import { getUser } from '../../firebase/user';
 import { useLocation } from 'react-router';
-
+import { useSearch } from '../../hooks/search/useSearch';
 export interface Author {
    id: string;
    data: {
@@ -79,6 +79,7 @@ export default function PostProvider({ children }: ProviderChildren) {
    const [posts, setPosts] = useState<SinglePostInterface[]>([]);
    const [trendingPosts, setTrendingPosts] = useState<SinglePostInterface[]>([]);
    const [loading, setLoading] = useState<boolean>(false);
+   const {state:{searchTerm}} = useSearch();
 
    const location = useLocation();
 
@@ -154,7 +155,7 @@ export default function PostProvider({ children }: ProviderChildren) {
    useEffect(() => {
       fetchPosts();
       fetchTopPosts();
-   }, [location]);
+   }, [location, searchTerm]);
 
    return (
       <PostContext.Provider value={{ posts, loading, trendingPosts }}>

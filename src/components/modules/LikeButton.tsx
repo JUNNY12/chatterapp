@@ -16,7 +16,7 @@ export const LikeButton = ({ post }: any) => {
       >
          <MdFavorite className="me-1" />
          <Typography variant={2} className="text-base">
-            {allLikes.length || likeCounts.length}
+            {allLikes?.length || likeCounts?.length}
          </Typography>
       </div>
    );

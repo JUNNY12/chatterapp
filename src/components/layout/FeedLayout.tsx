@@ -2,14 +2,16 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { SideBar, FeedNav } from '../modules';
 import { useNav } from '../../hooks/nav/useNav';
 import { useEffect, useRef } from 'react';
-import PostProvider from '../../context/article/FetchAllPostContext';
 import { ArticleInteractionProvider } from '../../context/article/ArticleInteractionContext';
 import { useWidth } from '../../hooks';
+import { useSearch } from '../../hooks/search/useSearch';
+import { SearchContainer } from '../SearchContainer';
 
 export const FeedLayout = (): React.JSX.Element => {
    const { pathname } = useLocation();
    const { show, setShow } = useNav();
-   const  width  = useWidth();
+   const width = useWidth();
+   const {state:{ searchTerm}} = useSearch();
 
    const sideBarRef = useRef<HTMLDivElement>(null);
 
@@ -19,8 +21,7 @@ export const FeedLayout = (): React.JSX.Element => {
 
    useEffect(() => {
       setShow(false);
-   },[width, setShow])
-
+   }, [width, setShow]);
 
    useEffect(() => {
       const handleOutsideClick = (event: MouseEvent) => {
@@ -40,19 +41,26 @@ export const FeedLayout = (): React.JSX.Element => {
       };
    }, []);
 
-  
    return (
-      <PostProvider>
-         <ArticleInteractionProvider>
-            <FeedNav />
-            <div ref={sideBarRef} className={
-               ` block ${!show ? "tabletS:hidden " : ""} transition-all duration-500 ease-in-out
-               `
-            }>
-               <SideBar />
-            </div>
+      <ArticleInteractionProvider>
+         <FeedNav />
+         <div
+            ref={sideBarRef}
+            className={` block ${
+               !show ? 'tabletS:hidden ' : ''
+            } transition-all duration-500 ease-in-out
+               `}
+         >
+            <SideBar />
+         </div>
+         <div>
+           {
+            searchTerm && (
+                <SearchContainer />
+            )
+           }
             <Outlet />
-         </ArticleInteractionProvider>
-      </PostProvider>
+         </div>
+      </ArticleInteractionProvider>
    );
 };

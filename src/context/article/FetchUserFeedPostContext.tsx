@@ -18,11 +18,13 @@ export const FetchUserFeedPostContextProvider = ({ children }: ChildrenProps) =>
    useEffect(() => {
       if (userInfo) {
          const userTags = userInfo?.tags;
-         const updated = posts.filter((post:any) =>
-            post.tagList?.some((tag: string) => userTags?.includes(tag))  ||
-            post.author?.uid === userInfo?.uid || post.likeCounts?.includes(userInfo?.uid)
-            || post.bookmarks?.includes(userInfo?.uid)
-            || post.comments?.includes(userInfo?.uid)
+         const updated = posts.filter(
+            (post: any) =>
+               post.tagList?.some((tag: string) => userTags?.includes(tag)) ||
+               post.author?.uid === userInfo?.uid ||
+               post.likeCounts?.includes(userInfo?.uid) ||
+               post.bookmarks?.includes(userInfo?.uid) ||
+               post.comments?.includes(userInfo?.uid)
          );
          setUserFeed(updated);
       }

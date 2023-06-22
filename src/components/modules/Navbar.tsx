@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Typography, Button } from '../element';
-import { FaUserCircle, FaPen, FaMoon, FaSun } from 'react-icons/fa';
+import { FaUserCircle, FaPen, FaMoon, FaSun, FaCaretDown } from 'react-icons/fa';
 import { DropNav } from './dropNav/DropNav';
 import { useWidth } from '../../hooks';
 import { Link, useLocation } from 'react-router-dom';
@@ -143,8 +143,11 @@ export const Navbar = (): React.JSX.Element => {
                         ) : (
                            <div
                               onClick={handleClick}
-                              className=" relative w-12 h-12 mobileXL:w-8 mobileXL:h-8  cursor-pointer object-cover rounded-full me-3 toggle-button"
+                              className=" 
+                              border-[3px] border-pink-600
+                              relative w-12 h-12 mobileXL:w-8 mobileXL:h-8  cursor-pointer object-cover rounded-full me-3 toggle-button"
                            >
+                              <FaCaretDown className=" absolute -bottom-7 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-pink-600 text-xl" />
                               <img
                                  title="profile picture"
                                  className="rounded-full object-cover w-full h-full"

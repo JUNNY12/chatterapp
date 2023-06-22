@@ -125,3 +125,4 @@ Submit a pull request detailing your changes.
 <h1 id='license'>License</h1>
 
 This project is licensed under the [MIT LICENSE](LICENSE).
+

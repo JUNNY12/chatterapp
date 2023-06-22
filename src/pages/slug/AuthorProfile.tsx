@@ -21,8 +21,9 @@ export const AuthorProfile = ({
    handleNavigate,
    singlePost,
 }: AuthorProfileProps): React.JSX.Element => {
+   
    const shareURL = window.location.href;
-   console.log(shareURL);
+
    return (
       <aside
          className=" border border-gray-300 w-[250px] laptopS:w-full laptopS:mt-8 

@@ -7,6 +7,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getUser } from '../firebase/user';
 import { UserProvider } from '../context/users/GetUserContext';
+import { SearchContextProvider } from '../context/search/SearchContext';
+import PostProvider from '../context/article/FetchAllPostContext';
 
 //interface for provider props
 interface ProviderProps {
@@ -98,21 +100,25 @@ export const Provider = ({ children }: ProviderProps) => {
 
    return (
       <ThemeProvider>
-         <NavProvider>
-            <AuthProvider>
-               <UserProvider>
-                  <ArticleProvider>
-                     {protectedRoutes.includes(pathName) ? (
-                        <ProtectedRoutes>{children}</ProtectedRoutes>
-                     ) : protectProfilePage.includes(pathName) ? (
-                        <Protected>{children}</Protected>
-                     ) : (
-                        <>{children}</>
-                     )}
-                  </ArticleProvider>
-               </UserProvider>
-            </AuthProvider>
-         </NavProvider>
+         <PostProvider>
+            <SearchContextProvider>
+               <NavProvider>
+                  <AuthProvider>
+                     <UserProvider>
+                        <ArticleProvider>
+                           {protectedRoutes.includes(pathName) ? (
+                              <ProtectedRoutes>{children}</ProtectedRoutes>
+                           ) : protectProfilePage.includes(pathName) ? (
+                              <Protected>{children}</Protected>
+                           ) : (
+                              <>{children}</>
+                           )}
+                        </ArticleProvider>
+                     </UserProvider>
+                  </AuthProvider>
+               </NavProvider>
+            </SearchContextProvider>
+         </PostProvider>
       </ThemeProvider>
    );
 };

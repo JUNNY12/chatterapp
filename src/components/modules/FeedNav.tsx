@@ -8,8 +8,9 @@ import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../../hooks/auth/useAuthContext';
-import { FaUserCircle } from 'react-icons/fa';
+import { FaUserCircle, FaCaretDown } from 'react-icons/fa';
 import { useFetchUser } from '../../hooks/user/useFetchUser';
+import { useSearch } from '../../hooks/search/useSearch';
 
 export const FeedNav = (): React.JSX.Element => {
    const { theme, toggleTheme } = useThemeContext();
@@ -19,6 +20,14 @@ export const FeedNav = (): React.JSX.Element => {
    const { user } = useAuthContext();
    const [scrolled, setScrolled] = useState(false);
    const { pathname } = useLocation();
+   const { state, setSearchTerm } = useSearch();
+
+   console.log(state);
+
+   const handleSearchTermChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const term = e.target.value;
+      setSearchTerm(term);
+   };
 
    const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -99,7 +108,9 @@ export const FeedNav = (): React.JSX.Element => {
          <div className=" tabletXS:hidden">
             <Input
                placeholder="Search chatter"
-               className="bg-white-100 txt-black-950 w-[300px] rounded-sm p-2"
+               value={state.searchTerm}
+               onChange={handleSearchTermChange}
+               className="bg-white-100 text-black-950 w-[300px] rounded-sm p-2"
             />
          </div>
 
@@ -122,8 +133,11 @@ export const FeedNav = (): React.JSX.Element => {
                      ) : (
                         <div
                            onClick={handleClick}
-                           className=" relative w-12 h-12 mobileXL:w-8 mobileXL:h-8 cursor-pointer object-cover rounded-full me-3 toggle-button"
+                           className=" relative w-12 h-12 mobileXL:w-8 mobileXL:h-8 cursor-pointer object-cover rounded-full me-3 toggle-button
+                            border-[3px] border-pink-600
+                           "
                         >
+                           <FaCaretDown className=" absolute -bottom-7 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-pink-600 text-xl" />
                            <img
                               title="profile picture"
                               className="rounded-full object-cover w-full h-full"
