@@ -38,6 +38,7 @@ export default function Slug(): React.JSX.Element {
       handleReplyLiked,
    } = useSlug(slug);
 
+
    useEffect(() => {
       handlePageView();
    });

@@ -30,6 +30,7 @@ export interface ArticleContextProps {
       commentCount?: number;
       views?: number;
       comments: Comment[];
+      bookmarks?: string[];
    };
    addTag: (tag: string) => void;
    clearArticle: () => void;
@@ -49,6 +50,7 @@ export interface ArticleContextProps {
          commentCount?: number;
          views?: number;
          comments: Comment[];
+         bookmarks?: string[];
       }>
    >;
    handleOnChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
@@ -73,6 +75,7 @@ export const ArticleContext = createContext<ArticleContextProps>({
       likeCounts: [],
       views: 0,
       comments: [],
+      bookmarks: [],
    },
 
    addTag: () => {},
@@ -110,6 +113,7 @@ export const ArticleProvider = ({ children }: ArticleProviderProps) => {
       commentCount: 0,
       views: 0,
       comments: [],
+      bookmarks: [],
    });
 
    //set the slug of the article to the title

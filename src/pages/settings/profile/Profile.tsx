@@ -160,7 +160,7 @@ export default function Profile(): React.JSX.Element {
                   htmlFor="photoUrl"
                   className="relative block cursor-pointer w-24 h-24  object-cover rounded-full"
                >
-                  <img src={image || photoUrl} className=" w-full h-full rounded-full" alt="" />
+                  <img src={image || photoUrl} className=" w-full h-full object-cover rounded-full" alt="" />
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
                      <MdOutlinePhotoCamera className=" text-2xl" />
                   </div>
