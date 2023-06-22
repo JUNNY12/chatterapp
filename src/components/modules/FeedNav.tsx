@@ -88,10 +88,10 @@ export const FeedNav = (): React.JSX.Element => {
               : theme === 'darkMode' &&
                 `bg-gray-800 text-white-100  ${scrolled ? 'shadow-md shadow-gray-900' : ''}`
         }
-                fixed w-full items-center flex justify-between z-40 p-6 mobileL:px-2 transition duration-500 ease-in-out`}
+                fixed w-full items-center flex justify-between  z-40 p-6 mobileL:px-1 transition duration-500 ease-in-out`}
       >
          {showDrop && (
-            <div ref={dropdownRef} className={`absolute right-2  bg-white-50 z-10 top-24`}>
+            <div ref={dropdownRef} className={`absolute right-2  bg-white-50 z-10 top-24 rounded-sm`}>
                <DropNav handleClick={handleClick} />
             </div>
          )}
@@ -101,21 +101,21 @@ export const FeedNav = (): React.JSX.Element => {
                <AiOutlineMenu />
             </Button>
          </div>
-         <Typography variant={1} className="text-3xl mobileXL:text-xl font-bold text-pink-600">
+         <Typography variant={1} className="text-3xl mobileXL:text-xl tabletS:hidden font-bold text-pink-600">
             <Link to={`/`}> Chatter</Link>
          </Typography>
 
-         <div className=" tabletXS:hidden">
+         <div className=" ">
             <Input
                placeholder="Search chatter"
                value={state.searchTerm}
                onChange={handleSearchTermChange}
-               className="bg-white-100 text-black-950 w-[300px] rounded-sm p-2"
+               className="bg-white-100 text-black-950 w-[300px] mobileL:w-[230px] rounded-sm p-2"
             />
          </div>
 
-         <div className=" flex items-center">
-            <div className="me-4">
+         <div className=" flex items-center ">
+            <div className="me-4 mobileXL:hidden">
                <Button
                   onClick={toggleTheme}
                   title="change theme"

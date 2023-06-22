@@ -1,0 +1,6 @@
+https://chattermd.vercel.app/
+https://chattermd.vercel.app/feed
+https://chattermd.vercel.app/explore
+https://chattermd.vercel.app/bookmarks
+https://chattermd.vercel.app/featured
+https://chattermd.vercel.app/analytics

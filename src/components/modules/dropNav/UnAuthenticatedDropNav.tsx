@@ -4,7 +4,7 @@ import { FaUserCircle } from 'react-icons/fa';
 
 export const UnAuthenticatedDropNav = (): React.JSX.Element => {
    return (
-      <div className="flex justify-center items-center flex-col">
+      <div className="flex justify-center items-center flex-col rounded-sm">
          <FaUserCircle className="text-7xl " />
 
          <div className=" text-2xl font-semibold my-3">

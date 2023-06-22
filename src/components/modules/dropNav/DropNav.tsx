@@ -14,7 +14,7 @@ export const DropNav = ({ handleClick }: DropNavProps): React.JSX.Element => {
    const { theme } = useThemeContext();
    return (
       <div
-         className={`h-max w-[250px] p-6 rounded-sm relative transition duration-500 ease-in-out
+         className={`h-max w-[250px] p-6 rounded-sm relative transition duration-500 ease-in-out drop-shadow-2xl 
         ${
            theme === 'lightMode'
               ? 'text-black-950 bg-white-50'

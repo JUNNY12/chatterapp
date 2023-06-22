@@ -1,14 +1,18 @@
-import { Button } from '../../element';
+import { Button, Typography } from '../../element';
 import { logout } from '../../../firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { DropNavSkeleton } from '../skeletonloader/DropNavSkeleton';
 import { NavLink } from 'react-router-dom';
 import { greetings } from '../../../utils';
 import { useFetchUser } from '../../../hooks/user/useFetchUser';
+import { useThemeContext } from '../../../hooks/theme/useThemeContext';
+import { FaMoon, FaSun } from 'react-icons/fa';
 
 export const AuthenticatedDropNav = (): React.JSX.Element => {
    const navigate = useNavigate();
    const { userInfo, loading } = useFetchUser(); //fetch user details
+   const { theme, toggleTheme } = useThemeContext();
+
 
    //handle sign out
    const handleSignOut = async () => {
@@ -21,7 +25,7 @@ export const AuthenticatedDropNav = (): React.JSX.Element => {
    };
 
    return (
-      <div className="flex justify-center items-center flex-col">
+      <div className="flex justify-center items-center flex-col rounded-sm">
          {/* show nav skeleton if loading */}
          {loading ? (
             <DropNavSkeleton />
@@ -43,30 +47,46 @@ export const AuthenticatedDropNav = (): React.JSX.Element => {
                   </div>
                </div>
 
-               <ul className=" mt-3 mb-4 font-semibold text-lg">
+               <ul className=" mt-3 mb-4 font-semibold text-lg mobileXL:text-base">
                   <NavLink to={`/feed`}>
-                     <li className="mb-3 hover:text-pink-600 transition duration-500 ease-in-out">
+                     <li className="mb-3 hover:text-pink-600 ">
                         My Feed
                      </li>
                   </NavLink>
                   <NavLink to={`/write`}>
-                     <li className="mb-3 hover:text-pink-600 transition duration-500 ease-in-out">
+                     <li className="mb-3 hover:text-pink-600 ">
                         My Drafts
                      </li>
                   </NavLink>
 
                   <NavLink to={`/bookmarks`}>
-                     <li className="mb-3 hover:text-pink-600 transition duration-500 ease-in-out">
+                     <li className="mb-3 hover:text-pink-600 ">
                         Bookmarks
                      </li>
                   </NavLink>
 
                   <NavLink to={`/settings`}>
-                     <li className="mb-3 hover:text-pink-600 transition duration-500 ease-in-out">
+                     <li className="mb-3 hover:text-pink-600 ">
                         Account settings
                      </li>
                   </NavLink>
                </ul>
+
+               <div
+               onClick={toggleTheme}
+                     className='mb-3 font-bold flex items-center cursor-pointer hover:text-pink-600 '>
+                  <Typography
+                  title="change theme"
+                  variant={2} className="text-base me-4">
+                     Change theme
+                  </Typography>
+                     <Button
+                        title="change theme"
+                        className="text-xl"
+                     >
+                        {theme === 'lightMode' ? <FaMoon /> : <FaSun />}
+                     </Button>
+               </div>
                <div className=" ">
                   <Button
                      title="Log out"

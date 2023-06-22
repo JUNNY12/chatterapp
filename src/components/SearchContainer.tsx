@@ -16,8 +16,8 @@ export const SearchContainer = ():React.JSX.Element => {
     return (
         <div>
             <div className={`
-             fixed w-[800px] p-4 text-xl
-            h-[400px] overflow-auto top-1/2 left-[60%]
+             fixed w-[700px] tabletS:w-[400px] mobileXL:w-[300px] mobileM:w-[280px]  p-4 mobileXL:p-2 
+            h-[400px] overflow-auto top-1/2 left-[50%]
             transform -translate-x-1/2 -translate-y-1/2 rounded-lg
             drop-shadow-2xl  z-50
             ${theme === 'lightMode'? 'bg-white-50 text-black-900'
@@ -55,12 +55,15 @@ export const SearchContainer = ():React.JSX.Element => {
 
                                 {
                                     result?.coverImage && (
-                                        <div className="w-12 h-12 object-cover me-3">
-                                            <img src={result?.coverImage} alt="" className="w-full h-full object-cover" />
+                                        <div className="w-[40px] me-4">
+                                            <div className="w-12 h-12 object-cover me-3">
+                                                <img src={result?.coverImage} alt="" className="w-full h-full object-cover" />
+                                            </div>
+
                                         </div>
                                     )
                                 }
-                                <div>
+                                <div className="text-base">
                                     {result?.title}
                                 </div>
                             </div>

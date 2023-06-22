@@ -2,37 +2,44 @@ import { Highlights } from './Highlights';
 import { useAnalytics } from '../../hooks/analytics/useAnalytics';
 import { Typography } from '../../components/element';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
+import { Helmet } from 'react-helmet-async';
 
 export default function Analytics(): React.JSX.Element {
    const { highestViewedLikedAndCommentedPost, loading } = useAnalytics();
    const { theme } = useThemeContext();
 
    return (
-      <section className={`bg-white-100`}>
-         <div className={`ms-[250px] tabletS:ms-0 pt-24`}>
-            <div>
-               {!loading && highestViewedLikedAndCommentedPost === null ? (
-                  <div className={`flex justify-center items-center h-[75vh]`}>
-                     <div
-                        className={`rounded-md w-[500px] tabletS:w-[300px] mobileL:[280px] h-[200px] transition duration-500 ease-in-out
+     <>
+         <Helmet>
+            <title>Chatter | Analytics</title>
+            <meta name="description" content="Analytics of your posts" />
+            <link rel="canonical" href="/analytics" />
+         </Helmet>
+         <section className={`bg-white-100`}>
+            <div className={`ms-[250px] tabletS:ms-0 pt-24`}>
+               <div>
+                  {!loading && highestViewedLikedAndCommentedPost === null ? (
+                     <div className={`flex justify-center items-center h-[75vh]`}>
+                        <div
+                           className={`rounded-md w-[500px] tabletS:w-[300px] mobileL:[280px] h-[200px] transition duration-500 ease-in-out
                                 flex justify-center items-center  shadow-md shadow-black-700
-                                      ${
-                                         theme === 'lightMode'
-                                            ? 'bg-white-50 text-black-950'
-                                            : theme === 'darkMode' && 'bg-gray-800 text-white-100'
-                                      }
+                                      ${theme === 'lightMode'
+                                 ? 'bg-white-50 text-black-950'
+                                 : theme === 'darkMode' && 'bg-gray-800 text-white-100'
+                              }
         `}
-                     >
-                        <Typography variant={1} className={`text-2xl font-bold`}>
-                           No Posts Yet
-                        </Typography>
+                        >
+                           <Typography variant={1} className={`text-2xl font-bold`}>
+                              No Posts Yet
+                           </Typography>
+                        </div>
                      </div>
-                  </div>
-               ) : (
-                  <Highlights />
-               )}
+                  ) : (
+                     <Highlights />
+                  )}
+               </div>
             </div>
-         </div>
-      </section>
+         </section>
+     </>
    );
 }

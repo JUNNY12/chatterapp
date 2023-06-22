@@ -75,7 +75,7 @@ export const Navbar = (): React.JSX.Element => {
 
    return (
       <header className=" fixed w-full top-0  z-40">
-         <div className={`absolute right-2 bg-white-50 z-10 top-28`} ref={dropdownRef}>
+         <div className={`absolute right-2 bg-white-50 z-10 top-28 rounded-sm`} ref={dropdownRef}>
             {show && <DropNav handleClick={handleClick} />}
          </div>
          <nav
@@ -125,7 +125,7 @@ export const Navbar = (): React.JSX.Element => {
                   </div>
                )}
 
-               <div className="me-8 tabletXS:me-4">
+               <div className="me-8 tabletXS:me-4 ">
                   <Button
                      onClick={toggleTheme}
                      title="change theme"

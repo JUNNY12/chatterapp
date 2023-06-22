@@ -68,12 +68,16 @@ export const SearchContextProvider: React.FC<SearchContextProviderProps> = ({
 
         const searchTermLowercase = state.searchTerm.trim().toLowerCase();
         return posts.filter((post) => {
+            const titleLowercase = post.title.toLowerCase();
+            const tagListLowercase = post.tagList.map((tag) => tag.toLowerCase());
+
             return (
-                post.title.toLowerCase().includes(searchTermLowercase) ||
-                post.tagList.includes(searchTermLowercase)
+                titleLowercase.indexOf(searchTermLowercase) !== -1 ||
+                tagListLowercase.some((tag) => tag.indexOf(searchTermLowercase) !== -1)
             );
         });
     }, [state.searchTerm, posts]);
+
 
     useMemo(() => {
         dispatch({ type: "SET_SEARCH_RESULTS", payload: searchPost });
