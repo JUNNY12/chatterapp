@@ -16,8 +16,6 @@ export default function User(): React.JSX.Element {
       return <UserNotFound />;
    }
 
-   console.log(user);
-
    return (
       <>
          <MetaTag

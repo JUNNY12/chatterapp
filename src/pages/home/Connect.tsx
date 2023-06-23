@@ -19,8 +19,9 @@ export const Connect = (): React.JSX.Element => {
       <div className=" flex justify-between py-12 tabletM:flex-col">
          <div className=" relative w-1/2 tabletM:w-full h-[400px] ms-8 rounded-sm cursor-pointer  tabletM:ms-0 tabletXS:h-[250px] tabletM:mb-6">
             <img
-               src={'/images/connect.svg'}
-               alt="hero"
+               src={'https://firebasestorage.googleapis.com/v0/b/chatter-be02c.appspot.com/o/chatterImages%2Fconnect.svg?alt=media&token=84ef304e-e8bb-481d-9da0-3f95081a3237'}
+               alt="connect"
+               title="connect"
                className="rounded-sm object-contain w-full h-full hover:transform hover:scale-90 transition duration-500 ease-in-out "
             />
          </div>

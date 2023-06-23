@@ -14,7 +14,7 @@ export default function NotFound(): React.JSX.Element {
          }`}
       >
          <div className="object-contain h-[400px] w-[400px] mobileL:w-full relative">
-            <img src="/images/404.svg" alt="" />
+            <img src="https://firebasestorage.googleapis.com/v0/b/chatter-be02c.appspot.com/o/chatterImages%2F404.svg?alt=media&token=3c3eda8e-3db5-434f-b483-95ce719edfd1" alt="Not Found" title='Not Found' />
             <div>
                <Typography variant={1} className="text-2xl font-semibold text-center">
                   Page Not Found
