@@ -39,7 +39,6 @@ export default function Slug(): React.JSX.Element {
       handleReplyLiked,
    } = useSlug(slug);
 
-
    useEffect(() => {
       handlePageView();
    });
@@ -47,14 +46,18 @@ export default function Slug(): React.JSX.Element {
    console.log('singlePost', singlePost);
 
    return (
-     <>
-         <MetaTag 
+      <>
+         <MetaTag
             title={`Chatter | Post | ${singlePost?.title}`}
             description={singlePost?.subtitle}
-            href={`/post/${singlePost?.author?.fullName.split(' ').join('_')}/${singlePost?.slug?.split(' ').join('_')}`}
+            href={`/post/${singlePost?.author?.fullName.split(' ').join('_')}/${singlePost?.slug
+               ?.split(' ')
+               .join('_')}`}
             image={singlePost?.coverImage}
             ogTitle={`${singlePost?.title}`}
-            url={`/post/${singlePost?.author?.fullName.split(' ').join('_')}/${singlePost?.slug?.split(' ').join('_')}`}
+            url={`/post/${singlePost?.author?.fullName.split(' ').join('_')}/${singlePost?.slug
+               ?.split(' ')
+               .join('_')}`}
             twitterTitle={`${singlePost?.title}`}
             twitterDescription={singlePost?.subtitle}
             twitterImage={singlePost?.coverImage}
@@ -63,16 +66,17 @@ export default function Slug(): React.JSX.Element {
          />
          <section className={` bg-white-100 h-max`}>
             {(loading && posts.length === 0) ||
-               (!loading && posts.length === 0) ||
-               (loading && posts.length !== 0) ? (
+            (!loading && posts.length === 0) ||
+            (loading && posts.length !== 0) ? (
                <SinglePageLoader />
             ) : (
                <div className={` ms-[250px] tabletS:ms-0 pt-24   `}>
                   <div
                      className={` border border-gray-300 flex laptopS:flex-col justify-between rounded-sm m-8 mb-8 tabletXS:m-3 tabletXS:mb-8 h-full transition duration-500 ease-in-out p-8 mobileXL:px-2 
-                        ${theme === 'lightMode'
-                           ? 'bg-white-50 text-black-950'
-                           : theme === 'darkMode' && 'bg-gray-800 text-white-100'
+                        ${
+                           theme === 'lightMode'
+                              ? 'bg-white-50 text-black-950'
+                              : theme === 'darkMode' && 'bg-gray-800 text-white-100'
                         }
                         `}
                   >
@@ -117,6 +121,6 @@ export default function Slug(): React.JSX.Element {
                </div>
             )}
          </section>
-     </>
+      </>
    );
 }

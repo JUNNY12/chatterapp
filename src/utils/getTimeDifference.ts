@@ -26,6 +26,8 @@ export const getTimeDifferenceString = (timeDifference: number): string => {
       return `${minutes} minute ago`;
    } else if (minutes > 1) {
       return `${minutes} minutes ago`;
+   } else if (seconds === 1) {
+      return `${seconds} second ago`;
    } else {
       return `${seconds} seconds ago`;
    }

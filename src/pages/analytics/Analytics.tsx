@@ -10,7 +10,7 @@ export default function Analytics(): React.JSX.Element {
    const { theme } = useThemeContext();
 
    return (
-     <>
+      <>
          <MetaTag
             title="Chatter | Analytics"
             ogTitle="Share your creativity with the world"
@@ -32,10 +32,11 @@ export default function Analytics(): React.JSX.Element {
                         <div
                            className={`rounded-md w-[500px] tabletS:w-[300px] mobileL:[280px] h-[200px] transition duration-500 ease-in-out
                                 flex justify-center items-center  shadow-md shadow-black-700
-                                      ${theme === 'lightMode'
-                                 ? 'bg-white-50 text-black-950'
-                                 : theme === 'darkMode' && 'bg-gray-800 text-white-100'
-                              }
+                                      ${
+                                         theme === 'lightMode'
+                                            ? 'bg-white-50 text-black-950'
+                                            : theme === 'darkMode' && 'bg-gray-800 text-white-100'
+                                      }
         `}
                         >
                            <Typography variant={1} className={`text-2xl font-bold`}>
@@ -49,6 +50,6 @@ export default function Analytics(): React.JSX.Element {
                </div>
             </div>
          </section>
-     </>
+      </>
    );
 }

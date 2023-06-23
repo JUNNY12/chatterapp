@@ -5,10 +5,11 @@ import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
    <React.StrictMode>
       <BrowserRouter>
-       <HelmetProvider>
+         <HelmetProvider>
             <App />
          </HelmetProvider>
       </BrowserRouter>

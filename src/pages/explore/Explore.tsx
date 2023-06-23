@@ -2,7 +2,6 @@ import { ExplorePosts } from '.';
 import { MetaTag } from '../../components/metatag/MetaTag';
 import { chatterImgUrl } from '../../config/constants/url';
 
-
 export default function Explore(): React.JSX.Element {
    return (
       <>

@@ -1,91 +1,88 @@
-import React, { createContext, useReducer, Dispatch, useMemo } from "react";
-import { useFetchPost } from "../../hooks/article/useFetchPost";
-import { SinglePostInterface } from "../article/FetchAllPostContext";
+import React, { createContext, useReducer, Dispatch, useMemo } from 'react';
+import { useFetchPost } from '../../hooks/article/useFetchPost';
+import { SinglePostInterface } from '../article/FetchAllPostContext';
 
 interface SearchState {
-    searchTerm: string;
-    searchResults: SinglePostInterface[];
+   searchTerm: string;
+   searchResults: SinglePostInterface[];
 }
 
 interface SetSearchTermAction {
-    type: "SET_SEARCH_TERM";
-    payload: string;
+   type: 'SET_SEARCH_TERM';
+   payload: string;
 }
 
 interface SetSearchResultsAction {
-    type: "SET_SEARCH_RESULTS";
-    payload: SinglePostInterface[];
+   type: 'SET_SEARCH_RESULTS';
+   payload: SinglePostInterface[];
 }
 
 type SearchAction = SetSearchTermAction | SetSearchResultsAction;
 
 const initialState: SearchState = {
-    searchTerm: "",
-    searchResults: [],
+   searchTerm: '',
+   searchResults: [],
 };
 
 const searchReducer = (state: SearchState, action: SearchAction): SearchState => {
-    switch (action.type) {
-        case "SET_SEARCH_TERM":
-            return { ...state, searchTerm: action.payload };
-        case "SET_SEARCH_RESULTS":
-            return { ...state, searchResults: action.payload };
-        default:
-            return state;
-    }
+   switch (action.type) {
+      case 'SET_SEARCH_TERM':
+         return { ...state, searchTerm: action.payload };
+      case 'SET_SEARCH_RESULTS':
+         return { ...state, searchResults: action.payload };
+      default:
+         return state;
+   }
 };
 
 interface SearchContextProps {
-    state: SearchState;
-    dispatch: Dispatch<SearchAction>;
-    setSearchTerm: (term: string) => void;
+   state: SearchState;
+   dispatch: Dispatch<SearchAction>;
+   setSearchTerm: (term: string) => void;
 }
 
 export const SearchContext = createContext<SearchContextProps>({
-    state: initialState,
-    dispatch: () => { },
-    setSearchTerm: () => { },
+   state: initialState,
+   dispatch: () => {},
+   setSearchTerm: () => {},
 });
 
 interface SearchContextProviderProps {
-    children: React.ReactNode;
+   children: React.ReactNode;
 }
 
-export const SearchContextProvider: React.FC<SearchContextProviderProps> = ({
-    children,
-}) => {
-    const [state, dispatch] = useReducer(searchReducer, initialState);
-    const { posts } = useFetchPost();
+export const SearchContextProvider: React.FC<SearchContextProviderProps> = ({ children }) => {
+   const [state, dispatch] = useReducer(searchReducer, initialState);
+   const { posts } = useFetchPost();
 
-    const setSearchTerm = (term: string) => {
-        dispatch({ type: "SET_SEARCH_TERM", payload: term });
-    };
+   const setSearchTerm = (term: string) => {
+      dispatch({ type: 'SET_SEARCH_TERM', payload: term });
+   };
 
-    const searchPost = useMemo(() => {
-        if (state.searchTerm.trim() === "") {
-            return [];
-        }
+   const searchPost = useMemo(() => {
+      if (state.searchTerm.trim() === '') {
+         return [];
+      }
 
-        const searchTermLowercase = state.searchTerm.trim().toLowerCase();
-        return posts.filter((post) => {
-            const titleLowercase = post.title.toLowerCase();
-            const tagListLowercase = post.tagList.map((tag) => tag.toLowerCase());
+      const searchTermLowercase = state.searchTerm.trim().toLowerCase();
+      return posts.filter((post) => {
+         const titleLowercase = post.title.toLowerCase();
+         const tagListLowercase = post.tagList.map((tag) => tag.toLowerCase());
 
-            return (
-                titleLowercase.indexOf(searchTermLowercase) !== -1 ||
-                tagListLowercase.some((tag) => tag.indexOf(searchTermLowercase) !== -1)
-            );
-        });
-    }, [state.searchTerm, posts]);
+         return (
+            titleLowercase.indexOf(searchTermLowercase) !== -1 ||
+            tagListLowercase.some((tag) => tag.indexOf(searchTermLowercase) !== -1)
+         );
+      });
+   }, [state.searchTerm, posts]);
 
+   useMemo(() => {
+      dispatch({ type: 'SET_SEARCH_RESULTS', payload: searchPost });
+   }, [searchPost]);
 
-    useMemo(() => {
-        dispatch({ type: "SET_SEARCH_RESULTS", payload: searchPost });
-    }, [searchPost]);
-
-    return (
-        <SearchContext.Provider value={{ state, dispatch, setSearchTerm }}>
-            {children}
-        </SearchContext.Provider>
-    );
+   return (
+      <SearchContext.Provider value={{ state, dispatch, setSearchTerm }}>
+         {children}
+      </SearchContext.Provider>
+   );
 };

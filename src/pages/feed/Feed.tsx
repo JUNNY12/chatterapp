@@ -3,7 +3,6 @@ import { FetchUserFeedPostContextProvider } from '../../context/article/FetchUse
 import { MetaTag } from '../../components/metatag/MetaTag';
 import { chatterImgUrl } from '../../config/constants/url';
 
-
 export default function Feed(): React.JSX.Element {
    return (
       <FetchUserFeedPostContextProvider>

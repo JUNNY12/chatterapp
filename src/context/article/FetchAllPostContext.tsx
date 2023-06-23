@@ -79,7 +79,9 @@ export default function PostProvider({ children }: ProviderChildren) {
    const [posts, setPosts] = useState<SinglePostInterface[]>([]);
    const [trendingPosts, setTrendingPosts] = useState<SinglePostInterface[]>([]);
    const [loading, setLoading] = useState<boolean>(false);
-   const {state:{searchTerm}} = useSearch();
+   const {
+      state: { searchTerm },
+   } = useSearch();
 
    const location = useLocation();
 

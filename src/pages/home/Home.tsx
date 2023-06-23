@@ -8,7 +8,7 @@ export default function Home() {
    const { theme } = useThemeContext();
 
    return (
-    <>
+      <>
          <MetaTag
             title="Chatter | Home"
             ogTitle="Share your creativity with the world"
@@ -24,16 +24,17 @@ export default function Home() {
          />
          <Container
             className={`transition duration-500 ease-in-out pt-44 tabletM:pt-24
-        ${theme === 'lightMode'
-                  ? ' bg-white-50 text-black-950'
-                  : theme === 'darkMode' && 'bg-gray-800 text-white-100'
-               }
+        ${
+           theme === 'lightMode'
+              ? ' bg-white-50 text-black-950'
+              : theme === 'darkMode' && 'bg-gray-800 text-white-100'
+        }
         `}
          >
             <Hero />
             <Why />
             <Connect />
          </Container>
-    </>
+      </>
    );
 }

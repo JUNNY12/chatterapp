@@ -21,7 +21,6 @@ export const AuthorProfile = ({
    handleNavigate,
    singlePost,
 }: AuthorProfileProps): React.JSX.Element => {
-   
    const shareURL = window.location.href;
 
    return (

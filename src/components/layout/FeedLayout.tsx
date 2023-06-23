@@ -11,7 +11,9 @@ export const FeedLayout = (): React.JSX.Element => {
    const { pathname } = useLocation();
    const { show, setShow } = useNav();
    const width = useWidth();
-   const {state:{ searchTerm}} = useSearch();
+   const {
+      state: { searchTerm },
+   } = useSearch();
 
    const sideBarRef = useRef<HTMLDivElement>(null);
 
@@ -54,11 +56,7 @@ export const FeedLayout = (): React.JSX.Element => {
             <SideBar />
          </div>
          <div>
-           {
-            searchTerm && (
-                <SearchContainer />
-            )
-           }
+            {searchTerm && <SearchContainer />}
             <Outlet />
          </div>
       </ArticleInteractionProvider>

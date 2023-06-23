@@ -4,7 +4,7 @@ import { chatterImgUrl } from '../../config/constants/url';
 
 export default function Feature(): React.JSX.Element {
    return (
-     <>
+      <>
          <MetaTag
             title="Chatter | Featured"
             ogTitle="Featured posts on our platform"
@@ -23,6 +23,6 @@ export default function Feature(): React.JSX.Element {
                <FeaturedPosts />
             </div>
          </section>
-     </>
+      </>
    );
 }

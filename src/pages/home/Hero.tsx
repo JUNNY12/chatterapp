@@ -17,7 +17,9 @@ export const Hero = (): React.JSX.Element => {
             </Fade>
 
             <Fade direction="left" duration={3000} triggerOnce>
-               <p className=" text-lg mobileXL:text-base leading-relaxed ">
+               <p 
+               data-testid="hero-text"
+               className=" text-lg mobileXL:text-base leading-relaxed ">
                   Share your creativity with the world on our inclusive platform. Post diverse
                   content, connect with like-minded individuals, and inspire others with your unique
                   perspective. Join chatter and unleash your creative potential today!
@@ -36,7 +38,9 @@ export const Hero = (): React.JSX.Element => {
          <div className=" relative w-1/2 tabletM:w-full h-[400px] ms-8 rounded-sm cursor-pointer  tabletM:ms-0 tabletXS:h-[250px] tabletM:mb-6">
             <Fade direction="down" duration={3000} triggerOnce>
                <img
-                  src={'https://firebasestorage.googleapis.com/v0/b/chatter-be02c.appspot.com/o/chatterImages%2Fwrite.svg?alt=media&token=04bdbea6-2d6b-4302-b58d-96c97a444dd2'}
+                  src={
+                     'https://firebasestorage.googleapis.com/v0/b/chatter-be02c.appspot.com/o/chatterImages%2Fwrite.svg?alt=media&token=04bdbea6-2d6b-4302-b58d-96c97a444dd2'
+                  }
                   title="hero"
                   alt="hero"
                   className="rounded-sm object-cover w-full h-full hover:transform hover:scale-90 transition duration-500 ease-in-out "

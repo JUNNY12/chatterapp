@@ -4,7 +4,7 @@ import { chatterImgUrl } from '../../config/constants/url';
 
 export default function Bookmark(): React.JSX.Element {
    return (
-     <>
+      <>
          <MetaTag
             title="Chatter | Bookmarks"
             ogTitle="Explore posts on our platform"
@@ -23,6 +23,6 @@ export default function Bookmark(): React.JSX.Element {
                <BookmarkPosts />
             </div>
          </section>
-     </>
+      </>
    );
 }

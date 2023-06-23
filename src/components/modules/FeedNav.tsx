@@ -91,7 +91,10 @@ export const FeedNav = (): React.JSX.Element => {
                 fixed w-full items-center flex justify-between  z-40 p-6 mobileL:px-1 transition duration-500 ease-in-out`}
       >
          {showDrop && (
-            <div ref={dropdownRef} className={`absolute right-2  bg-white-50 z-10 top-24 rounded-sm`}>
+            <div
+               ref={dropdownRef}
+               className={`absolute right-2  bg-white-50 z-10 top-24 rounded-sm`}
+            >
                <DropNav handleClick={handleClick} />
             </div>
          )}
@@ -101,7 +104,10 @@ export const FeedNav = (): React.JSX.Element => {
                <AiOutlineMenu />
             </Button>
          </div>
-         <Typography variant={1} className="text-3xl mobileXL:text-xl tabletS:hidden font-bold text-pink-600">
+         <Typography
+            variant={1}
+            className="text-3xl mobileXL:text-xl tabletS:hidden font-bold text-pink-600"
+         >
             <Link to={`/`}> Chatter</Link>
          </Typography>
 

@@ -11,7 +11,6 @@ export default function User(): React.JSX.Element {
    const { displayName } = useParams();
    const { user, loading, isLoading, userArticles } = useFetchProfile(displayName);
 
-
    if (!user && !loading) {
       return <UserNotFound />;
    }
