@@ -22,10 +22,8 @@ Chatter is a multi-functional platform designed for text-based content, catering
 
 <h1 id='overview'>Overview</h1>
 <img src='https://firebasestorage.googleapis.com/v0/b/chatter-be02c.appspot.com/o/chatterImages%2Fdarkmode.png?alt=media&token=2e42bd64-e18c-4386-b63d-3859de25ef4a' /> <br/> <br />
-<img src='public/images/lightmode.png' /> <br/> <br />
-<img src='public/images/dark2.png' /> <br/> <br />
-<img src='public/images/light2.png' /> <br/> <br />
-<img src='public/images/write.png' /> <br/> <br />
+<img src='https://firebasestorage.googleapis.com/v0/b/chatter-be02c.appspot.com/o/chatterImages%2Flight2.png?alt=media&token=f3e5676b-5938-4471-acf8-264334da3699' /> <br/> <br />
+<img src='https://firebasestorage.googleapis.com/v0/b/chatter-be02c.appspot.com/o/chatterImages%2Fwrite.png?alt=media&token=1749f663-3262-4f23-9198-3422030924b1' /> <br/> <br />
 
 <h1 id='features'>Features</h1>
 <ol>
