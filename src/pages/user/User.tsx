@@ -4,20 +4,36 @@ import { UserNotFound } from './UserNotFound';
 import { UserPageLoader } from '../../components/modules/skeletonloader';
 import { ArticleList, BioInfo, Interest, SocialLink, Header } from '.';
 import { useFetchProfile } from '../../hooks/user/useFetchProfile';
+import { MetaTag } from '../../components/metatag/MetaTag';
 
 export default function User(): React.JSX.Element {
    const { theme } = useThemeContext();
    const { displayName } = useParams();
    const { user, loading, isLoading, userArticles } = useFetchProfile(displayName);
 
+
    if (!user && !loading) {
       return <UserNotFound />;
    }
 
-   console.log(user?.socialInfo);
+   console.log(user);
 
    return (
       <>
+         <MetaTag
+            title={`Chatter | ${user?.displayName}`}
+            ogTitle={`Chatter | ${user?.displayName}`}
+            description={`View ${user?.displayName}'s profile`}
+            image={user?.photoUrl}
+            url={`/user/${user?.displayName}`}
+            twitterTitle={`Chatter | ${user?.displayName}`}
+            twitterDescription={`View ${user?.displayName}'s profile`}
+            twitterImage={user?.photoUrl}
+            twitterCard="summary_large_image"
+            ogType="profile"
+            href={`/user/${user?.displayName}`}
+         />
+
          {isLoading ? (
             <UserPageLoader />
          ) : (

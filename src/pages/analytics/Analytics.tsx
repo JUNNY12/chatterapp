@@ -2,7 +2,8 @@ import { Highlights } from './Highlights';
 import { useAnalytics } from '../../hooks/analytics/useAnalytics';
 import { Typography } from '../../components/element';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
-import { Helmet } from 'react-helmet-async';
+import { MetaTag } from '../../components/metatag/MetaTag';
+import { chatterImgUrl } from '../../config/constants/url';
 
 export default function Analytics(): React.JSX.Element {
    const { highestViewedLikedAndCommentedPost, loading } = useAnalytics();
@@ -10,11 +11,19 @@ export default function Analytics(): React.JSX.Element {
 
    return (
      <>
-         <Helmet>
-            <title>Chatter | Analytics</title>
-            <meta name="description" content="Analytics of your posts" />
-            <link rel="canonical" href="/analytics" />
-         </Helmet>
+         <MetaTag
+            title="Chatter | Analytics"
+            ogTitle="Share your creativity with the world"
+            description="Analytics of your posts"
+            image={chatterImgUrl}
+            url="/analytics"
+            twitterTitle="Share your creativity with the world"
+            twitterDescription="Analytics of your posts"
+            twitterImage={chatterImgUrl}
+            twitterCard="summary_large_image"
+            ogType="website"
+            href="/analytics"
+         />
          <section className={`bg-white-100`}>
             <div className={`ms-[250px] tabletS:ms-0 pt-24`}>
                <div>
