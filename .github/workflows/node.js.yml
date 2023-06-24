@@ -24,6 +24,11 @@ jobs:
     - name: Install dependencies 📦
       run: |
         npm install
+    - name: set up enviroment variable
+      run: |
+        echo "FIREBASE_API_KEY={{secrets.FIREBASE_API_KEY}}" >> $GITHUB_ENV
+      env:
+          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
     - name: Build the app 🏗
       run: |
         npm run build
