@@ -32,7 +32,7 @@ jobs:
     - name: Build the app 🏗
       run: |
         npm run build
-    - name: Run component tests 🔸
+    - name: Run tests 🔸
       run: |
         npm run test
     - name: Start the app 📤
