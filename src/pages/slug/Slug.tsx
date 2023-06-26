@@ -9,9 +9,9 @@ import { Content } from './Content';
 import { MetaTag } from '../../components/metatag/MetaTag';
 
 export default function Slug(): React.JSX.Element {
-   const { slug } = useParams();
    const { theme } = useThemeContext();
-
+   const { slug } = useParams();
+   
    const {
       singlePost,
       posts,
@@ -43,21 +43,20 @@ export default function Slug(): React.JSX.Element {
       handlePageView();
    });
 
-   console.log('singlePost', singlePost);
 
    return (
       <>
          <MetaTag
             title={`Chatter | Post | ${singlePost?.title}`}
             description={singlePost?.subtitle}
-            href={`/post/${singlePost?.author?.fullName.split(' ').join('_')}/${singlePost?.slug
+            href={`/post/${singlePost?.author?.fullName?.split(' ')?.join('_')}/${singlePost?.slug
                ?.split(' ')
-               .join('_')}`}
+               ?.join('_')}`}
             image={singlePost?.coverImage}
             ogTitle={`${singlePost?.title}`}
-            url={`/post/${singlePost?.author?.fullName.split(' ').join('_')}/${singlePost?.slug
+            url={`/post/${singlePost?.author?.fullName?.split(' ')?.join('_')}/${singlePost?.slug
                ?.split(' ')
-               .join('_')}`}
+               ?.join('_')}`}
             twitterTitle={`${singlePost?.title}`}
             twitterDescription={singlePost?.subtitle}
             twitterImage={singlePost?.coverImage}

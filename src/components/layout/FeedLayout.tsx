@@ -2,7 +2,6 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { SideBar, FeedNav } from '../modules';
 import { useNav } from '../../hooks/nav/useNav';
 import { useEffect, useRef } from 'react';
-import { ArticleInteractionProvider } from '../../context/article/ArticleInteractionContext';
 import { useWidth } from '../../hooks';
 import { useSearch } from '../../hooks/search/useSearch';
 import { SearchContainer } from '../SearchContainer';
@@ -44,7 +43,7 @@ export const FeedLayout = (): React.JSX.Element => {
    }, []);
 
    return (
-      <ArticleInteractionProvider>
+      <>
          <FeedNav />
          <div
             ref={sideBarRef}
@@ -59,6 +58,6 @@ export const FeedLayout = (): React.JSX.Element => {
             {searchTerm && <SearchContainer />}
             <Outlet />
          </div>
-      </ArticleInteractionProvider>
+      </>
    );
 };

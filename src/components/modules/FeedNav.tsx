@@ -22,7 +22,7 @@ export const FeedNav = (): React.JSX.Element => {
    const { pathname } = useLocation();
    const { state, setSearchTerm } = useSearch();
 
-   console.log(state);
+   // console.log(state);
 
    const handleSearchTermChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const term = e.target.value;

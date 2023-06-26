@@ -7,7 +7,7 @@ export const updateArticle = async (authordId: string, articleId: any, details: 
    try {
       const articleRef = collection(db, 'users', authordId, 'article');
       await updateDoc(doc(articleRef, articleId), details);
-      console.log('Document successfully updated!');
+      // console.log('Document successfully updated!');
    } catch (e) {
       console.log(e);
    }
