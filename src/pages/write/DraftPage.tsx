@@ -4,6 +4,8 @@ import { useAuthContext } from '../../hooks/auth/useAuthContext';
 import { publishArticle, saveDraft } from '../../firebase/article';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
+import { MetaTag } from '../../components/metatag/MetaTag';
+import { chatterImgUrl } from '../../config/constants/url';
 
 export default function DraftPage() {
    const { article, clearArticle, setArticle } = useArticleContext();
@@ -50,10 +52,29 @@ export default function DraftPage() {
    };
 
    return (
-      <section className="pt-32  bg-white-100 relative">
-         <div>
-            <MarkdownEditor content={article} onPublish={handlePublish} onSaveDraft={handleDraft} />
-         </div>
-      </section>
+      <>
+         <MetaTag
+            title="Chatter | Write"
+            ogTitle="Share your creativity with the world"
+            description="Share your creativity with the world on our inclusive platform. Post diverse content, connect with like-minded individuals"
+            image={chatterImgUrl}
+            url="/write"
+            twitterTitle="Share your creativity with the world"
+            twitterDescription="Share your creativity with the world on our inclusive platform. Post diverse content, connect with like-minded individuals"
+            twitterImage={chatterImgUrl}
+            twitterCard="summary_large_image"
+            ogType="website"
+            href="/write"
+         />
+         <section className="pt-32  bg-white-100 relative">
+            <div>
+               <MarkdownEditor
+                  content={article}
+                  onPublish={handlePublish}
+                  onSaveDraft={handleDraft}
+               />
+            </div>
+         </section>
+      </>
    );
 }

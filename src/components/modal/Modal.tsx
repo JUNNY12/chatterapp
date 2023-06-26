@@ -70,8 +70,8 @@ export const Modal = ({
          ref={modalRef}
          className={`
         drop-shadow-xl fixed w-[400px] top-[250px] left-1/2 transform -translate-x-1/2 -translate-y-1/2  z-40
-        rounded-md transition duration-500 ease-in-out h-[150px] p-4
-        bg-white-50 text-black-950 mobileXL:w-[280px] mobileXL:h-[150px]
+        rounded-md transition duration-500 ease-in-out h-[200px] p-4
+        bg-white-50 text-black-950 mobileXL:w-[280px] mobileXL:h-[200px]
       `}
       >
          <div className="absolute top-0 right-0 p-4">

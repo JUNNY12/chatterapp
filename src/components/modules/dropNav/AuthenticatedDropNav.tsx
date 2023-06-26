@@ -67,7 +67,11 @@ export const AuthenticatedDropNav = (): React.JSX.Element => {
                   onClick={toggleTheme}
                   className="mb-3 font-bold flex items-center cursor-pointer hover:text-pink-600 "
                >
-                  <Typography title="change theme" variant={2} className="text-base me-4">
+                  <Typography
+                     title="change theme"
+                     variant={2}
+                     className="text-lg mobileXL:text-base me-4"
+                  >
                      Change theme
                   </Typography>
                   <Button title="change theme" className="text-xl">

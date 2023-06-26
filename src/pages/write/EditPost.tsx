@@ -8,6 +8,8 @@ import { updateDraft } from '../../firebase/article';
 import { toast } from 'react-toastify';
 import { publishArticle } from '../../firebase/article';
 import { useNavigate } from 'react-router';
+import { MetaTag } from '../../components/metatag/MetaTag';
+import { chatterImgUrl } from '../../config/constants/url';
 
 export default function PostPage() {
    const { id } = useParams();
@@ -78,10 +80,25 @@ export default function PostPage() {
    };
 
    return (
-      <section className="pt-32 bg-white-100">
-         <div>
-            <MarkdownEditor onUpdate={handleUpdate} onPublish={handlePublish} mode="update" />
-         </div>
-      </section>
+      <>
+         <MetaTag
+            title="Chatter | Write"
+            ogTitle="Share your creativity with the world"
+            description="Share your creativity with the world on our inclusive platform. Post diverse content, connect with like-minded individuals"
+            image={chatterImgUrl}
+            url="/write/edit"
+            twitterTitle="Share your creativity with the world"
+            twitterDescription="Share your creativity with the world on our inclusive platform. Post diverse content, connect with like-minded individuals"
+            twitterImage={chatterImgUrl}
+            twitterCard="summary_large_image"
+            ogType="website"
+            href="/write/edit"
+         />
+         <section className="pt-32 bg-white-100">
+            <div>
+               <MarkdownEditor onUpdate={handleUpdate} onPublish={handlePublish} mode="update" />
+            </div>
+         </section>
+      </>
    );
 }

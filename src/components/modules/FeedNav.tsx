@@ -79,6 +79,10 @@ export const FeedNav = (): React.JSX.Element => {
       setShowDrop((prev) => !prev);
    };
 
+   //hide search bar on slug page
+
+   const hideSearch = pathname.includes('/post');
+
    return (
       <div
          className={`
@@ -111,7 +115,11 @@ export const FeedNav = (): React.JSX.Element => {
             <Link to={`/`}> Chatter</Link>
          </Typography>
 
-         <div className=" ">
+         <div
+            className={`
+         ${hideSearch ? 'hidden' : 'block'}
+         `}
+         >
             <Input
                placeholder="Search chatter"
                value={state.searchTerm}

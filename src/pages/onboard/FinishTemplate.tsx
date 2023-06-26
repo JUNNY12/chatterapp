@@ -60,13 +60,13 @@ export const FinishTemplate = (): React.JSX.Element => {
                      or
                   </Typography>
                </div>
-               <Link to={`/account`}>
+               <Link to={`/settings`}>
                   <Button
                      className=" bg-pink-600 text-white-50 p-2 
                      rounded-[40px] font-semibold w-[200px] text-center"
                   >
                      {' '}
-                     Your Dashboard
+                     Your Profile Settings
                   </Button>
                </Link>
             </div>

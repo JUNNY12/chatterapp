@@ -12,6 +12,8 @@ import firebaseApp from '../../../firebase/config';
 import { ref, getStorage } from 'firebase/storage';
 import { handleCustomImageUpload } from '../../../firebase/upload/handleCustomImageUpload';
 import { useFetchUser } from '../../../hooks/user/useFetchUser';
+import { MetaTag } from '../../../components/metatag/MetaTag';
+import { chatterImgUrl } from '../../../config/constants/url';
 
 export default function Profile(): React.JSX.Element {
    const { theme } = useThemeContext();
@@ -146,73 +148,88 @@ export default function Profile(): React.JSX.Element {
    };
 
    return (
-      <div
-         className={` transition p-4 me-8  tabletL:ms-8 tabletXS:mx-4 duration-500 mb-4 rounded-md border border-gray-300 ease-in-out ${
-            theme === 'lightMode'
-               ? 'bg-white-50 text-black-950'
-               : theme === 'darkMode' && 'bg-gray-800 text-white-100'
-         } `}
-      >
-         <form onSubmit={handleUpdate}>
-            <div className="my-3">
-               <label
-                  title="change picture"
-                  htmlFor="photoUrl"
-                  className="relative block cursor-pointer w-24 h-24  object-cover rounded-full"
-               >
-                  <img
-                     src={image || photoUrl}
-                     className=" w-full h-full object-cover rounded-full"
-                     alt=""
+      <>
+         <MetaTag
+            title="Chatter "
+            ogTitle="Manage your profile"
+            description="Manage your profile on our inclusive platform. Post diverse content, connect with like-minded individuals"
+            image={chatterImgUrl}
+            url="/settings"
+            twitterTitle="Manage your profile"
+            twitterDescription="Manage your profile on our inclusive platform. Post diverse content, connect with like-minded individuals"
+            twitterImage={chatterImgUrl}
+            twitterCard="summary_large_image"
+            ogType="website"
+            href="/settings"
+         />
+         <div
+            className={` transition p-4 me-8  tabletL:ms-8 tabletXS:mx-4 duration-500 mb-4 rounded-md border border-gray-300 ease-in-out ${
+               theme === 'lightMode'
+                  ? 'bg-white-50 text-black-950'
+                  : theme === 'darkMode' && 'bg-gray-800 text-white-100'
+            } `}
+         >
+            <form onSubmit={handleUpdate}>
+               <div className="my-3">
+                  <label
+                     title="change picture"
+                     htmlFor="photoUrl"
+                     className="relative block cursor-pointer w-24 h-24  object-cover rounded-full"
+                  >
+                     <img
+                        src={image || photoUrl}
+                        className=" w-full h-full object-cover rounded-full"
+                        alt=""
+                     />
+                     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
+                        <MdOutlinePhotoCamera className=" text-2xl" />
+                     </div>
+                  </label>
+                  <input
+                     ref={imageRef}
+                     type="file"
+                     className="hidden"
+                     id="photoUrl"
+                     onChange={handleImageUpload}
+                     name="photoUrl"
                   />
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
-                     <MdOutlinePhotoCamera className=" text-2xl" />
+               </div>
+               <div className="flex tabletXS:flex-col">
+                  {/* Basic Info */}
+                  <div className=" w-1/2 tabletXS:w-full">
+                     <BasicInfo
+                        fullName={fullName}
+                        displayName={displayName}
+                        email={email}
+                        location={location}
+                        occupation={occupation}
+                        bio={bio}
+                        availability={availability}
+                        handleChange={handleChange}
+                     />
                   </div>
-               </label>
-               <input
-                  ref={imageRef}
-                  type="file"
-                  className="hidden"
-                  id="photoUrl"
-                  onChange={handleImageUpload}
-                  name="photoUrl"
-               />
-            </div>
-            <div className="flex tabletXS:flex-col">
-               {/* Basic Info */}
-               <div className=" w-1/2 tabletXS:w-full">
-                  <BasicInfo
-                     fullName={fullName}
-                     displayName={displayName}
-                     email={email}
-                     location={location}
-                     occupation={occupation}
-                     bio={bio}
-                     availability={availability}
-                     handleChange={handleChange}
-                  />
+                  {/* Social Info */}
+                  <div className=" w-1/2 ms-8 tabletXS:w-full tabletXS:ms-0">
+                     <SocialInfo
+                        twitter={twitter}
+                        instagram={instagram}
+                        facebook={facebook}
+                        github={github}
+                        linkedIn={linkedIn}
+                        website={website}
+                        handleChange={handleChange}
+                     />
+                  </div>
                </div>
-               {/* Social Info */}
-               <div className=" w-1/2 ms-8 tabletXS:w-full tabletXS:ms-0">
-                  <SocialInfo
-                     twitter={twitter}
-                     instagram={instagram}
-                     facebook={facebook}
-                     github={github}
-                     linkedIn={linkedIn}
-                     website={website}
-                     handleChange={handleChange}
-                  />
-               </div>
-            </div>
 
-            <div className="mt-4 flex items-center justify-center">
-               <Button className=" w-[200px] p-2 rounded-[40px] font-bold text-white-50 bg-pink-600 ">
-                  {' '}
-                  {loading ? <BeatLoader size={10} color={'#fff'} /> : 'Update'}
-               </Button>
-            </div>
-         </form>
-      </div>
+               <div className="mt-4 flex items-center justify-center">
+                  <Button className=" w-[200px] p-2 rounded-[40px] font-bold text-white-50 bg-pink-600 ">
+                     {' '}
+                     {loading ? <BeatLoader size={10} color={'#fff'} /> : 'Update'}
+                  </Button>
+               </div>
+            </form>
+         </div>
+      </>
    );
 }

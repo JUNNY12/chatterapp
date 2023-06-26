@@ -5,7 +5,7 @@ import { Fade } from 'react-awesome-reveal';
 export const Hero = (): React.JSX.Element => {
    return (
       <div className="flex justify-between items-center h-max tabletM:flex-col-reverse">
-         <div className="w-1/2 tabletM:w-full">
+         <div className="w-1/2 tabletM:w-full tabletM:mt-16 mobileXL:mt-12 mobileL:mt-0">
             <Fade direction="left" duration={3000} triggerOnce>
                <Typography
                   variant={1}
@@ -17,9 +17,7 @@ export const Hero = (): React.JSX.Element => {
             </Fade>
 
             <Fade direction="left" duration={3000} triggerOnce>
-               <p 
-               data-testid="hero-text"
-               className=" text-lg mobileXL:text-base leading-relaxed ">
+               <p data-testid="hero-text" className=" text-lg mobileXL:text-base leading-relaxed ">
                   Share your creativity with the world on our inclusive platform. Post diverse
                   content, connect with like-minded individuals, and inspire others with your unique
                   perspective. Join chatter and unleash your creative potential today!
