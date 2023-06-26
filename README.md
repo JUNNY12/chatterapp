@@ -16,6 +16,7 @@ Chatter is a multi-functional platform designed for text-based content, catering
     <li><a href ='#gettingStarted'>Getting Started</a></li>
     <li><a href="#installation">Installation</a></li>
     <li><a href="#usage">Usage</a></li>
+     <li><a href="#docs">Documentation</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
 </ul>
@@ -98,6 +99,12 @@ $ npm install
         Open your browser and visit http://localhost:5173 to access Chatter.
     </li>
 </ol>
+
+<h1 id='docs'>Documentation</h1>
+
+<h2>
+<a href="https://docs.google.com/document/d/1BIoyy2xRIAh88UoNErbAujZ4ZNCdhKgnP9jpHVcSICA/edit?usp=sharing">Read Documentation</a>
+</h2> <br>
 
 
 <h1 id='contributing'>Contributing</h1>
