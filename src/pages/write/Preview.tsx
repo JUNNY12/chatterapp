@@ -41,6 +41,9 @@ export const Preview = (): React.JSX.Element => {
       }`}
             >
                <div className=" max-w-[600px] p-4 ">
+                  <Typography variant={2}>
+                     <span className="text-pink-600 text-xl mb-6 font-semibold">Preview</span>
+                  </Typography>
                   <div>
                      {coverImage && (
                         <div className="relative max-w-[600px] h-[300px] mb-3 object-cover">
