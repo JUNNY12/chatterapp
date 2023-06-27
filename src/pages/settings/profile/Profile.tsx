@@ -59,6 +59,7 @@ export default function Profile(): React.JSX.Element {
          github,
          linkedIn,
          website,
+         tags,
       },
       handleChange,
       setValues,
@@ -77,6 +78,7 @@ export default function Profile(): React.JSX.Element {
       github: '',
       linkedIn: '',
       website: '',
+      tags: [],
    });
 
    //update user info on mount
@@ -97,9 +99,10 @@ export default function Profile(): React.JSX.Element {
             github: userInfo?.socialInfo?.github || '',
             linkedIn: userInfo?.socialInfo?.linkedIn || '',
             website: userInfo?.socialInfo?.website || '',
+            tags: userInfo?.tags || [],
          });
       }
-   }, [user]);
+   }, [userInfo,setValues]);
 
    //handle user update
    const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -117,6 +120,7 @@ export default function Profile(): React.JSX.Element {
                bio,
                photoUrl,
                location,
+               tags,
                availability,
                socialInfo: {
                   twitter,
@@ -205,7 +209,9 @@ export default function Profile(): React.JSX.Element {
                         occupation={occupation}
                         bio={bio}
                         availability={availability}
+                        tags={tags}
                         handleChange={handleChange}
+                        setValues={setValues}
                      />
                   </div>
                   {/* Social Info */}

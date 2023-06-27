@@ -15,8 +15,8 @@ export const useFollow = () => {
     }, [userInfo, follow])
 
     const userId = userInfo?.uid as string
-    console.log(userInfo?.followers)
-    console.log(followers)
+    // console.log(userInfo?.followers)
+    // console.log(followers)
 
     const handleSetfollow = async (uid: string) => {
         setfollow(uid)

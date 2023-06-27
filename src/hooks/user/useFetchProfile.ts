@@ -18,7 +18,6 @@ export const useFetchProfile = (displayName: any) => {
          const userArticles = await getUserArticles(uid);
 
          const updatedPost = userArticles.map((post: any) => {
-            console.log(post?.data?.createdAt);
             const createdDate = new Date(post?.data?.createdAt);
             const currentDate = new Date();
             const diff = currentDate.getTime() - createdDate.getTime();
@@ -32,8 +31,6 @@ export const useFetchProfile = (displayName: any) => {
          setIsLoading(false);
       }
    };
-
-   console.log(userArticles);
 
    useEffect(() => {
       fetchUserArticles();

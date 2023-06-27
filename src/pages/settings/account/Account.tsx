@@ -70,8 +70,9 @@ export default function Account(): React.JSX.Element {
                </p>
 
                <Button
+                  disabled={true}
                   onClick={() => setIsOpen(true)}
-                  className="toggle-button w-[200px] p-2 rounded-[40px] text-white-50 bg-red-600 "
+                  className="toggle-button w-[200px] p-2 rounded-[40px] cursor-not-allowed opacity-60 text-white-50 bg-red-600 "
                >
                   {' '}
                   Delete Account

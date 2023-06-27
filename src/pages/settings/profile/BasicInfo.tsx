@@ -1,4 +1,6 @@
 import { Typography, Input } from '../../../components/element';
+import { SearchTag } from '../../onboard';
+import {useState} from 'react';
 
 
 //interface BasicInfoProps {
@@ -10,6 +12,8 @@ interface BasicInfoProps {
    bio: string;
    availability: string;
    email: string;
+   tags: string[];
+   setValues: (values: any) => void;
    handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
@@ -21,8 +25,43 @@ export const BasicInfo = ({
    occupation,
    bio,
    availability,
+   tags,
+   setValues,
    handleChange,
 }: BasicInfoProps): React.JSX.Element => {
+
+   const [query, setQuery] = useState<string>('');
+   const handleQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setQuery(e.target.value);
+   };
+
+
+   const isSelected = (tag: string) => {
+      return tags.includes(tag);
+   };
+
+   const handleAddTag = (tag: string) => {
+      const updatedTags = [...tags, tag]; 
+
+      if(isSelected(tag)) {
+         const updatedTags = tags.filter((t) => t !== tag);
+         setValues((prevValues:any) => ({
+            ...prevValues,
+            tags: updatedTags,
+         }));
+      } else {
+      setValues((prevValues:any) => ({
+         ...prevValues,
+         tags: updatedTags, 
+      }));
+   }
+   setQuery(' ');
+   };
+
+
+ 
+
+
    return (
       <div className="">
          <Typography variant={1} className="font-bold text-2xl mobileXL:text-lg">
@@ -149,19 +188,25 @@ export const BasicInfo = ({
             />
          </div>
 
-         {/* <div className="flex  flex-col mb-4">
+         <div>
+            {query && (
+               <SearchTag query={query} handleAddTag={handleAddTag} isSelected={isSelected} />
+            )}
+         </div>
+         <div className="flex  flex-col mb-4">
             <label htmlFor="tag" className="block  font-normal mb-1 mt-3">
                Tags
             </label>
             <Input
                type='search'
+               onChange={handleQuery}
                id="tag"
                name="tag"
                className=" bg-white-100 transition duration-500 ease-in-out
                rounded-md focus:border focus:border-pink-600 indent-3 placeholder:text-black-400 text-black-900 font-semibold max-w-[600px] "
                placeholder='Add more tags' 
             />
-         </div> */}
+         </div> 
       </div>
    );
 };

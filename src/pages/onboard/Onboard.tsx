@@ -80,7 +80,7 @@ export const Onboard = () => {
                   </span>
                   <span className="font-semibold">Continue with Google</span>
                </Button>
-               <div>
+               {/* <div>
                   <Typography variant={2} className="mb-6 text-center text-2xl font-bold">
                      or
                   </Typography>
@@ -93,7 +93,7 @@ export const Onboard = () => {
                      <img src="/icons/facebook.svg" alt="facebook" />
                   </span>
                   <span className="font-semibold">Continue with Facebook</span>
-               </Button>
+               </Button> */}
             </div>
          </div>
       </Container>

@@ -1,4 +1,4 @@
-import { Tags } from './InterestedTagTemplate';
+import { Tags } from '../../config/constants/tags';
 import { Typography } from '../../components/element';
 import { FaPlus } from 'react-icons/fa';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';

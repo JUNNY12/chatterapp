@@ -7,7 +7,6 @@ import { CommentInput, LikeButton } from '.';
 import { BiComment } from 'react-icons/bi';
 import { FaBookmark} from 'react-icons/fa';
 import usePostCard from '../../hooks/article/usePostCard';
-import { Follow } from '../Follow';
 import { Link } from 'react-router-dom';
 interface PostProps {
    post: SinglePostInterface;
@@ -76,14 +75,13 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
                      className=" rounded-full object-cover w-full h-full"
                   />
                </div>
-               <div className='mt-2'>
+               <div className=''>
                   <div className=' flex flex-wrap'>
                      <Typography variant={1} className="font-bold text-2xl mobileXL:text-lg">
                        <Link className='hover:underline hover:text-pink-600 transition duration-500 ease-in-out' to={`/user/${displayName}`}>
                            {fullName}
                        </Link>
                      </Typography>
-                    <Follow uid={uid} />
                   </div>
                   <Typography
                      variant={2}

@@ -5,7 +5,7 @@ import firebaseApp from '../../firebase/config';
 import { handleCustomImageUpload } from '../../firebase/upload/handleCustomImageUpload';
 import { ref, getStorage } from 'firebase/storage';
 import { useRef } from 'react';
-import { Tags } from '../onboard';
+import { Tags } from '../../config/constants/tags';
 import { Typography } from '../../components/element';
 import { FaPlus } from 'react-icons/fa';
 
