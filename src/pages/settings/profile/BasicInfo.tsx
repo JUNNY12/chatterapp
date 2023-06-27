@@ -1,5 +1,6 @@
 import { Typography, Input } from '../../../components/element';
 
+
 //interface BasicInfoProps {
 interface BasicInfoProps {
    fullName: string;
@@ -147,6 +148,20 @@ export const BasicInfo = ({
                onChange={handleChange}
             />
          </div>
+
+         {/* <div className="flex  flex-col mb-4">
+            <label htmlFor="tag" className="block  font-normal mb-1 mt-3">
+               Tags
+            </label>
+            <Input
+               type='search'
+               id="tag"
+               name="tag"
+               className=" bg-white-100 transition duration-500 ease-in-out
+               rounded-md focus:border focus:border-pink-600 indent-3 placeholder:text-black-400 text-black-900 font-semibold max-w-[600px] "
+               placeholder='Add more tags' 
+            />
+         </div> */}
       </div>
    );
 };

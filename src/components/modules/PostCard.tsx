@@ -5,8 +5,10 @@ import { calculateReadingTime } from '../../utils';
 import { SinglePostInterface } from '../../context/article/FetchAllPostContext';
 import { CommentInput, LikeButton } from '.';
 import { BiComment } from 'react-icons/bi';
-import { FaBookmark } from 'react-icons/fa';
+import { FaBookmark} from 'react-icons/fa';
 import usePostCard from '../../hooks/article/usePostCard';
+import { Follow } from '../Follow';
+import { Link } from 'react-router-dom';
 interface PostProps {
    post: SinglePostInterface;
 }
@@ -38,8 +40,9 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
       photoUrl,
       fullName,
       occupation,
+      uid
    } = usePostCard(post);
-
+ 
    return (
       <div
          className={`rounded-md m-8 tabletXS:m-3 h-full transition duration-500 ease-in-out 
@@ -61,10 +64,11 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
                <FaBookmark />
             </div>
             <div
-               onClick={() => navigate(`/user/${displayName}`)}
                className=" flex items-center mb-3"
             >
-               <div className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] me-4 relative rounded-full object-cover">
+               <div
+               onClick={() => navigate(`/user/${displayName}`)}
+               className=" w-[100px] h-[100px] mobileXL:w-[50px] mobileXL:h-[50px] me-4 relative rounded-full object-cover">
                   <img
                      src={photoUrl}
                      title={displayName}
@@ -72,10 +76,15 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
                      className=" rounded-full object-cover w-full h-full"
                   />
                </div>
-               <div>
-                  <Typography variant={1} className="font-bold text-2xl mobileXL:text-lg">
-                     {fullName}
-                  </Typography>
+               <div className='mt-2'>
+                  <div className=' flex flex-wrap'>
+                     <Typography variant={1} className="font-bold text-2xl mobileXL:text-lg">
+                       <Link className='hover:underline hover:text-pink-600 transition duration-500 ease-in-out' to={`/user/${displayName}`}>
+                           {fullName}
+                       </Link>
+                     </Typography>
+                    <Follow uid={uid} />
+                  </div>
                   <Typography
                      variant={2}
                      className=" font-semibold mobileXL:text-[12px] inline-flex flex-wrap"

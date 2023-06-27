@@ -15,6 +15,7 @@ export interface UserInfo {
    location: string;
    availability: string;
    tags: string[];
+   followers: string[];
    socialInfo: {
       twitter: string;
       instagram: string;
