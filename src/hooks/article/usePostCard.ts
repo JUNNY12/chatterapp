@@ -190,10 +190,8 @@ const usePostCard = (post: SinglePostInterface) => {
       likeCounts,
    } = post;
 
-
-
    // destructure author
-   const { displayName, photoUrl, fullName, occupation , uid} = author;
+   const { displayName, photoUrl, fullName, occupation, uid } = author;
 
    // return the values needed for the component
    return {
@@ -229,7 +227,7 @@ const usePostCard = (post: SinglePostInterface) => {
       photoUrl,
       fullName,
       occupation,
-      uid
+      uid,
    };
 };
 

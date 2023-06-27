@@ -42,7 +42,7 @@ export const AuthenticatedDropNav = (): React.JSX.Element => {
 
                   <div className="text-base w-[100px]">
                      <div className="text-[14px]">{greetings()}</div>
-                     <div className='break-words'>{userInfo?.displayName}</div>
+                     <div className="break-words">{userInfo?.displayName}</div>
                   </div>
                </div>
 

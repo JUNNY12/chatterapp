@@ -106,7 +106,7 @@ export const MarkdownEditor = ({
                   </div>
                )}
             </div>
-            
+
             <MdEditor
                className="ms-[250px] h-[400px] tabletS:ms-0"
                renderHTML={(text) => mdParser.render(text)}

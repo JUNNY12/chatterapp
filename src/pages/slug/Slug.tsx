@@ -11,7 +11,7 @@ import { MetaTag } from '../../components/metatag/MetaTag';
 export default function Slug(): React.JSX.Element {
    const { theme } = useThemeContext();
    const { slug } = useParams();
-   
+
    const {
       singlePost,
       posts,
@@ -42,7 +42,6 @@ export default function Slug(): React.JSX.Element {
    useEffect(() => {
       handlePageView();
    });
-
 
    return (
       <>

@@ -10,11 +10,12 @@ export const BookmarkPosts = (): React.JSX.Element => {
    const { theme } = useThemeContext();
    const navigate = useNavigate();
 
+   //if bookmarkedPosts is empty
    if (!loading && bookmarkedPosts.length === 0)
       return (
-         <div className="flex flex-col items-center justify-center h-[50vh]">
+         <div className="flex flex-col items-center mx-3 justify-center h-[50vh]">
             <div
-               className={` p-2 flex flex-col items-center justify-center max-w-[800px] h-[200px] rounded-md
+               className={` p-2 flex flex-col drop-shadow-xl  items-center justify-center max-w-[800px] h-[200px] rounded-md
                 ${
                    theme === 'lightMode'
                       ? 'bg-white-50 text-black-950'

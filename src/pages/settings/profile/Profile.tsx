@@ -102,7 +102,7 @@ export default function Profile(): React.JSX.Element {
             tags: userInfo?.tags || [],
          });
       }
-   }, [userInfo,setValues]);
+   }, [userInfo, setValues]);
 
    //handle user update
    const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
