@@ -10,7 +10,7 @@ export const BookmarkPosts = (): React.JSX.Element => {
    const { theme } = useThemeContext();
    const navigate = useNavigate();
 
-   //if bookmarkedPosts is empty
+   //if bookmarkedPosts is empty array
    if (!loading && bookmarkedPosts.length === 0)
       return (
          <div className="flex flex-col items-center mx-3 justify-center h-[50vh]">
