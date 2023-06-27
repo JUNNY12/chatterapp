@@ -77,7 +77,7 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
                   <div className=" flex flex-wrap">
                      <Typography variant={1} className="font-bold text-2xl mobileXL:text-lg">
                         <Link
-                           className="hover:underline hover:text-pink-600 transition duration-500 ease-in-out"
+                           className="hover:underline hover:text-pink-600"
                            to={`/user/${displayName}`}
                         >
                            {fullName}
