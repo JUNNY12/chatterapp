@@ -1,6 +1,6 @@
 import { Button, Container, Typography } from '../../components/element';
 import { useNavigate } from 'react-router-dom';
-import { googleSignin, facebookSignin } from '../../firebase/auth';
+import { googleSignin } from '../../firebase/auth';
 import { useThemeContext } from '../../hooks/theme/useThemeContext';
 import { addProfileDetails } from '../../firebase/user';
 import { getUser } from '../../firebase/user';
@@ -40,19 +40,19 @@ export const Onboard = () => {
    };
 
    //function to handle facebook sign in
-   const handleFacebookSignIn = async () => {
-      try {
-         const result = await facebookSignin();
-         if (result) {
-            const { token, userInfo } = result;
-            console.log(token, userInfo);
-         } else {
-            // Handle null case
-         }
-      } catch (error) {
-         console.log(error);
-      }
-   };
+   // const handleFacebookSignIn = async () => {
+   //    try {
+   //       const result = await facebookSignin();
+   //       if (result) {
+   //          const { token, userInfo } = result;
+   //          console.log(token, userInfo);
+   //       } else {
+   //          // Handle null case
+   //       }
+   //    } catch (error) {
+   //       console.log(error);
+   //    }
+   // };
 
    return (
       <Container

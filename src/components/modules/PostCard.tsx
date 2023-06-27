@@ -39,7 +39,6 @@ export const PostCard = ({ post }: PostProps): React.JSX.Element => {
       photoUrl,
       fullName,
       occupation,
-      uid
    } = usePostCard(post);
  
    return (
