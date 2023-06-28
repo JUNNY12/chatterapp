@@ -8,7 +8,7 @@ export const useFetchProfile = (displayName: any) => {
    const [userArticles, setUserArticles] = useState([]) as any;
    const [isLoading, setIsLoading] = useState(false) as any;
 
-   const user = allUsers?.find((user: any) => user.displayName === displayName);
+   const user = allUsers?.find((user: any) => user?.displayName?.trim() === displayName?.trim());
 
    let uid = user?.uid;
 

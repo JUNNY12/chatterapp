@@ -18,7 +18,7 @@ export default function User(): React.JSX.Element {
    return (
       <>
          <MetaTag
-            title={`Chatter | ${user?.displayName}`}
+            title={`Chatter`}
             ogTitle={`Chatter | ${user?.displayName}`}
             description={`View ${user?.displayName}'s profile`}
             image={user?.photoUrl}

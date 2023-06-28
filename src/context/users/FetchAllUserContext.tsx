@@ -21,6 +21,7 @@ export interface UserInterface {
       linkedIn: string;
       website?: string; // Optional property for backward compatibility
    };
+   status?: string;
 }
 
 interface UserContextInterface {
