@@ -9,7 +9,7 @@ export const SideBar = (): React.JSX.Element => {
 
    return (
       <aside
-         className={`h-full fixed z-10 top-0 pt-36 left-0 w-[250px]
+         className={`h-full fixed z-10 top-0 pt-[6.5rem] left-0 w-[250px] overflow-auto
             border-r border-gray-300 p-8 transition duration-500 ease-in-out 
         ${
            theme === 'lightMode'

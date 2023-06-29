@@ -5,10 +5,14 @@ import { DiGoogleAnalytics } from 'react-icons/di';
 import { NavLink, Link } from 'react-router-dom';
 import { Button, Typography } from '../../element';
 import { FaPen, FaBookmark } from 'react-icons/fa';
+import { useTrendingTags } from '../../../hooks/article/useTrendingTags';
 
 export const SharedSideBar = () => {
    const { user } = useAuthContext();
    const navigate = useNavigate();
+   const { trendingTags } = useTrendingTags();
+
+   console.log(trendingTags);
 
    //handle view write
    const handleViewWrite = () => {
@@ -28,8 +32,8 @@ export const SharedSideBar = () => {
             <Link to={`/`}> Chatter</Link>
          </Typography>
 
-         <ul className="font-semibold text-lg">
-            <li className="mb-6">
+         <ul className="font-semibold text-[1rem]">
+            <li className="mb-4">
                <Button
                   onClick={handleViewWrite}
                   title="write a post"
@@ -47,7 +51,7 @@ export const SharedSideBar = () => {
                   className={({ isActive }: any) => (isActive ? 'text-pink-600' : '')}
                   end
                >
-                  <li title="My Feed" className="mb-6 cursor-pointer hover:text-pink-600">
+                  <li title="My Feed" className="mb-4 cursor-pointer hover:text-pink-600">
                      <MdFeed className="inline-block me-2" />
                      <span>My Feed</span>
                   </li>
@@ -59,7 +63,7 @@ export const SharedSideBar = () => {
                className={({ isActive }: any) => (isActive ? 'text-pink-600' : '')}
                end
             >
-               <li title="Explore" className="mb-6 cursor-pointer hover:text-pink-600">
+               <li title="Explore" className="mb-4 cursor-pointer hover:text-pink-600">
                   <MdExplore className="inline-block me-2" />
                   <span>Explore</span>
                </li>
@@ -71,7 +75,7 @@ export const SharedSideBar = () => {
                   className={({ isActive }: any) => (isActive ? 'text-pink-600' : '')}
                   end
                >
-                  <li title="bookmarks" className="mb-6 cursor-pointer hover:text-pink-600">
+                  <li title="bookmarks" className="mb-4 cursor-pointer hover:text-pink-600">
                      <FaBookmark className="inline-block me-2" />
                      <span>Bookmarks</span>
                   </li>
@@ -83,7 +87,7 @@ export const SharedSideBar = () => {
                className={({ isActive }: any) => (isActive ? 'text-pink-600' : '')}
                end
             >
-               <li title="Featured Post" className="mb-6 cursor-pointer hover:text-pink-600">
+               <li title="Featured Post" className="mb-4 cursor-pointer hover:text-pink-600">
                   <MdOutlineFeaturedPlayList className="inline-block me-2" />
                   <span> Featured Post</span>
                </li>
@@ -93,12 +97,37 @@ export const SharedSideBar = () => {
                className={({ isActive }: any) => (isActive ? 'text-pink-600' : '')}
                end
             >
-               <li title="Analytics" className="mb-6 cursor-pointer hover:text-pink-600">
+               <li title="Analytics" className="mb-4 cursor-pointer hover:text-pink-600">
                   <DiGoogleAnalytics className="inline-block me-2" />
                   <span>Analytics</span>
                </li>
             </NavLink>
          </ul>
+         <div>
+            <Typography variant={2} className="text-xl mb-4 font-bold text-pink-600">
+               Trending Tags
+            </Typography>
+         </div>
+         <div className=" h-[200px] overflow-auto">
+            <ul>
+               {trendingTags?.map((tag: any) => {
+                  const { tagName, count } = tag;
+                  const formattedTagName = tagName.replace(/ /g, '_');
+                  return (
+                     <NavLink
+                        to={`/trending/${formattedTagName}`}
+                        className={({ isActive }: any) => (isActive ? 'text-pink-600' : '')}
+                        end
+                     >
+                        <li title={tagName} className="mb-3 cursor-pointer hover:text-pink-600">
+                           <span className="text-sm font-semibold me-2"># {tagName}</span>
+                           <span>({count})</span>
+                        </li>
+                     </NavLink>
+                  );
+               })}
+            </ul>
+         </div>
       </div>
    );
 };

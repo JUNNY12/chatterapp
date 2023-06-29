@@ -23,9 +23,7 @@ const LazyExplore = React.lazy(() => import('../../pages/explore/Explore'));
 const LazyProfile = React.lazy(() => import('../../pages/settings/profile/Profile'));
 const LazyAccount = React.lazy(() => import('../../pages/settings/account/Account'));
 const LazyManagePost = React.lazy(() => import('../../pages/settings/posts/Post'));
-
-// const LazySlug = React.lazy(() => import('../../pages/slug/Slug'));
-
+const LazyTrending = React.lazy(() => import('../../pages/trending/Trending'));
 const LazyPostPage = React.lazy(() => import('../../pages/write/EditPost'));
 const LazyDraftPage = React.lazy(() => import('../../pages/write/DraftPage'));
 const LazyNotFound = React.lazy(() => import('../../pages/notfound/NotFound'));
@@ -62,6 +60,11 @@ export function Routes() {
          path: '/explore',
          element: <FeedLayout />,
          children: [{ index: true, element: <LazyExplore /> }],
+      },
+      {
+         path: '/trending/:tag',
+         element: <FeedLayout />,
+         children: [{ index: true, element: <LazyTrending /> }],
       },
       {
          path: '/featured',

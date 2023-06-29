@@ -16,12 +16,12 @@ export const BookmarkPosts = (): React.JSX.Element => {
          <div className="flex flex-col items-center mx-3 justify-center h-[50vh]">
             <div
                className={` p-2 flex flex-col drop-shadow-xl  items-center justify-center max-w-[800px] h-[200px] rounded-md
-                ${
-                   theme === 'lightMode'
-                      ? 'bg-white-50 text-black-950'
-                      : theme === 'darkMode' && 'bg-gray-800 text-white-100'
-                }
-                `}
+               ${
+                  theme === 'lightMode'
+                     ? 'bg-white-50 text-black-950'
+                     : theme === 'darkMode' && 'bg-gray-800 text-white-100'
+               }
+               `}
             >
                <Typography
                   variant={1}

@@ -99,6 +99,7 @@ export const SearchContextProvider: React.FC<SearchContextProviderProps> = ({ ch
       });
 
       const onboardedUsers = allUsers?.filter((user) => user.status === 'onboarded');
+      //   console.log('onboardedUsers', onboardedUsers)
       const filteredUsers = onboardedUsers?.filter((user) => {
          const displayNameLowercase = user?.displayName?.toLowerCase();
          const fullName = user?.fullName.toLowerCase();
