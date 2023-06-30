@@ -11,7 +11,7 @@ export const TrendingPosts = ({ tag }: TrendingProps) => {
    console.log(trendingPosts);
    return (
       <div>
-         {isLoading ? (
+         {isLoading || trendingPosts?.length === 0 ? (
             <div>
                {[...Array(5)].map((_, index) => (
                   <PostLoader key={index} />
