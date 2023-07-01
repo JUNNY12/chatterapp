@@ -12,8 +12,6 @@ export const SharedSideBar = () => {
    const navigate = useNavigate();
    const { trendingTags } = useTrendingTags();
 
-   console.log(trendingTags);
-
    //handle view write
    const handleViewWrite = () => {
       if (user) {
@@ -110,11 +108,12 @@ export const SharedSideBar = () => {
          </div>
          <div className=" h-[200px] overflow-auto">
             <ul>
-               {trendingTags?.map((tag: any) => {
+               {trendingTags?.map((tag: any, index: any) => {
                   const { tagName, count } = tag;
                   const formattedTagName = tagName.replace(/ /g, '_');
                   return (
                      <NavLink
+                        key={index}
                         to={`/trending/${formattedTagName}`}
                         className={({ isActive }: any) => (isActive ? 'text-pink-600' : '')}
                         end

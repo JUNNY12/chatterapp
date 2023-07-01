@@ -12,9 +12,11 @@ export const FeedLayout = (): React.JSX.Element => {
    const width = useWidth();
    const {
       state: { searchTerm },
+      setSearchTerm,
    } = useSearch();
 
    const sideBarRef = useRef<HTMLDivElement>(null);
+   const searchRef = useRef<HTMLInputElement>(null);
 
    useEffect(() => {
       setShow(false);
@@ -42,6 +44,20 @@ export const FeedLayout = (): React.JSX.Element => {
       };
    }, []);
 
+   useEffect(() => {
+      const handleOutsideClick = (event: MouseEvent) => {
+         if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+            setSearchTerm('');
+         }
+      };
+
+      document.addEventListener('mousedown', handleOutsideClick);
+
+      return () => {
+         document.removeEventListener('mousedown', handleOutsideClick);
+      };
+   }, [setSearchTerm]);
+
    return (
       <>
          <FeedNav />
@@ -55,7 +71,7 @@ export const FeedLayout = (): React.JSX.Element => {
             <SideBar />
          </div>
          <div>
-            {searchTerm && <SearchContainer />}
+            <div ref={searchRef}>{searchTerm && <SearchContainer />}</div>
             <Outlet />
          </div>
       </>
